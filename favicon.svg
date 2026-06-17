@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="13" fill="#1a3a1a"/>
+  <!-- hoja -->
+  <path d="M33 26 C 45 13 58 18 58 18 C 55 32 43 33 33 25 Z" fill="#c8a83c"/>
+  <line x1="33" y1="26" x2="52" y2="20" stroke="#1a3a1a" stroke-width="1.6" stroke-linecap="round"/>
+  <!-- oliva -->
+  <ellipse cx="28" cy="40" rx="13" ry="16.5" fill="#e8f0c8"/>
+  <ellipse cx="28" cy="40" rx="6.4" ry="8.6" fill="#1a3a1a"/>
+  <ellipse cx="28" cy="40" rx="2.6" ry="3.6" fill="#e8f0c8"/>
+</svg>

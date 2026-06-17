@@ -1,0 +1,1521 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AEORUM — Natives Olivenöl Extra · Jaén · Kaltgepresst</title>
+<meta name="description" content="AEORUM — Natives Olivenöl extra aus Jaén. 100% Arbequina, kaltgepresst, Frühernte. Direkt aus Spanien. Markteinführung 2026.">
+
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- marca el estado inicial para las animaciones de títulos (evita FOUC) -->
+<script>document.documentElement.classList.add('anim-pending');</script>
+
+<style>
+/* ============================================================
+   TOKENS / PALETA
+   ============================================================ */
+:root{
+  --verde: #1a3a1a;
+  --crema: #e8f0c8;
+  --marfil: #f5f0e0;
+  --dorado: #c8a83c;
+  --verde-negro: #0d1f0d;
+
+  --font-display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+
+  --maxw: 1200px;
+  --pad-x: clamp(20px, 5vw, 64px);
+  --announce-h: 40px;
+}
+
+/* ============================================================
+   RESET
+   ============================================================ */
+*,*::before,*::after{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; -webkit-text-size-adjust:100%; }
+body{
+  font-family:var(--font-body);
+  background:var(--verde);
+  color:var(--crema);
+  line-height:1.5;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img,svg{ display:block; max-width:100%; }
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; cursor:pointer; }
+ul{ list-style:none; }
+
+/* ============================================================
+   UTILIDADES
+   ============================================================ */
+.container{
+  width:100%;
+  max-width:var(--maxw);
+  margin-inline:auto;
+  padding-inline:var(--pad-x);
+}
+.section{ padding-block:clamp(64px, 9vw, 130px); position:relative; }
+
+.display{
+  font-family:var(--font-display);
+  font-weight:900;
+  text-transform:uppercase;
+  line-height:0.92;
+  letter-spacing:0.5px;
+}
+.eyebrow{
+  font-family:var(--font-display);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-size:clamp(13px,1.4vw,16px);
+}
+
+/* HR estilizado */
+.rule{
+  border:0;
+  height:1px;
+  background:var(--crema);
+  width:90px;
+  margin:22px 0;
+}
+.rule.dark{ background:var(--verde); }
+.rule.wide{ width:100%; opacity:.4; }
+
+/* ============================================================
+   BOTONES (border-radius máx 2px — nunca redondeados)
+   ============================================================ */
+.btn{
+  display:inline-block;
+  font-family:var(--font-display);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:17px;
+  padding:18px 40px;
+  border-radius:2px;
+  border:2px solid var(--crema);
+  background:var(--crema);
+  color:var(--verde);
+  transition:background .25s ease,color .25s ease,transform .15s ease;
+}
+.btn:hover{ background:transparent; color:var(--crema); }
+.btn:active{ transform:translateY(1px); }
+
+/* Invertido (fondo verde, texto crema) */
+.btn--invert{
+  background:var(--verde);
+  color:var(--crema);
+  border-color:var(--verde);
+}
+.btn--invert:hover{ background:transparent; color:var(--verde); }
+
+/* Botón verde sólido sobre crema (form) */
+.btn--solid{
+  background:var(--verde);
+  color:var(--crema);
+  border-color:var(--verde);
+}
+.btn--solid:hover{ background:var(--verde-negro); color:var(--crema); border-color:var(--verde-negro); }
+
+/* ============================================================
+   MARCO DE LAUREL — laurel arriba y abajo de la sección
+   (sustituye al antiguo woodcut-frame). Alterna color por fondo.
+   ============================================================ */
+.laurel-frame::before,
+.laurel-frame::after{
+  content:"";
+  position:absolute;
+  left:50%;
+  width:min(340px,56%);
+  height:80px;
+  background:url('laurel.svg') no-repeat center/contain;
+  pointer-events:none;
+  z-index:3;
+  opacity:.95;
+}
+.laurel-frame::before{ top:clamp(22px,3.5vw,46px); transform:translateX(-50%); }
+.laurel-frame::after{ bottom:clamp(22px,3.5vw,46px); transform:translateX(-50%) scaleY(-1); }
+/* variante oscura para fondos claros (marfil) */
+.laurel-frame.lf-dark::before,
+.laurel-frame.lf-dark::after{ background-image:url('laurel-dark.svg'); }
+
+/* ============================================================
+   1. ANNOUNCEMENT BAR
+   ============================================================ */
+.announce{
+  background:var(--verde-negro);
+  color:var(--crema);
+  text-align:center;
+  font-family:var(--font-display);
+  font-weight:700;
+  letter-spacing:2.5px;
+  text-transform:uppercase;
+  font-size:13px;
+  padding:10px 16px;
+  position:relative;
+  z-index:60;
+}
+.announce a{ color:var(--dorado); }
+
+/* ============================================================
+   2. NAV
+   ============================================================ */
+.nav{
+  position:absolute;       /* transparente sobre hero, debajo del announce */
+  top:calc(var(--announce-h) + 22px); left:0; right:0;
+  z-index:50;
+  transition:background .3s ease, box-shadow .3s ease, top .3s ease;
+}
+.nav.is-stuck{
+  position:fixed;
+  top:0;
+  background:var(--verde);
+  box-shadow:0 2px 18px rgba(0,0,0,.35);
+}
+/* clase para cuando announce está visible y nav fija debe ir arriba */
+.nav-inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-block:18px;
+}
+.brand{
+  display:inline-flex;
+  align-items:center;
+  color:var(--crema);
+  line-height:1;
+}
+/* Logo tipográfico: letras juntas, asimétricas, con rotación sutil */
+.wordmark{
+  display:inline-flex;
+  align-items:baseline;
+  font-family:var(--font-display);
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:42px;
+  letter-spacing:-0.5px;
+  color:var(--crema);
+  line-height:1;
+}
+.wordmark span{ display:inline-block; transform-origin:center; }
+/* rabillo de la O (oliva) */
+.wordmark .o-letter{ position:relative; }
+.o-stem{
+  position:absolute;
+  left:50%;
+  top:-0.22em;
+  width:0.46em;
+  height:0.46em;
+  transform:translateX(-50%) rotate(3deg);
+  overflow:visible;
+  pointer-events:none;
+}
+.wordmark span:nth-child(1){ transform:translateY(-5px) rotate(-4deg); }
+.wordmark span:nth-child(2){ transform:translateY(3px); }
+.wordmark span:nth-child(3){ transform:translateY(6px)  rotate(3deg); }
+.wordmark span:nth-child(4){ transform:translateY(-3px) rotate(-2deg); }
+.wordmark span:nth-child(5){ transform:translateY(4px); }
+.wordmark span:nth-child(6){ transform:translateY(-4px) rotate(2deg); }
+/* versión grande para el footer */
+.wordmark--xl{ font-size:clamp(52px,10vw,96px); letter-spacing:0; }
+.nav-links{
+  display:flex;
+  gap:34px;
+  align-items:center;
+}
+.nav-links a{
+  font-family:var(--font-display);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:15px;
+  color:var(--crema);
+  position:relative;
+  padding-block:4px;
+}
+.nav-links a::after{
+  content:"";
+  position:absolute; left:0; bottom:0;
+  width:0; height:2px; background:var(--dorado);
+  transition:width .25s ease;
+}
+.nav-links a:hover::after{ width:100%; }
+
+/* Hamburger */
+.hamburger{
+  display:none;
+  flex-direction:column;
+  gap:5px;
+  background:none; border:0; padding:8px;
+}
+.hamburger span{
+  display:block; width:26px; height:2px; background:var(--crema);
+  transition:transform .3s ease, opacity .3s ease;
+}
+.hamburger.is-open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+.hamburger.is-open span:nth-child(2){ opacity:0; }
+.hamburger.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+
+/* Mobile menu panel */
+.mobile-menu{
+  display:none;
+  position:fixed;
+  top:0; right:0;
+  height:100vh; width:min(78vw,320px);
+  background:var(--verde-negro);
+  z-index:55;
+  transform:translateX(100%);
+  transition:transform .35s ease;
+  padding:90px 32px;
+  border-left:3px solid var(--crema);
+}
+.mobile-menu.is-open{ transform:translateX(0); }
+.mobile-menu a{
+  display:block;
+  font-family:var(--font-display);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:26px;
+  color:var(--crema);
+  padding:16px 0;
+  border-bottom:1px solid rgba(232,240,200,.18);
+}
+.overlay{
+  display:none;
+  position:fixed; inset:0;
+  background:rgba(0,0,0,.45);
+  z-index:54;
+}
+.overlay.is-open{ display:block; }
+
+/* ============================================================
+   3. HERO
+   ============================================================ */
+.hero{
+  position:relative;
+  min-height:100vh;
+  background:var(--verde);
+  display:flex;
+  align-items:center;
+  overflow:hidden;
+}
+/* textura de olivas sutil sobre el verde */
+.hero::before{
+  content:"";
+  position:absolute; inset:0;
+  background:url('olive-pattern.jpg');
+  background-size:360px;
+  opacity:.05;
+  z-index:0;
+  pointer-events:none;
+}
+/* palabra gigante de fondo — letras irregulares que desbordan */
+.hero-bg{
+  position:absolute;
+  left:-6vw; right:-6vw; bottom:0;
+  height:100%;
+  z-index:0;
+  overflow:hidden;
+  pointer-events:none;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  gap:0;
+}
+.hero-bg b{
+  display:block;
+  font-family:var(--font-display);
+  font-weight:900;
+  font-style:normal;
+  text-transform:uppercase;
+  font-size:38vw;
+  line-height:.7;
+  user-select:none;
+  flex:0 0 auto;
+  margin:0 -0.5vw;
+}
+/* rellenas vs contorno */
+.hero-bg b.fill{ color:rgba(232,240,200,.09); }
+.hero-bg b.line{
+  color:transparent;
+  -webkit-text-stroke:2px rgba(232,240,200,.13);
+          text-stroke:2px rgba(232,240,200,.13);
+}
+/* alturas / desfases muy irregulares por letra (desequilibrio exagerado) */
+.hero-bg b:nth-child(1){ transform:translateY(-14%) rotate(-7deg); font-size:30vw; }
+.hero-bg b:nth-child(2){ transform:translateY(34%)  rotate(3deg);  font-size:50vw; }
+.hero-bg b:nth-child(3){ transform:translateY(-8%)  rotate(-3deg); font-size:33vw; }
+.hero-bg b:nth-child(4){ transform:translateY(46%)  rotate(6deg);  font-size:54vw; }
+.hero-bg b:nth-child(5){ transform:translateY(6%)   rotate(-5deg); font-size:36vw; }
+.hero-bg b:nth-child(6){ transform:translateY(28%)  rotate(4deg);  font-size:46vw; }
+/* Marco punteado perimetral */
+.hero-grid{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(30px,5vw,70px);
+  align-items:center;
+  width:100%;
+  padding-block:120px 60px;
+}
+
+/* Copy */
+.hero-copy .eyebrow{ color:var(--dorado); }
+.hero-headline{
+  font-size:clamp(58px, 9vw, 96px);
+  color:var(--crema);
+  margin-top:18px;
+}
+.hero-sub{
+  font-family:var(--font-display);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  font-size:clamp(16px,2vw,20px);
+  color:var(--crema);
+  opacity:.9;
+}
+.hero-copy p.lead{
+  margin-top:22px;
+  max-width:46ch;
+  font-size:clamp(15px,1.6vw,17px);
+  color:var(--crema);
+  opacity:.85;
+}
+.hero-cta{ margin-top:34px; }
+
+/* ============================================================
+   LATA (imagen de producto) — reutilizable
+   ============================================================ */
+.can-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.can-img{
+  width:auto;
+  height:auto;
+  max-height:clamp(420px, 68vh, 720px);
+  max-width:100%;
+  object-fit:contain;
+  filter:drop-shadow(0 34px 55px rgba(0,0,0,.55));
+  transition:transform .5s ease;
+}
+.can-img:hover{ transform:translateY(-6px) rotate(-1deg); }
+
+/* Lata sobre fondo claro (sección producto) */
+.producto .can-img{
+  filter:drop-shadow(0 30px 50px rgba(13,31,13,.32));
+  max-height:clamp(420px, 60vh, 660px);
+}
+
+/* ============================================================
+   4. SELLOS DECORATIVOS (banda)
+   ============================================================ */
+.seals{
+  background:var(--verde);
+  padding-block:54px;
+}
+.seals-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:30px;
+  text-align:center;
+}
+.seal{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:12px;
+}
+.seal svg{ width:clamp(120px,16vw,160px); height:auto; }
+.seal-label{
+  font-family:var(--font-display);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:14px;
+  color:var(--crema);
+  opacity:.85;
+}
+
+/* ============================================================
+   5. PRODUCTO
+   ============================================================ */
+.producto{ background:var(--marfil); color:var(--verde-negro); }
+.producto .section-title{
+  font-size:clamp(52px,8vw,80px);
+  color:var(--verde);
+  margin-bottom:48px;
+}
+.prod-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:clamp(36px,6vw,80px);
+  align-items:center;
+}
+.feature{ margin-bottom:34px; }
+.feature h3{
+  font-family:var(--font-display);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  font-size:clamp(22px,3vw,30px);
+  color:var(--verde);
+  margin-bottom:8px;
+}
+.feature p{
+  font-size:16px;
+  color:var(--verde-negro);
+  opacity:.82;
+  max-width:46ch;
+}
+.feature .num{
+  font-family:var(--font-display);
+  font-weight:700;
+  color:var(--dorado);
+  font-size:14px;
+  letter-spacing:2px;
+  display:block;
+  margin-bottom:4px;
+}
+.prod-cta{ margin-top:18px; }
+
+/* Bloque ensalada integrada sobre patrón de olivas — FULL WIDTH */
+.salad-show{
+  position:relative;
+  z-index:2;
+  width:100vw;
+  margin-left:calc(50% - 50vw);
+  margin-right:calc(50% - 50vw);
+  margin-top:clamp(48px,7vw,84px);
+  padding:clamp(40px,8vw,110px) clamp(20px,5vw,64px);
+  display:flex;
+  justify-content:center;
+  overflow:hidden;
+  isolation:isolate;
+}
+.salad-show .salad-bg{   /* patrón de olivas de fondo (parallax) */
+  position:absolute;
+  top:-12%; left:0; right:0; bottom:-12%;
+  background:url('olive-pattern.jpg');
+  background-size:320px;
+  opacity:.55;
+  z-index:-2;
+  will-change:transform;
+}
+.salad-show::after{    /* viñeteo verde para integrar */
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(circle at center, transparent 34%, rgba(13,31,13,.45) 100%);
+  z-index:-1;
+}
+.salad-show img{
+  width:min(540px,90%);
+  height:auto;
+  display:block;
+  border:3px solid var(--verde);
+  box-shadow:0 34px 60px -20px rgba(13,31,13,.65);
+  will-change:transform;
+}
+
+/* ============================================================
+   6. HISTORIA
+   ============================================================ */
+.historia{ background:var(--verde); color:var(--crema); }
+.historia .section-title{
+  font-size:clamp(52px,8vw,80px);
+  color:var(--crema);
+  margin-bottom:40px;
+}
+.historia-cols{
+  columns:2;
+  column-gap:50px;
+  max-width:640px;
+}
+.historia-cols p{
+  margin-bottom:18px;
+  font-size:16px;
+  opacity:.88;
+  break-inside:avoid;
+}
+.historia .rule{ margin:34px 0; width:140px; }
+
+/* ============================================================
+   7. FORMULARIO
+   ============================================================ */
+.form-sec{ background:var(--marfil); color:var(--verde); }
+.form-wrap{ max-width:620px; }
+.form-sec .section-title{
+  font-size:clamp(40px,6vw,60px);
+  color:var(--verde);
+}
+.form-sec .form-sub{
+  margin-top:14px;
+  font-size:17px;
+  color:var(--verde-negro);
+  opacity:.82;
+  max-width:48ch;
+}
+.lead-form{ margin-top:40px; }
+.field{ margin-bottom:26px; }
+.field label{
+  display:block;
+  font-family:var(--font-display);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:13px;
+  color:var(--verde);
+  margin-bottom:8px;
+}
+.field input{
+  width:100%;
+  font-family:var(--font-body);
+  font-size:17px;
+  color:var(--verde-negro);
+  background:transparent;
+  border:0;
+  border-bottom:2px solid var(--verde);
+  border-radius:0;
+  padding:10px 2px;
+  outline:none;
+  transition:border-color .2s ease;
+}
+.field input::placeholder{ color:rgba(13,31,13,.4); }
+.field input:focus{ border-color:var(--dorado); }
+.consent{
+  display:flex;
+  align-items:flex-start;
+  gap:12px;
+  margin-top:6px;
+  font-size:13.5px;
+  line-height:1.5;
+  color:var(--verde-negro);
+  opacity:.85;
+  cursor:pointer;
+  max-width:52ch;
+}
+.consent input{
+  flex:0 0 auto;
+  width:18px; height:18px;
+  margin-top:2px;
+  accent-color:var(--verde);
+}
+.consent a{ color:var(--verde); text-decoration:underline; }
+.form-actions{ margin-top:30px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+.form-note{
+  margin-top:18px;
+  font-size:14px;
+  color:var(--verde-negro);
+  opacity:.6;
+}
+.form-success{
+  display:none;
+  margin-top:24px;
+  font-family:var(--font-display);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:22px;
+  color:var(--verde);
+}
+.form-success.show{ display:block; }
+.export-btn{
+  display:none;
+  margin-top:26px;
+  background:none;
+  border:0;
+  border-bottom:1px solid var(--verde);
+  color:var(--verde);
+  font-family:var(--font-display);
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  font-size:13px;
+  padding:4px 0;
+  opacity:.7;
+  transition:opacity .2s ease;
+}
+.export-btn:hover{ opacity:1; }
+.export-btn.show{ display:inline-block; }
+.lead-count{
+  font-size:13px;
+  color:var(--verde-negro);
+  opacity:.5;
+  margin-left:10px;
+}
+
+/* ============================================================
+   8. FOOTER
+   ============================================================ */
+.footer{
+  background:var(--verde-negro);
+  color:var(--crema);
+  text-align:center;
+  padding-block:64px;
+}
+.footer-logo{
+  font-family:var(--font-display);
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:-3px;
+  font-size:clamp(44px,9vw,84px);
+  color:var(--crema);
+  line-height:1;
+}
+.footer-tag{
+  margin-top:14px;
+  font-family:var(--font-display);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:3px;
+  font-size:14px;
+  color:var(--dorado);
+}
+.footer-links{
+  margin-top:30px;
+  display:flex;
+  justify-content:center;
+  gap:28px;
+  flex-wrap:wrap;
+}
+.footer-links a{
+  font-family:var(--font-display);
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:1.5px;
+  font-size:14px;
+  opacity:.85;
+}
+.footer-links a:hover{ color:var(--dorado); }
+.footer-copy{
+  margin-top:30px;
+  font-size:13px;
+  opacity:.5;
+  letter-spacing:1px;
+}
+
+/* ============================================================
+   FRANJA DE PATRÓN (olive-pattern, seamless)
+   ============================================================ */
+.pattern-strip{
+  height:clamp(72px, 11vw, 120px);
+  background:url('olive-pattern.jpg');
+  background-size:clamp(150px,18vw,230px);
+  background-repeat:repeat;
+}
+
+/* ============================================================
+   SECCIÓN "DIE ERNTE" (manos cosechando)
+   ============================================================ */
+.ernte{ background:var(--verde); color:var(--crema); }
+.ernte-grid{
+  display:grid;
+  grid-template-columns:1.05fr 0.95fr;
+  gap:clamp(32px,5vw,72px);
+  align-items:center;
+}
+.ernte-figure{
+  position:relative;
+  border:3px solid var(--crema);
+  padding:10px;
+  background:var(--verde-negro);
+}
+.ernte-figure img{ width:100%; display:block; }
+/* degradado para legibilidad del título superpuesto */
+.ernte-figure .scrim{
+  content:"";
+  position:absolute; left:10px; right:10px; bottom:10px;
+  height:62%;
+  background:linear-gradient(to top, rgba(13,31,13,.94) 12%, rgba(13,31,13,.4) 55%, transparent);
+  z-index:1; pointer-events:none;
+}
+.ernte-figure::after{
+  content:"";
+  position:absolute; inset:12px;
+  border:1px solid rgba(232,240,200,.45);
+  pointer-events:none;
+  z-index:2;
+}
+/* título superpuesto sobre la imagen */
+.ernte-overlay-title{
+  position:absolute;
+  left:clamp(-10px,-2vw,-24px); right:auto; bottom:0;
+  z-index:3;
+  margin:0;
+  padding:0 clamp(18px,3vw,32px) 0;
+  color:var(--crema);
+  font-size:clamp(46px,7vw,92px);
+  text-shadow:0 6px 28px rgba(0,0,0,.65);
+  transform:translateY(42%);   /* mitad sobre la imagen, mitad fuera */
+}
+.ernte-copy .eyebrow{ color:var(--dorado); }
+.ernte-copy p{
+  margin-top:22px;
+  font-size:clamp(15px,1.6vw,17px);
+  opacity:.88;
+  max-width:52ch;
+}
+.ernte-copy p:first-of-type{ margin-top:0; }
+
+/* ============================================================
+   BLOQUE DEGUSTACIÓN (pan + cuenco) dentro de Producto
+   ============================================================ */
+.tasting{
+  position:relative;
+  margin-top:clamp(56px,8vw,96px);
+  padding-top:clamp(48px,6vw,72px);
+}
+.tasting-grid{
+  display:grid;
+  grid-template-columns:1.05fr 0.95fr;
+  gap:clamp(30px,5vw,64px);
+  align-items:center;
+}
+.tasting-copy .eyebrow{ color:var(--dorado); }
+.tasting-copy p{
+  margin-top:20px;
+  font-size:clamp(16px,1.7vw,18px);
+  color:var(--verde-negro);
+  opacity:.82;
+  max-width:46ch;
+}
+.tasting-copy p:first-of-type{ margin-top:14px; }
+/* imagen grande con título superpuesto */
+.tasting-figure{
+  position:relative;
+  border:2px solid var(--verde);
+  filter:drop-shadow(0 22px 38px rgba(13,31,13,.28));
+}
+.tasting-figure img{ width:100%; display:block; }
+.tasting-figure .scrim{
+  position:absolute; left:0; right:0; bottom:0;
+  height:58%;
+  background:linear-gradient(to top, rgba(13,31,13,.92) 8%, rgba(13,31,13,.35) 55%, transparent);
+  pointer-events:none;
+}
+.tasting-overlay-title{
+  position:absolute;
+  left:0; right:0; bottom:0;
+  margin:0;
+  padding:0 clamp(22px,3.5vw,38px) clamp(20px,3.5vw,34px);
+  font-family:var(--font-display);
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  line-height:0.92;
+  font-size:clamp(36px,5vw,60px);
+  color:var(--crema);
+  text-shadow:0 6px 26px rgba(0,0,0,.55);
+}
+
+/* ============================================================
+   HISTORIA — fondo paisaje Jaén
+   ============================================================ */
+.historia{
+  background:
+    linear-gradient(rgba(13,31,13,.80), rgba(13,31,13,.86)),
+    url('landscape-jaen.jpg') center 30% / cover no-repeat;
+  background-attachment:scroll;
+}
+
+/* ============================================================
+   FOOTER — textura patrón
+   ============================================================ */
+.footer{ position:relative; }
+.footer::before{
+  content:"";
+  position:absolute; inset:0;
+  background:url('olive-pattern.jpg');
+  background-size:280px;
+  opacity:.06;
+  pointer-events:none;
+}
+.footer .container{ position:relative; z-index:1; }
+
+/* ============================================================
+   ANIMACIÓN SCROLL (fade-in)
+   ============================================================ */
+.reveal{
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .7s ease, transform .7s ease;
+}
+.reveal.is-visible{
+  opacity:1;
+  transform:translateY(0);
+}
+@media (prefers-reduced-motion:reduce){
+  .reveal{ opacity:1; transform:none; transition:none; }
+  html{ scroll-behavior:auto; }
+}
+
+/* ============================================================
+   GSAP — TÍTULOS (split en palabras enmascaradas)
+   ============================================================ */
+/* Estado inicial oculto sólo si JS/GSAP van a actuar */
+.anim-pending .anim-title,
+.anim-pending .hero-fx{ opacity:0; }
+@media (prefers-reduced-motion:reduce){
+  .anim-pending .anim-title,
+  .anim-pending .hero-fx{ opacity:1 !important; }
+}
+.a-line{ display:block; }
+.a-mask{
+  display:inline-block;
+  overflow:hidden;
+  padding:.16em 0;
+  margin:-.16em 0;
+  vertical-align:top;
+}
+.a-word{ display:inline-block; will-change:transform; }
+.a-char{ display:inline-block; transform-origin:center; }
+/* mismo guiño asimétrico del logo, sutil, en algunas letras de los títulos */
+.anim-title .a-char:nth-child(3n+1){ transform:translateY(-0.06em) rotate(-2.5deg); }
+.anim-title .a-char:nth-child(4n+3){ transform:translateY(0.07em)  rotate(2.5deg); }
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width:1024px){
+  .historia-cols{ columns:2; max-width:none; }
+}
+@media (max-width:768px){
+  /* Announce oculto si no cabe */
+  .announce{ display:none; }
+
+  .nav{ top:14px; }            /* sin announce bar en móvil */
+  .nav.is-stuck{ top:0; }
+  .nav-links{ display:none; }
+  .hamburger{ display:flex; }
+  .mobile-menu{ display:block; }
+
+  .hero-grid{
+    grid-template-columns:1fr;
+    text-align:left;
+    padding-block:130px 70px;
+    gap:44px;
+  }
+  .hero .can-wrap{ order:-1; }   /* lata arriba */
+
+  .prod-grid{ grid-template-columns:1fr; }
+  .producto .can-wrap{ margin-bottom:10px; }
+
+  .seals-grid{ grid-template-columns:1fr; gap:44px; }
+
+  .ernte-grid{ grid-template-columns:1fr; gap:40px; }
+  .ernte-figure{ max-width:420px; margin-inline:auto; }
+
+  .tasting-grid{ grid-template-columns:1fr; gap:30px; }
+  .ernte-overlay-title{ font-size:clamp(40px,11vw,64px); }
+  .tasting-overlay-title{ font-size:clamp(34px,9vw,52px); }
+
+  .historia-cols{ columns:1; }
+
+  .nav.is-stuck{ /* en mobile no hay announce, queda igual */ }
+}
+@media (max-width:480px){
+  .brand{ font-size:24px; }
+  .hero-headline{ font-size:clamp(46px,13vw,64px); }
+}
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     1. ANNOUNCEMENT BAR
+     ============================================================ -->
+<div class="announce" id="announce">
+  AEORUM — MARKTEINFÜHRUNG 2026 · <a href="#vormerken">JETZT VORMERKEN →</a>
+</div>
+
+<!-- ============================================================
+     2. NAV
+     ============================================================ -->
+<header class="nav" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label="AEORUM — Startseite">
+      <span class="wordmark" aria-hidden="true"><span>A</span><span>E</span><span class="o-letter">O<svg class="o-stem" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 24 C 9 16 10 9 15 4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M15 4 C 20 2 23 5 22 10 C 17 10 14 8 15 4 Z" fill="#c8a83c"/></svg></span><span>R</span><span>U</span><span>M</span></span>
+    </a>
+    <nav class="nav-links">
+      <a href="#produkt">Produkt</a>
+      <a href="#geschichte">Geschichte</a>
+      <a href="#vormerken">Vorbestellen</a>
+    </nav>
+    <button class="hamburger" id="hamburger" aria-label="Menü öffnen" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Mobile menu -->
+<div class="overlay" id="overlay"></div>
+<nav class="mobile-menu" id="mobileMenu">
+  <a href="#produkt">Produkt</a>
+  <a href="#geschichte">Geschichte</a>
+  <a href="#vormerken">Vorbestellen</a>
+</nav>
+
+<!-- ============================================================
+     3. HERO
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="hero-bg" aria-hidden="true"><b class="line">A</b><b class="fill">E</b><b class="line">O</b><b class="fill">R</b><b class="line">U</b><b class="fill">M</b></div>
+  <div class="container hero-grid">
+
+    <!-- Lata (imagen de producto) -->
+    <div class="can-wrap hero-fx">
+      <img class="can-img" src="aeorum-lata.png"
+           alt="AEORUM — Aceite de oliva virgen extra, lata de 500 ml"
+           loading="eager" decoding="async">
+    </div>
+
+    <!-- Copy -->
+    <div class="hero-copy hero-fx">
+      <p class="eyebrow">Kaltgepresst · 100% Arbequina · Jaén</p>
+      <h1 class="display hero-headline anim-title">Grünes Gold.<br>Endlich ehrlich.</h1>
+      <hr class="rule">
+      <p class="hero-sub">Aeorum. Natives Olivenöl extra · Jaén · Kaltgepresst.</p>
+      <p class="lead">Spanien produziert das beste Olivenöl der Welt. Deutschland verdient es, das Wahre zu schmecken. Kein Kompromiss. Keine Zwischenhändler. Nur Öl.</p>
+      <div class="hero-cta">
+        <a href="#vormerken" class="btn">Jetzt vormerken</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     4. SELLOS DECORATIVOS
+     ============================================================ -->
+<section class="seals">
+  <div class="container seals-grid">
+
+    <!-- Sello 1: KALTEXTRAKTION (icono oliva) -->
+    <div class="seal reveal">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="Kaltextraktion">
+        <defs>
+          <path id="arcTop1" d="M 100,100 m -74,0 a 74,74 0 1 1 148,0" />
+          <path id="arcBot1" d="M 100,100 m 74,0 a 74,74 0 1 1 -148,0" />
+        </defs>
+        <circle cx="100" cy="100" r="92" fill="none" stroke="var(--crema)" stroke-width="2"/>
+        <circle cx="100" cy="100" r="80" fill="none" stroke="var(--crema)" stroke-width="1" stroke-dasharray="2 4"/>
+        <text fill="var(--crema)" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="17" letter-spacing="3">
+          <textPath href="#arcTop1" startOffset="50%" text-anchor="middle">· KALT ·</textPath>
+        </text>
+        <text fill="var(--crema)" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="17" letter-spacing="3">
+          <textPath href="#arcBot1" startOffset="50%" text-anchor="middle">· EXTRAKTION ·</textPath>
+        </text>
+        <!-- icono oliva -->
+        <g transform="translate(100,100)" stroke="var(--dorado)" stroke-width="2.4" fill="none">
+          <ellipse cx="0" cy="6" rx="17" ry="24"/>
+          <path d="M 0,-18 C 8,-30 22,-30 26,-22 C 16,-22 8,-26 0,-16" fill="var(--dorado)" stroke="none"/>
+        </g>
+      </svg>
+      <span class="seal-label">Kaltextraktion</span>
+    </div>
+
+    <!-- Sello 2: FRÜHERNTE 2026 (icono sol/árbol) -->
+    <div class="seal reveal">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="Frühernte 2026">
+        <defs>
+          <path id="arcTop2" d="M 100,100 m -74,0 a 74,74 0 1 1 148,0" />
+          <path id="arcBot2" d="M 100,100 m 74,0 a 74,74 0 1 1 -148,0" />
+        </defs>
+        <circle cx="100" cy="100" r="92" fill="none" stroke="var(--crema)" stroke-width="2"/>
+        <circle cx="100" cy="100" r="80" fill="none" stroke="var(--crema)" stroke-width="1" stroke-dasharray="2 4"/>
+        <text fill="var(--crema)" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="17" letter-spacing="3">
+          <textPath href="#arcTop2" startOffset="50%" text-anchor="middle">· FRÜHERNTE ·</textPath>
+        </text>
+        <text fill="var(--crema)" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="17" letter-spacing="3">
+          <textPath href="#arcBot2" startOffset="50%" text-anchor="middle">· 2026 ·</textPath>
+        </text>
+        <!-- icono sol naciente sobre árbol -->
+        <g transform="translate(100,100)" stroke="var(--dorado)" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <circle cx="0" cy="-4" r="11" fill="var(--dorado)" stroke="none"/>
+          <g stroke="var(--dorado)">
+            <line x1="0" y1="-24" x2="0" y2="-30"/>
+            <line x1="-16" y1="-12" x2="-21" y2="-16"/>
+            <line x1="16" y1="-12" x2="21" y2="-16"/>
+            <line x1="-20" y1="-4" x2="-27" y2="-4"/>
+            <line x1="20" y1="-4" x2="27" y2="-4"/>
+          </g>
+          <path d="M -24,18 Q 0,8 24,18" stroke="var(--crema)"/>
+        </g>
+      </svg>
+      <span class="seal-label">Frühernte 2026</span>
+    </div>
+
+    <!-- Sello 3: 100% ARBEQUINA · JAÉN (icono rama olivo) -->
+    <div class="seal reveal">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-label="100% Arbequina Jaén">
+        <defs>
+          <path id="arcTop3" d="M 100,100 m -74,0 a 74,74 0 1 1 148,0" />
+          <path id="arcBot3" d="M 100,100 m 74,0 a 74,74 0 1 1 -148,0" />
+        </defs>
+        <circle cx="100" cy="100" r="92" fill="none" stroke="var(--crema)" stroke-width="2"/>
+        <circle cx="100" cy="100" r="80" fill="none" stroke="var(--crema)" stroke-width="1" stroke-dasharray="2 4"/>
+        <text fill="var(--crema)" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="17" letter-spacing="3">
+          <textPath href="#arcTop3" startOffset="50%" text-anchor="middle">· ARBEQUINA ·</textPath>
+        </text>
+        <text fill="var(--crema)" font-family="Barlow Condensed, sans-serif" font-weight="700" font-size="17" letter-spacing="3">
+          <textPath href="#arcBot3" startOffset="50%" text-anchor="middle">· JAÉN ·</textPath>
+        </text>
+        <!-- icono rama de olivo -->
+        <g transform="translate(100,100)" stroke="var(--crema)" stroke-width="2.2" fill="none" stroke-linecap="round">
+          <path d="M 0,30 C 0,10 0,-10 0,-26"/>
+          <path d="M 0,4 C -16,2 -24,-8 -22,-22 C -8,-20 -2,-10 0,2" fill="var(--dorado)" stroke="none" opacity=".9"/>
+          <path d="M 0,-8 C 16,-10 24,-20 22,-34 C 8,-32 2,-22 0,-10" fill="var(--dorado)" stroke="none" opacity=".9"/>
+          <circle cx="0" cy="26" r="4" fill="var(--crema)" stroke="none"/>
+        </g>
+      </svg>
+      <span class="seal-label">100% Arbequina · Jaén</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     4b. FRANJA DE PATRÓN
+     ============================================================ -->
+<div class="pattern-strip" aria-hidden="true"></div>
+
+<!-- ============================================================
+     4c. DIE ERNTE (manos cosechando)
+     ============================================================ -->
+<section class="section ernte">
+  <div class="container ernte-grid">
+    <figure class="ernte-figure reveal">
+      <img src="harvest-hands.jpg" alt="Hände ernten grüne Oliven von Hand — Frühernte" loading="lazy" decoding="async">
+      <span class="scrim" aria-hidden="true"></span>
+      <h2 class="display anim-title ernte-overlay-title">Von Hand<br>geerntet.</h2>
+    </figure>
+    <div class="ernte-copy reveal">
+      <p class="eyebrow">Frühernte · Handverlesen</p>
+      <p>Im Oktober, wenn die Oliven noch grün sind, werden sie von Hand gepflückt. Früh geerntet, sofort gepresst — so bleiben die Polyphenole und das intensive Aroma erhalten.</p>
+      <p>Kein Warten. Keine Maschinen, die die Frucht verletzen. Nur sorgfältige Arbeit, wie seit Generationen in Jaén.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     5. PRODUCTO
+     ============================================================ -->
+<section class="section producto laurel-frame lf-dark" id="produkt">
+  <div class="container">
+    <h2 class="display section-title anim-title">Das Öl</h2>
+    <div class="prod-grid">
+
+      <!-- Lata (imagen de producto) -->
+      <div class="can-wrap reveal">
+        <img class="can-img" src="aeorum-lata.png"
+             alt="AEORUM — Aceite de oliva virgen extra, lata de 500 ml"
+             loading="lazy" decoding="async">
+      </div>
+
+      <!-- Características -->
+      <div>
+        <div class="feature reveal">
+          <span class="num">01</span>
+          <h3>Frühernte</h3>
+          <p>Geerntet wenn die Olive noch grün ist. Maximale Polyphenole.</p>
+        </div>
+        <div class="feature reveal">
+          <span class="num">02</span>
+          <h3>Kaltextraktion</h3>
+          <p>Unter 27°C gepresst. Aroma und Nährstoffe bleiben erhalten.</p>
+        </div>
+        <div class="feature reveal">
+          <span class="num">03</span>
+          <h3>100% Arbequina</h3>
+          <p>Eine der feinsten Sorten Spaniens. Sanft, fruchtig, mit zarter Mandelnote.</p>
+        </div>
+        <div class="prod-cta reveal">
+          <a href="#vormerken" class="btn btn--invert">Jetzt vormerken</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Ensalada integrada sobre patrón (full-width + parallax) -->
+    <div class="salad-show reveal">
+      <div class="salad-bg" aria-hidden="true"></div>
+      <img src="salad.jpg" alt="Aeorum Olivenöl wird über einen Tomaten-Oliven-Salat gegossen" loading="lazy" decoding="async">
+    </div>
+
+    <!-- Degustación -->
+    <div class="tasting">
+      <div class="tasting-grid">
+        <div class="tasting-copy reveal">
+          <p class="eyebrow">Auf dem Teller</p>
+          <p>Auf warmem Brot, über Gemüse oder einfach pur. Grün im Geschmack, dicht im Aroma — ein Öl, das keine Begleitung braucht.</p>
+        </div>
+        <figure class="tasting-figure reveal">
+          <img src="bread-tasting.jpg" alt="Geröstetes Brot mit Aeorum Olivenöl auf Schiefer" loading="lazy" decoding="async">
+          <span class="scrim" aria-hidden="true"></span>
+          <h3 class="anim-title tasting-overlay-title">So schmeckt<br>Aeorum.</h3>
+        </figure>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     6. HISTORIA
+     ============================================================ -->
+<section class="section historia laurel-frame" id="geschichte">
+  <div class="container">
+    <h2 class="display section-title anim-title">Warum Aeorum</h2>
+    <div class="historia-cols reveal">
+      <p>Spanien ist der größte Olivenölproduzent der Welt. Und trotzdem kauft Deutschland italienisches Öl — das meistens spanisches Öl enthält, das umgefüllt und umetikettiert wurde.</p>
+      <hr class="rule">
+      <p>Aeorum ändert das. Direkt aus Jaén. Kein Umweg. Kein Etikett-Trick. Nur das Öl, das es verdient, beim richtigen Namen genannt zu werden.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     7. FORMULARIO
+     ============================================================ -->
+<section class="section form-sec laurel-frame lf-dark" id="vormerken">
+  <div class="container">
+    <div class="form-wrap">
+      <h2 class="display section-title anim-title">Erstzugang sichern</h2>
+      <p class="form-sub reveal">Sei dabei, wenn Aeorum auf den Markt kommt. Exklusiver Frühzugang für die ersten 500.</p>
+
+      <form class="lead-form reveal" id="leadForm" novalidate>
+        <div class="field">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="email" placeholder="deine@email.de" required autocomplete="email">
+        </div>
+        <div class="field">
+          <label for="name">Name <span style="opacity:.5;font-weight:400;letter-spacing:1px;">(optional)</span></label>
+          <input type="text" id="name" name="name" placeholder="Dein Name" autocomplete="name">
+        </div>
+        <label class="consent" for="consent">
+          <input type="checkbox" id="consent" name="consent" required>
+          <span>Ich willige ein, dass meine Daten zur Kontaktaufnahme bezüglich der Markteinführung gespeichert werden. Mehr in der <a href="datenschutz.html" target="_blank" rel="noopener">Datenschutzerklärung</a>. Widerruf jederzeit möglich.</span>
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="btn btn--solid">Vormerken</button>
+        </div>
+        <p class="form-note">Kein Spam. Nur eine E-Mail, wenn es losgeht.</p>
+        <p class="form-success" id="formSuccess">Danke! Du bist auf der Liste.</p>
+      </form>
+
+      <button type="button" class="export-btn" id="exportBtn">
+        Leads exportieren (.csv)<span class="lead-count" id="leadCount"></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     8. FOOTER
+     ============================================================ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo"><span class="wordmark wordmark--xl" aria-label="AEORUM"><span>A</span><span>E</span><span class="o-letter">O<svg class="o-stem" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 24 C 9 16 10 9 15 4" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/><path d="M15 4 C 20 2 23 5 22 10 C 17 10 14 8 15 4 Z" fill="#c8a83c"/></svg></span><span>R</span><span>U</span><span>M</span></span></div>
+    <div class="footer-tag">Natives Olivenöl extra · Jaén · España</div>
+    <nav class="footer-links">
+      <a href="impressum.html">Impressum</a>
+      <a href="datenschutz.html">Datenschutz</a>
+      <a href="kontakt.html">Kontakt</a>
+    </nav>
+    <p class="footer-copy">© 2026 Aeorum · Alle Rechte vorbehalten</p>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   NAV — sticky al hacer scroll
+   ============================================================ */
+(function(){
+  const nav = document.getElementById('nav');
+  const trigger = 60;
+  function onScroll(){
+    if(window.scrollY > trigger){ nav.classList.add('is-stuck'); }
+    else{ nav.classList.remove('is-stuck'); }
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+})();
+
+/* ============================================================
+   HAMBURGER / MOBILE MENU
+   ============================================================ */
+(function(){
+  const burger = document.getElementById('hamburger');
+  const menu = document.getElementById('mobileMenu');
+  const overlay = document.getElementById('overlay');
+
+  function toggle(open){
+    const isOpen = open !== undefined ? open : !menu.classList.contains('is-open');
+    menu.classList.toggle('is-open', isOpen);
+    overlay.classList.toggle('is-open', isOpen);
+    burger.classList.toggle('is-open', isOpen);
+    burger.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  }
+  burger.addEventListener('click', () => toggle());
+  overlay.addEventListener('click', () => toggle(false));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => toggle(false)));
+})();
+
+/* ============================================================
+   SCROLL REVEAL (IntersectionObserver)
+   ============================================================ */
+(function(){
+  const els = document.querySelectorAll('.reveal');
+  if(!('IntersectionObserver' in window)){
+    els.forEach(el => el.classList.add('is-visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+/* ============================================================
+   FORMULARIO / LEADS (localStorage + CSV export)
+   ============================================================ */
+(function(){
+  const STORAGE_KEY = 'aeorum_leads';
+  const form = document.getElementById('leadForm');
+  const success = document.getElementById('formSuccess');
+  const exportBtn = document.getElementById('exportBtn');
+  const leadCount = document.getElementById('leadCount');
+
+  function getLeads(){
+    try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+    catch(e){ return []; }
+  }
+  function saveLeads(leads){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(leads));
+  }
+  function refreshExportBtn(){
+    const leads = getLeads();
+    if(leads.length > 0){
+      exportBtn.classList.add('show');
+      leadCount.textContent = ' · ' + leads.length + (leads.length === 1 ? ' Lead' : ' Leads');
+    } else {
+      exportBtn.classList.remove('show');
+      leadCount.textContent = '';
+    }
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const name  = document.getElementById('name').value.trim();
+    const consent = document.getElementById('consent');
+
+    // validación email simple
+    if(!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
+      const input = document.getElementById('email');
+      input.style.borderColor = '#b23a2e';
+      input.focus();
+      return;
+    }
+    document.getElementById('email').style.borderColor = '';
+
+    // RGPD: consentimiento obligatorio
+    if(!consent.checked){
+      consent.focus();
+      return;
+    }
+
+    const leads = getLeads();
+    leads.push({
+      nombre: name,
+      email: email,
+      consent: true,
+      timestamp: new Date().toISOString()
+    });
+    saveLeads(leads);
+
+    form.reset();
+    success.classList.add('show');
+    refreshExportBtn();
+
+    setTimeout(() => success.classList.remove('show'), 6000);
+  });
+
+  /* Exportar CSV — columnas: Nombre, Email, Fecha */
+  function csvEscape(val){
+    val = (val == null ? '' : String(val));
+    if(/[",\n]/.test(val)){ return '"' + val.replace(/"/g,'""') + '"'; }
+    return val;
+  }
+  exportBtn.addEventListener('click', function(){
+    const leads = getLeads();
+    if(!leads.length) return;
+
+    const rows = [['Nombre','Email','Fecha','Einwilligung']];
+    leads.forEach(l => {
+      const fecha = (() => {
+        try{
+          const d = new Date(l.timestamp);
+          return d.toLocaleString('de-DE');
+        }catch(e){ return l.timestamp; }
+      })();
+      rows.push([l.nombre || '', l.email || '', fecha, l.consent ? 'Ja' : '—']);
+    });
+
+    const csv = '﻿' + rows.map(r => r.map(csvEscape).join(',')).join('\r\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'aeorum_leads.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  refreshExportBtn();
+})();
+</script>
+
+<!-- ============================================================
+     GSAP — animaciones de títulos
+     ============================================================ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var root = document.documentElement;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function showAll(){ root.classList.remove('anim-pending'); }
+
+  // Fallback robusto: sin GSAP/ScrollTrigger o con reduced-motion → mostrar todo
+  if(reduce || typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined'){
+    showAll();
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // --- Divide un título en palabras enmascaradas (conserva <br>) ---
+  function splitWords(el){
+    var lines = el.innerHTML.split(/<br\s*\/?>/i);
+    el.innerHTML = '';
+    var words = [];
+    lines.forEach(function(line){
+      var lineEl = document.createElement('span');
+      lineEl.className = 'a-line';
+      var tmp = document.createElement('div'); tmp.innerHTML = line;
+      var parts = (tmp.textContent || '').trim().split(/\s+/).filter(Boolean);
+      parts.forEach(function(w, wi){
+        var mask = document.createElement('span'); mask.className = 'a-mask';
+        var word = document.createElement('span'); word.className = 'a-word';
+        // envuelve cada letra para el guiño asimétrico (vía CSS)
+        w.split('').forEach(function(ch){
+          var c = document.createElement('span'); c.className = 'a-char';
+          c.textContent = ch;
+          word.appendChild(c);
+        });
+        mask.appendChild(word);
+        lineEl.appendChild(mask);
+        if(wi < parts.length - 1) lineEl.appendChild(document.createTextNode(' '));
+        words.push(word);
+      });
+      el.appendChild(lineEl);
+    });
+    return words;
+  }
+
+  // --- HERO: timeline de entrada al cargar ---
+  var heroTitle = document.querySelector('.hero-headline.anim-title');
+  if(heroTitle){
+    var hWords = splitWords(heroTitle);
+    gsap.set(heroTitle, { opacity:1 });
+    gsap.set(['.hero-copy', '.hero .can-wrap'], { opacity:1 });
+    gsap.set(hWords, { yPercent:125 });
+
+    var tl = gsap.timeline({ delay:0.15, defaults:{ ease:'power4.out' } });
+    tl.from('.hero-copy .eyebrow', { y:24, opacity:0, duration:0.7 })
+      .to(hWords, { yPercent:0, duration:1.0, stagger:0.08 }, '-=0.35')
+      .from('.hero-copy .rule', { scaleX:0, opacity:0, transformOrigin:'left center', duration:0.6 }, '-=0.5')
+      .from('.hero-sub', { y:20, opacity:0, duration:0.55 }, '-=0.35')
+      .from('.hero-copy .lead', { y:20, opacity:0, duration:0.55 }, '-=0.4')
+      .from('.hero-cta', { y:20, opacity:0, duration:0.55 }, '-=0.4')
+      .from('.hero .can-wrap', { y:60, opacity:0, duration:1.1, ease:'power3.out' }, '-=1.2')
+      .add(function(){
+        // Flotación continua de la lata, con balanceo
+        gsap.to('.hero .can-img', { y:-28, rotation:2, duration:2.4, ease:'sine.inOut', repeat:-1, yoyo:true });
+      });
+  }
+
+  // --- TÍTULOS DE SECCIÓN: reveal enmascarado al hacer scroll ---
+  gsap.utils.toArray('.anim-title').forEach(function(el){
+    if(el.classList.contains('hero-headline')) return;
+    var words = splitWords(el);
+    gsap.set(el, { opacity:1 });
+    gsap.set(words, { yPercent:118 });
+    gsap.to(words, {
+      yPercent:0, duration:0.9, ease:'power4.out', stagger:0.06,
+      scrollTrigger:{ trigger:el, start:'top 86%', once:true }
+    });
+  });
+
+  // --- EYEBROWS (sutil) ---
+  gsap.utils.toArray('.ernte-copy .eyebrow, .tasting-copy .eyebrow').forEach(function(el){
+    gsap.from(el, {
+      y:16, opacity:0, duration:0.6, ease:'power2.out',
+      scrollTrigger:{ trigger:el, start:'top 90%', once:true }
+    });
+  });
+
+  // --- Lata de la sección "Das Öl": balanceo + parallax al hacer scroll ---
+  if(document.querySelector('.producto .can-img')){
+    gsap.to('.producto .can-img', { y:-20, duration:2.8, ease:'sine.inOut', repeat:-1, yoyo:true });
+    gsap.fromTo('.producto .can-wrap',
+      { rotation:-3 },
+      { rotation:3, ease:'none',
+        scrollTrigger:{ trigger:'.producto', start:'top bottom', end:'bottom top', scrub:1 } });
+  }
+
+  // --- Parallax de la ensalada (imagen y fondo en sentidos opuestos) ---
+  if(document.querySelector('.salad-show')){
+    gsap.fromTo('.salad-show img',
+      { yPercent:-9 }, { yPercent:9, ease:'none',
+        scrollTrigger:{ trigger:'.salad-show', start:'top bottom', end:'bottom top', scrub:true } });
+    gsap.fromTo('.salad-show .salad-bg',
+      { yPercent:8 }, { yPercent:-8, ease:'none',
+        scrollTrigger:{ trigger:'.salad-show', start:'top bottom', end:'bottom top', scrub:true } });
+  }
+
+  // --- Marquee lento del patrón de olivas ---
+  gsap.to('.pattern-strip', { backgroundPositionX:'+=230', duration:30, ease:'none', repeat:-1 });
+
+  showAll();
+
+  // Recalcular posiciones cuando carguen fuentes/imágenes
+  window.addEventListener('load', function(){ ScrollTrigger.refresh(); });
+})();
+</script>
+
+</body>
+</html>
