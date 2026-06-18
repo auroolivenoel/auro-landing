@@ -485,6 +485,34 @@ p{ color:var(--negro-oliva); }
 .editorial-block .editorial-i{ color:var(--verde-oliva); }
 
 /* ------------------------------------------------------------
+   11b. BANDA DE OLIVAS (three.js, decorativa)
+   ------------------------------------------------------------ */
+.olive-band{
+  position:relative;
+  width:100%;
+  height:clamp(300px, 40vh, 460px);
+  overflow:hidden;
+  background:radial-gradient(120% 120% at 50% 0%,
+    var(--blanco-calido) 0%, var(--crema) 70%);
+  border-block:var(--line);
+}
+.olive-band__canvas{
+  position:absolute; inset:0; width:100%; height:100%; display:block;
+}
+.olive-band__caption{
+  position:relative; z-index:1;
+  height:100%;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center; padding-inline:var(--pad-x);
+  pointer-events:none;
+}
+.olive-band__caption .editorial{
+  font-size:clamp(1.6rem, 3.4vw, 2.8rem);
+  color:var(--negro-oliva);
+  text-shadow:0 1px 2px color-mix(in srgb, var(--crema) 75%, transparent);
+}
+
+/* ------------------------------------------------------------
    12. FOOTER
    ------------------------------------------------------------ */
 .site-footer{ background:var(--negro-oliva); color:var(--crema); padding-block:clamp(48px,6vw,80px) 36px; }
