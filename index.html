@@ -69,15 +69,7 @@
         exposure="1"
         environment-image="neutral"
         touch-action="pan-y"
-        loading="eager">
-      <!-- Puntos de prueba (posiciones aproximadas, a calibrar) -->
-      <button class="hotspot" slot="hotspot-tapon" data-position="0.0292 -0.0365 33.0176" data-normal="0 0 1">
-        <span class="hotspot__label">Tapón</span>
-      </button>
-      <button class="hotspot" slot="hotspot-nombre" data-position="0.0292 6.6447 12.43" data-normal="0 1 0">
-        <span class="hotspot__label">Nombre</span>
-      </button>
-    </model-viewer>
+        loading="eager"></model-viewer>
     <span class="lata-stage__hint" aria-hidden="true">↔ Gira la lata · pincha los puntos</span>
   </section>
 
@@ -275,6 +267,19 @@
     document.getElementById('qtyMinus').addEventListener('click', function(){ input.value = clamp(parseInt(input.value,10)-1); });
     document.getElementById('qtyPlus').addEventListener('click', function(){ input.value = clamp(parseInt(input.value,10)+1); });
     input.addEventListener('change', function(){ input.value = clamp(parseInt(input.value,10)); });
+  })();
+
+  /* Aleja la cámara del visor 3D un 20% (la lata se ve algo más pequeña) */
+  (function(){
+    var mv = document.querySelector('.lata-stage model-viewer');
+    if(!mv) return;
+    mv.addEventListener('load', function(){
+      try{
+        var o = mv.getCameraOrbit();
+        mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 1.2) + 'm';
+        if (mv.jumpCameraToGoal) mv.jumpCameraToGoal();
+      }catch(e){}
+    });
   })();
 </script>
 
