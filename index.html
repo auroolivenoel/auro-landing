@@ -63,26 +63,7 @@
       </div>
 
       <div class="hero__media">
-        <!-- Visor 360°: fotogramas en assets/360/lata/ (frame-001 … frame-008, en orden de giro).
-             Para más fluidez, sube una secuencia de 24-36 fotos y ajusta data-count. -->
-        <div class="viewer-360"
-             data-viewer-360
-             data-path="assets/360/lata/"
-             data-prefix="frame-"
-             data-count="8"
-             data-pad="3"
-             data-ext="jpg"
-             data-autospin="true"
-             data-fallback="assets/lata-auro.png"
-             data-alt="Lata de AURO — aceite de oliva virgen extra 500 ml, vista 360°"
-             role="slider"
-             tabindex="0"
-             aria-label="Lata de AURO en vista 360 grados. Arrastra o usa las flechas para girar."
-             aria-valuemin="1" aria-valuemax="8" aria-valuenow="1">
-          <noscript>
-            <img src="assets/lata-auro.png" class="img-warm" alt="Lata de AURO — aceite de oliva virgen extra 500 ml">
-          </noscript>
-        </div>
+        <img src="assets/lata-auro.png" class="img-warm" alt="Lata de AURO — aceite de oliva virgen extra 500 ml" loading="eager">
       </div>
     </div>
   </section>
@@ -260,9 +241,6 @@
     input.addEventListener('change', function(){ input.value = clamp(parseInt(input.value,10)); });
   })();
 </script>
-
-<!-- Visor 360° del producto -->
-<script src="assets/viewer-360.js" defer></script>
 
 </body>
 </html>
