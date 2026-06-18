@@ -205,7 +205,7 @@ p{ color:var(--negro-oliva); }
    ------------------------------------------------------------ */
 .hero__media model-viewer{
   width:100%;
-  height:clamp(440px, 72vh, 660px);
+  height:clamp(500px, 82vh, 740px);
   background:transparent;
   --poster-color:transparent;
   --progress-bar-color:var(--dorado);
@@ -254,11 +254,16 @@ p{ color:var(--negro-oliva); }
 .hero__grid{
   display:grid;
   grid-template-columns:1fr 1fr;   /* 360° izquierda · texto derecha */
-  gap:clamp(32px, 5vw, 80px);
+  gap:clamp(40px, 7vw, 150px);     /* separa más las columnas */
   align-items:center;
+  max-width:1640px;                /* usa más ancho de pantalla */
   padding-block:clamp(48px,7vw,96px);
 }
-.hero__claim{ max-width:15ch; margin-bottom:22px; }
+.hero__claim{
+  max-width:16ch;
+  margin-bottom:22px;
+  font-size:clamp(1.9rem, 3.2vw, 3rem);   /* titular más pequeño */
+}
 .hero__sub{
   font-size:clamp(1rem,1.3vw,1.15rem);
   max-width:46ch;
