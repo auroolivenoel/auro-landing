@@ -270,14 +270,14 @@
     input.addEventListener('change', function(){ input.value = clamp(parseInt(input.value,10)); });
   })();
 
-  /* Aleja la cámara del visor 3D un 20% (la lata se ve algo más pequeña) */
+  /* Aleja la cámara del visor 3D un 40% (la lata se ve más pequeña) */
   (function(){
     var mv = document.querySelector('.lata-stage model-viewer');
     if(!mv) return;
     mv.addEventListener('load', function(){
       try{
         var o = mv.getCameraOrbit();
-        mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 1.2) + 'm';
+        mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 1.4) + 'm';
         if (mv.jumpCameraToGoal) mv.jumpCameraToGoal();
       }catch(e){}
     });
