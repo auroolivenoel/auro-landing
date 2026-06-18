@@ -49,36 +49,33 @@
 <main id="top">
 
   <!-- ============================================================
-       LATA 3D — primer bloque (solo el producto, interactivo)
-       ============================================================ -->
-  <section class="lata-stage" aria-label="Lata de AURO · modelo 3D interactivo">
-    <model-viewer
-        src="assets/3d/lata.glb"
-        alt="Lata de AURO — aceite de oliva virgen extra 500 ml, modelo 3D interactivo"
-        poster="assets/lata-auro.png"
-        camera-controls
-        disable-zoom
-        auto-rotate
-        auto-rotate-delay="0"
-        rotation-per-second="20deg"
-        interaction-prompt="auto"
-        camera-orbit="-25deg 80deg auto"
-        max-camera-orbit="auto auto 1000m"
-        field-of-view="32deg"
-        shadow-intensity="0.9"
-        shadow-softness="1"
-        exposure="1"
-        environment-image="neutral"
-        touch-action="pan-y"
-        loading="eager"></model-viewer>
-    <span class="lata-stage__hint" aria-hidden="true">↔ Gira la lata · pincha los puntos</span>
-  </section>
-
-  <!-- ============================================================
-       HERO
+       HERO — 360° (izquierda) + texto (derecha)
        ============================================================ -->
   <section class="hero">
     <div class="container hero__grid">
+      <div class="hero__media">
+        <model-viewer
+            src="assets/3d/lata.glb"
+            alt="Lata de AURO — aceite de oliva virgen extra 500 ml, modelo 3D interactivo"
+            poster="assets/lata-auro.png"
+            camera-controls
+            disable-zoom
+            auto-rotate
+            auto-rotate-delay="0"
+            rotation-per-second="20deg"
+            interaction-prompt="auto"
+            camera-orbit="-25deg 80deg auto"
+            max-camera-orbit="auto auto 1000m"
+            field-of-view="32deg"
+            shadow-intensity="0.9"
+            shadow-softness="1"
+            exposure="1"
+            environment-image="neutral"
+            touch-action="pan-y"
+            loading="eager"></model-viewer>
+        <span class="hero__hint" aria-hidden="true">↔ Gira la lata</span>
+      </div>
+
       <div class="hero__copy">
         <p class="kicker">Cosecha temprana · Edición limitada</p>
         <div class="hero__rule" aria-hidden="true"></div>
@@ -89,10 +86,6 @@
           <a href="#producto" class="btn btn-primary">Comprar ahora</a>
           <a href="#origen" class="btn btn-secondary">Conocer el origen</a>
         </div>
-      </div>
-
-      <div class="hero__media">
-        <img src="assets/lata-auro.png" class="img-warm" alt="Lata de AURO — aceite de oliva virgen extra 500 ml" loading="eager">
       </div>
     </div>
   </section>
@@ -270,14 +263,14 @@
     input.addEventListener('change', function(){ input.value = clamp(parseInt(input.value,10)); });
   })();
 
-  /* Aleja la cámara del visor 3D un 40% (la lata se ve más pequeña) */
+  /* Ajusta el alejado de la cámara del visor 3D del hero */
   (function(){
-    var mv = document.querySelector('.lata-stage model-viewer');
+    var mv = document.querySelector('.hero__media model-viewer');
     if(!mv) return;
     mv.addEventListener('load', function(){
       try{
         var o = mv.getCameraOrbit();
-        mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 1.4) + 'm';
+        mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 1.2) + 'm';
         if (mv.jumpCameraToGoal) mv.jumpCameraToGoal();
       }catch(e){}
     });

@@ -201,41 +201,27 @@ p{ color:var(--negro-oliva); }
 .nav-toggle span{ width:24px; height:2px; background:var(--negro-oliva); transition:.3s; }
 
 /* ------------------------------------------------------------
-   6b. LATA 3D — primer bloque a pantalla completa
+   6b. LATA 3D — visor en el hero (columna izquierda)
    ------------------------------------------------------------ */
-.lata-stage{
-  position:relative;
+.hero__media model-viewer{
   width:100%;
-  height:100vh;
-  height:100svh;
-  min-height:560px;
-  display:grid; place-items:center;
-  overflow:hidden;
-  background:
-    radial-gradient(58% 52% at 50% 46%,
-      color-mix(in srgb, var(--blanco-calido) 92%, transparent) 0%,
-      color-mix(in srgb, var(--blanco-calido) 26%, transparent) 46%,
-      transparent 72%),
-    var(--crema);
-  border-bottom:var(--line);
-}
-.lata-stage model-viewer{
-  width:100%; height:100%;
+  height:clamp(440px, 72vh, 660px);
   background:transparent;
   --poster-color:transparent;
   --progress-bar-color:var(--dorado);
   cursor:grab;
 }
-.lata-stage model-viewer:active{ cursor:grabbing; }
-.lata-stage__hint{
-  position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+.hero__media model-viewer:active{ cursor:grabbing; }
+.hero__hint{
+  position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
   display:inline-flex; gap:.5em; align-items:center;
-  background:color-mix(in srgb, var(--negro-oliva) 80%, transparent);
+  background:color-mix(in srgb, var(--negro-oliva) 78%, transparent);
   color:var(--crema);
   font-family:var(--font-heading); font-weight:500;
-  text-transform:uppercase; letter-spacing:.1em; font-size:.66rem;
-  padding:.5em 1.05em; border-radius:var(--radius-pill);
+  text-transform:uppercase; letter-spacing:.1em; font-size:.64rem;
+  padding:.45em 1em; border-radius:var(--radius-pill);
   backdrop-filter:blur(4px); pointer-events:none;
+  opacity:.92;
 }
 
 /* Hotspots (puntos interactivos sobre la lata) */
@@ -267,7 +253,7 @@ p{ color:var(--negro-oliva); }
 .hero{ position:relative; overflow:hidden; }
 .hero__grid{
   display:grid;
-  grid-template-columns:1.05fr .95fr;
+  grid-template-columns:1fr 1fr;   /* 360° izquierda · texto derecha */
   gap:clamp(32px, 5vw, 80px);
   align-items:center;
   padding-block:clamp(48px,7vw,96px);
