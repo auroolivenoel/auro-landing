@@ -49,6 +49,30 @@
 <main id="top">
 
   <!-- ============================================================
+       LATA 3D — primer bloque (solo el producto, interactivo)
+       ============================================================ -->
+  <section class="lata-stage" aria-label="Lata de AURO · modelo 3D interactivo">
+    <model-viewer
+        src="assets/3d/lata.glb"
+        alt="Lata de AURO — aceite de oliva virgen extra 500 ml, modelo 3D interactivo"
+        poster="assets/lata-auro.png"
+        camera-controls
+        disable-zoom
+        auto-rotate
+        auto-rotate-delay="0"
+        rotation-per-second="20deg"
+        interaction-prompt="auto"
+        camera-orbit="-25deg 80deg auto"
+        shadow-intensity="0.9"
+        shadow-softness="1"
+        exposure="1"
+        environment-image="neutral"
+        touch-action="pan-y"
+        loading="eager"></model-viewer>
+    <span class="lata-stage__hint" aria-hidden="true">↔ Gira la lata</span>
+  </section>
+
+  <!-- ============================================================
        HERO
        ============================================================ -->
   <section class="hero">
@@ -66,24 +90,7 @@
       </div>
 
       <div class="hero__media">
-        <model-viewer
-            src="assets/3d/lata.glb"
-            alt="Lata de AURO — aceite de oliva virgen extra 500 ml, modelo 3D interactivo"
-            poster="assets/lata-auro.png"
-            camera-controls
-            disable-zoom
-            auto-rotate
-            auto-rotate-delay="0"
-            rotation-per-second="20deg"
-            interaction-prompt="auto"
-            camera-orbit="-25deg 80deg auto"
-            shadow-intensity="0.9"
-            shadow-softness="1"
-            exposure="1"
-            environment-image="neutral"
-            touch-action="pan-y"
-            loading="eager"></model-viewer>
-        <noscript><img src="assets/lata-auro.png" class="img-warm" alt="Lata de AURO — aceite de oliva virgen extra 500 ml"></noscript>
+        <img src="assets/lata-auro.png" class="img-warm" alt="Lata de AURO — aceite de oliva virgen extra 500 ml" loading="eager">
       </div>
     </div>
   </section>
