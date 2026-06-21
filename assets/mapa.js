@@ -1,13 +1,21 @@
 /* ============================================================
-   AURO — Relieve 3D de Sierra Mágina (MapLibre GL + terreno DEM)
-   Mapa topográfico (no satélite) con elevación real: girar, inclinar,
-   sobrevolar. Sin API key. Edita LAT/LNG con tu finca.
+   AURO — El viaje del origen: España → Andalucía → Jaén →
+   Sierra Mágina → la finca. Relieve 3D (MapLibre + DEM), guiado
+   con datos por nivel. Sin API key. Edita LAT/LNG con tu finca.
    ============================================================ */
 (function () {
   if (typeof maplibregl === 'undefined') return;
   if (!document.getElementById('mapa')) return;
 
   const LAT = 37.822260, LNG = -3.418403; // finca (Sierra Mágina, Jaén)
+
+  const STEPS = [
+    { name: 'España',        center: [-3.70, 40.20], zoom: 4.9,  pitch: 25, bearing: 0,   fact: 'España es la 1ª productora mundial de aceite de oliva (~50% del total).' },
+    { name: 'Andalucía',     center: [-4.55, 37.55], zoom: 6.6,  pitch: 38, bearing: -6,  fact: 'Andalucía concentra cerca del 80% del aceite de España.' },
+    { name: 'Jaén',          center: [-3.60, 37.90], zoom: 8.1,  pitch: 50, bearing: -10, fact: 'Jaén: la capital mundial del olivar, con más de 60 millones de olivos.' },
+    { name: 'Sierra Mágina', center: [-3.46, 37.78], zoom: 10.4, pitch: 60, bearing: -14, fact: 'Sierra Mágina: aceite de montaña con Denominación de Origen.' },
+    { name: 'La finca',      center: [LNG, LAT],     zoom: 14,   pitch: 66, bearing: -8,  fact: 'Aquí nace AURO: 100% Picual, cosecha temprana.' },
+  ];
 
   const style = {
     version: 8,
@@ -40,30 +48,59 @@
   const map = new maplibregl.Map({
     container: 'mapa',
     style,
-    center: [LNG, LAT],
-    zoom: 13.3,
-    pitch: 62,
-    bearing: -22,
+    center: STEPS[0].center,
+    zoom: STEPS[0].zoom,
+    pitch: STEPS[0].pitch,
+    bearing: STEPS[0].bearing,
     maxPitch: 80,
-    cooperativeGestures: true, // no atrapa el scroll de la página
+    cooperativeGestures: true,
     attributionControl: { compact: true },
   });
   map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
 
+  // Marcador de la finca
   const pin = document.createElement('div');
-  pin.className = 'finca-pin';
-  pin.innerHTML = '<span></span>';
+  pin.className = 'finca-pin'; pin.innerHTML = '<span></span>';
   const popup = new maplibregl.Popup({ offset: 16, closeButton: false }).setHTML(
-    '<strong>AURO · Olivar de Sierra Mágina</strong><br>' +
-    '100% Picual · cosecha temprana<br>' +
+    '<strong>AURO · Olivar de Sierra Mágina</strong><br>100% Picual · cosecha temprana<br>' +
     '<span id="finca-alt">Sierra Mágina, Jaén</span>'
   );
   const marker = new maplibregl.Marker({ element: pin, anchor: 'center' })
     .setLngLat([LNG, LAT]).setPopup(popup).addTo(map);
 
-  map.on('load', () => { marker.togglePopup(); });
+  // UI del viaje
+  const fact = document.getElementById('mapaFact');
+  const stepBtns = Array.prototype.slice.call(document.querySelectorAll('.mapa__step'));
+  let autoT = null;
+  const stopAuto = () => { if (autoT) { clearTimeout(autoT); autoT = null; } };
 
-  // Altitud real consultada al terreno
+  function go(i, fly) {
+    i = Math.max(0, Math.min(STEPS.length - 1, i));
+    const s = STEPS[i];
+    stepBtns.forEach((b, k) => b.classList.toggle('is-active', k === i));
+    if (fact) { fact.textContent = s.fact; fact.classList.add('show'); }
+    map[fly === false ? 'jumpTo' : 'flyTo']({ center: s.center, zoom: s.zoom, pitch: s.pitch, bearing: s.bearing, duration: 2600, essential: true });
+    const p = marker.getPopup();
+    const open = p && p.isOpen && p.isOpen();
+    if (i === STEPS.length - 1 && !open) marker.togglePopup();
+    if (i !== STEPS.length - 1 && open) marker.togglePopup();
+  }
+
+  stepBtns.forEach((b) => b.addEventListener('click', () => { stopAuto(); go(+b.dataset.i); }));
+  map.on('dragstart', stopAuto);
+
+  function autoplay(i) { go(i); if (i < STEPS.length - 1) autoT = setTimeout(() => autoplay(i + 1), 3400); }
+
+  // Arranca el viaje cuando entra en pantalla
+  go(0, false);
+  let started = false;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((es, ob) => es.forEach((e) => {
+      if (e.isIntersecting && !started) { started = true; stopAuto(); autoplay(0); ob.disconnect(); }
+    }), { threshold: 0.45 }).observe(document.getElementById('mapa'));
+  }
+
+  // Altitud real de la finca
   map.once('idle', () => {
     try {
       const e = map.queryTerrainElevation([LNG, LAT]);
@@ -71,16 +108,4 @@
       if (e && node) node.textContent = 'Altitud ~' + Math.round(e) + ' m · Sierra Mágina, Jaén';
     } catch (_) {}
   });
-
-  // Vuelo de entrada suave la primera vez que entra en pantalla
-  let flown = false;
-  if ('IntersectionObserver' in window) {
-    new IntersectionObserver((es, ob) => es.forEach((e) => {
-      if (e.isIntersecting && !flown) {
-        flown = true;
-        map.easeTo({ zoom: 14, pitch: 66, bearing: -8, duration: 4000 });
-        ob.disconnect();
-      }
-    }), { threshold: 0.4 }).observe(document.getElementById('mapa'));
-  }
 })();

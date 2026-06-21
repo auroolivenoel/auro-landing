@@ -362,8 +362,32 @@ p{ color:var(--negro-oliva); }
 /* ------------------------------------------------------------
    7b. MAPA SATÉLITE (Leaflet)
    ------------------------------------------------------------ */
-.mapa__head{ max-width:60ch; margin-bottom:clamp(24px,3.5vw,40px); }
-.mapa__intro{ color:var(--gris-texto); margin-top:12px; max-width:54ch; }
+.mapa__head{ max-width:62ch; margin-bottom:clamp(20px,3vw,32px); }
+.mapa__intro{ color:var(--gris-texto); margin-top:12px; max-width:56ch; }
+.mapa__journey{ display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
+.mapa__step{
+  font-family:var(--font-heading); font-weight:600; text-transform:uppercase;
+  letter-spacing:.06em; font-size:.72rem;
+  padding:.55em 1.05em; border-radius:var(--radius-pill);
+  border:1px solid color-mix(in srgb,var(--negro-oliva) 18%,transparent);
+  color:var(--negro-oliva); background:transparent; cursor:pointer;
+  transition:background-color .2s, color .2s, border-color .2s;
+}
+.mapa__step:hover{ border-color:var(--dorado); }
+.mapa__step.is-active{ background:var(--negro-oliva); color:var(--crema); border-color:var(--negro-oliva); }
+.mapa__wrap{ position:relative; }
+.mapa__fact{
+  position:absolute; left:16px; bottom:16px; z-index:1;
+  max-width:min(360px, 72%);
+  background:color-mix(in srgb,var(--negro-oliva) 82%,transparent);
+  color:var(--crema);
+  font-family:var(--font-editorial); font-size:1.06rem; line-height:1.35;
+  padding:14px 16px; border-radius:var(--radius);
+  box-shadow:var(--shadow-soft); backdrop-filter:blur(4px);
+  pointer-events:none; opacity:0; transform:translateY(8px);
+  transition:opacity .4s ease, transform .4s ease;
+}
+.mapa__fact.show{ opacity:1; transform:none; }
 .mapa{
   height:clamp(380px, 58vh, 600px);
   width:100%;

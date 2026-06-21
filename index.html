@@ -123,11 +123,21 @@
   <section class="section mapa-sec" id="mapa-origen">
     <div class="container">
       <div class="mapa__head">
-        <p class="kicker kicker--gold">El origen, en el mapa</p>
-        <h2 class="h-lg">Nuestros olivos, en Sierra Mágina</h2>
-        <p class="mapa__intro">Relieve 3D real de la sierra: <strong>gira, inclina y vuela</strong> sobre nuestro olivar de montaña, en el corazón de Jaén.</p>
+        <p class="kicker kicker--gold">El viaje del origen</p>
+        <h2 class="h-lg">De España a nuestra finca</h2>
+        <p class="mapa__intro">España produce ~la mitad del aceite del mundo y Jaén es su capital. Recorre el viaje, en 3D, hasta nuestro olivar de montaña.</p>
+        <div class="mapa__journey" id="mapaSteps" role="group" aria-label="Niveles del viaje del origen">
+          <button class="mapa__step is-active" data-i="0">España</button>
+          <button class="mapa__step" data-i="1">Andalucía</button>
+          <button class="mapa__step" data-i="2">Jaén</button>
+          <button class="mapa__step" data-i="3">Sierra Mágina</button>
+          <button class="mapa__step" data-i="4">La finca</button>
+        </div>
       </div>
-      <div id="mapa" class="mapa" role="application" aria-label="Mapa satélite de los olivares de AURO en Sierra Mágina, Jaén"></div>
+      <div class="mapa__wrap">
+        <div id="mapa" class="mapa" role="application" aria-label="Mapa 3D de relieve: viaje del origen del aceite de España a Sierra Mágina"></div>
+        <div class="mapa__fact" id="mapaFact" aria-live="polite"></div>
+      </div>
     </div>
   </section>
 
