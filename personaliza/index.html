@@ -11,13 +11,22 @@
 <link rel="stylesheet" href="../styles.css">
 <style>
   body{ overflow:hidden; }
-  .cfg{ display:grid; grid-template-columns:1.4fr .9fr; height:100vh; }
-  .cfg__stage{ position:relative; background:radial-gradient(60% 60% at 50% 45%, var(--blanco-calido), var(--crema) 75%); }
-  #cv{ display:block; width:100%; height:100%; touch-action:none; cursor:grab; }
-  #cv:active{ cursor:grabbing; }
-  #load{ position:absolute; inset:0; display:grid; place-items:center; color:var(--gris-texto); font-family:var(--font-heading); letter-spacing:.1em; text-transform:uppercase; font-size:.8rem; }
+  .cfg{ display:grid; grid-template-columns:1.3fr .9fr; height:100vh; }
+  .cfg__stage{
+    position:relative; display:grid; place-items:center; padding:24px;
+    background:radial-gradient(60% 60% at 50% 45%, var(--blanco-calido), var(--crema) 78%);
+  }
+  .lata{ position:relative; height:min(82vh, 720px); }
+  .lata img{ height:100%; width:auto; display:block; filter:saturate(1.03) contrast(1.02); }
+  /* Grabado: fijo en el mismo sitio, centrado horizontalmente */
+  .engrave{
+    position:absolute; left:50%; transform:translate(-50%,-50%);
+    width:62%; text-align:center; line-height:1.05; pointer-events:none;
+    color:#caa64a; font-family:'Oswald',sans-serif; font-weight:700;
+    text-transform:uppercase; letter-spacing:.02em; word-break:break-word;
+    text-shadow:0 1px 0 rgba(255,255,255,.45), 0 -1px 1px rgba(40,30,8,.45);
+  }
   .cfg__panel{ padding:clamp(22px,4vw,52px); overflow-y:auto; border-left:var(--line); display:flex; flex-direction:column; gap:18px; background:var(--crema); }
-  .cfg__panel h1{ font-size:clamp(1.5rem,2.4vw,2.1rem); }
   .fld{ display:flex; flex-direction:column; gap:7px; }
   .fld > span{ font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; color:var(--verde-oliva); }
   .fld input[type=text], .fld select{ font-family:var(--font-body); font-size:1rem; padding:.7em .9em; border:1px solid var(--negro-oliva); border-radius:var(--radius); background:var(--blanco-calido); color:var(--negro-oliva); }
@@ -29,28 +38,30 @@
   .summary__card{ background:var(--blanco-calido); border-radius:var(--radius); padding:clamp(24px,4vw,44px); max-width:460px; text-align:center; box-shadow:var(--shadow-soft); }
   .summary__txt{ font-family:var(--font-editorial); font-style:italic; font-size:1.6rem; color:var(--verde-oliva); margin:10px 0 22px; }
   .summary__card .btn{ margin:6px 4px; }
-  @media (max-width:820px){ .cfg{ grid-template-columns:1fr; grid-template-rows:58vh auto; height:auto; } body{ overflow:auto; } .cfg__panel{ border-left:0; border-top:var(--line); } }
+  @media (max-width:820px){
+    .cfg{ grid-template-columns:1fr; grid-template-rows:auto auto; height:auto; }
+    body{ overflow:auto; }
+    .lata{ height:min(60vh,460px); }
+    .cfg__panel{ border-left:0; border-top:var(--line); }
+  }
 </style>
-<script type="importmap">
-{ "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
-}}
-</script>
 </head>
 <body>
 
 <div class="cfg">
   <div class="cfg__stage">
-    <canvas id="cv"></canvas>
-    <div id="load">Cargando tu lata…</div>
+    <div class="lata" id="lata">
+      <img src="../assets/lata-auro.png" alt="Lata de AURO">
+      <div class="engrave" id="engrave">PARA TI</div>
+    </div>
   </div>
+
   <aside class="cfg__panel">
     <p class="kicker kicker--gold">Edición personalizada</p>
-    <h1 class="h-sm" style="font-size:clamp(1.6rem,2.4vw,2.2rem)">Graba tu lata</h1>
-    <p class="hint">Un nombre, una fecha, una dedicatoria. Escríbela y colócala sobre la lata; gírala para verla por todos lados.</p>
+    <h1 style="font-size:clamp(1.6rem,2.4vw,2.2rem)">Graba tu lata</h1>
+    <p class="hint">Escribe tu nombre, fecha o dedicatoria: se graba en la lata, siempre en el mismo sitio. Ajusta tamaño y altura a tu gusto.</p>
 
-    <label class="fld"><span>Texto</span><input type="text" id="txt" maxlength="24" value="PARA TI"></label>
+    <label class="fld"><span>Texto</span><input type="text" id="txt" maxlength="40" value="PARA TI"></label>
     <label class="fld"><span>Tipografía</span>
       <select id="font">
         <option value="Oswald">Oswald (display)</option>
@@ -58,9 +69,8 @@
         <option value="Inter">Inter (limpia)</option>
       </select>
     </label>
-    <label class="fld"><span>Tamaño</span><input type="range" id="size" min="0.5" max="1.6" step="0.05" value="1"></label>
-    <label class="fld"><span>Altura</span><input type="range" id="hgt" min="-12" max="12" step="0.2" value="3"></label>
-    <label class="fld"><span>Posición alrededor de la lata</span><input type="range" id="ang" min="0" max="360" step="1" value="0"></label>
+    <label class="fld"><span>Tamaño</span><input type="range" id="size" min="0.035" max="0.12" step="0.005" value="0.06"></label>
+    <label class="fld"><span>Altura</span><input type="range" id="pos" min="20" max="88" step="1" value="62"></label>
 
     <button class="btn btn-primary" id="confirm">Ver mi lata grabada</button>
     <a href="../index.html#producto" class="back">← Volver a la tienda</a>
@@ -76,113 +86,35 @@
   </div>
 </div>
 
-<script type="module">
-import * as THREE from 'three';
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-
-const cv = document.getElementById('cv');
-const stage = cv.parentElement;
-
-const renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true });
-renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.05;
-
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(35, 1, 0.1, 2000);
-camera.up.set(0, 0, 1); // la lata es alta en Z → Z hacia arriba
-
-// Entorno suave (degradado, sin addons) para los reflejos del PBR
-const pmrem = new THREE.PMREMGenerator(renderer);
+<script>
 (function () {
-  const c = document.createElement('canvas'); c.width = 16; c.height = 64;
-  const x = c.getContext('2d'); const g = x.createLinearGradient(0, 0, 0, 64);
-  g.addColorStop(0, '#ffffff'); g.addColorStop(0.5, '#f1ead8'); g.addColorStop(1, '#cdbf98');
-  x.fillStyle = g; x.fillRect(0, 0, 16, 64);
-  const t = new THREE.CanvasTexture(c); t.mapping = THREE.EquirectangularReflectionMapping;
-  scene.environment = pmrem.fromEquirectangular(t).texture; t.dispose();
+  const lata = document.getElementById('lata');
+  const eng = document.getElementById('engrave');
+  const txt = document.getElementById('txt');
+  const font = document.getElementById('font');
+  const size = document.getElementById('size');
+  const pos = document.getElementById('pos');
+
+  function render() {
+    eng.textContent = txt.value || '';
+    eng.style.fontFamily = '"' + font.value + '", sans-serif';
+    eng.style.top = pos.value + '%';
+    eng.style.fontSize = (parseFloat(size.value) * lata.clientWidth) + 'px';
+  }
+  [txt, font, size, pos].forEach((el) => el.addEventListener('input', render));
+  addEventListener('resize', render);
+
+  const img = lata.querySelector('img');
+  if (img.complete) render(); else img.addEventListener('load', render);
+  render();
+
+  document.getElementById('confirm').addEventListener('click', () => {
+    document.getElementById('sumTxt').textContent = '«' + ((txt.value || '').trim() || '—') + '»';
+    document.getElementById('summary').classList.add('show');
+  });
+  document.getElementById('closeSum').addEventListener('click', () =>
+    document.getElementById('summary').classList.remove('show'));
 })();
-scene.add(new THREE.AmbientLight(0xffffff, 0.5));
-const key = new THREE.DirectionalLight(0xffffff, 1.4); key.position.set(3, -4, 6); scene.add(key);
-
-const controls = new OrbitControls(camera, cv);
-controls.enableDamping = true;
-controls.enablePan = false;
-controls.autoRotate = true;
-controls.autoRotateSpeed = 1.2;
-controls.addEventListener('start', () => { controls.autoRotate = false; });
-
-// ---- Decal de texto ----
-const tcv = document.createElement('canvas'); tcv.width = 1024; tcv.height = 256;
-const tctx = tcv.getContext('2d');
-const tex = new THREE.CanvasTexture(tcv); tex.colorSpace = THREE.SRGBColorSpace; tex.anisotropy = 8;
-const decalMat = new THREE.MeshStandardMaterial({ map: tex, transparent: true, metalness: 0.65, roughness: 0.35, depthWrite: false });
-const decal = new THREE.Mesh(new THREE.PlaneGeometry(14, 3.5), decalMat);
-decal.renderOrder = 2; decal.visible = false; scene.add(decal);
-
-const ui = {
-  txt: document.getElementById('txt'), font: document.getElementById('font'),
-  size: document.getElementById('size'), hgt: document.getElementById('hgt'), ang: document.getElementById('ang'),
-};
-function drawText() {
-  tctx.clearRect(0, 0, 1024, 256);
-  const s = (ui.txt.value || '').trim();
-  if (!s) { tex.needsUpdate = true; return; }
-  const fam = ui.font.value;
-  let px = 150; tctx.font = `700 ${px}px "${fam}"`;
-  while (tctx.measureText(s).width > 940 && px > 30) { px -= 6; tctx.font = `700 ${px}px "${fam}"`; }
-  tctx.textAlign = 'center'; tctx.textBaseline = 'middle';
-  tctx.fillStyle = 'rgba(40,30,10,0.5)'; tctx.fillText(s, 512 + 3, 128 + 3); // sombra (grabado)
-  tctx.fillStyle = '#caa64a'; tctx.fillText(s, 512, 128);                    // dorado
-  tex.needsUpdate = true;
-}
-
-let center = new THREE.Vector3(), halfX = 7, halfY = 7;
-function placeDecal() {
-  const rad = (+ui.ang.value) * Math.PI / 180;
-  const px = center.x + halfX * 1.04 * Math.sin(rad);
-  const py = center.y + halfY * 1.04 * Math.cos(rad);
-  const pz = center.z + (+ui.hgt.value);
-  decal.position.set(px, py, pz);
-  decal.up.set(0, 0, 1);
-  decal.lookAt(center.x, center.y, pz); // +Z del plano mira hacia afuera
-  decal.scale.setScalar(+ui.size.value);
-}
-Object.values(ui).forEach((el) => el.addEventListener('input', () => { drawText(); placeDecal(); }));
-
-// ---- Cargar el modelo ----
-new GLTFLoader().load('../assets/3d/lata.glb', (gltf) => {
-  const m = gltf.scene;
-  m.traverse((o) => { if (o.isMesh) { o.castShadow = o.receiveShadow = true; } });
-  scene.add(m);
-  const box = new THREE.Box3().setFromObject(m);
-  box.getCenter(center);
-  const size = new THREE.Vector3(); box.getSize(size);
-  halfX = size.x / 2; halfY = size.y / 2;
-  const maxd = Math.max(size.x, size.y, size.z);
-  controls.target.copy(center);
-  camera.position.set(center.x, center.y + maxd * 1.5, center.z); // frente (+Y)
-  camera.near = maxd / 100; camera.far = maxd * 10; camera.updateProjectionMatrix();
-  decal.visible = true; drawText(); placeDecal();
-  document.getElementById('load').style.display = 'none';
-}, undefined, () => { document.getElementById('load').textContent = 'No se pudo cargar el modelo.'; });
-
-// ---- Confirmar ----
-document.getElementById('confirm').addEventListener('click', () => {
-  document.getElementById('sumTxt').textContent = '«' + ((ui.txt.value || '').trim() || '—') + '»';
-  document.getElementById('summary').classList.add('show');
-});
-document.getElementById('closeSum').addEventListener('click', () => document.getElementById('summary').classList.remove('show'));
-
-// ---- Loop / resize ----
-function resize() {
-  const w = stage.clientWidth, h = stage.clientHeight;
-  renderer.setSize(w, h, false);
-  camera.aspect = w / h; camera.updateProjectionMatrix();
-}
-addEventListener('resize', resize); resize();
-(function loop() { requestAnimationFrame(loop); controls.update(); renderer.render(scene, camera); })();
 </script>
 </body>
 </html>
