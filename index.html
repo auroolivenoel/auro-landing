@@ -330,6 +330,64 @@
   </section>
 
   <!-- ============================================================
+       COMPARADOR — AURO vs supermercado
+       ============================================================ -->
+  <section class="section comparador" id="comparador">
+    <div class="container">
+      <div class="comp__head">
+        <p class="kicker kicker--gold">La diferencia</p>
+        <h2 class="h-lg">AURO frente al aceite del súper</h2>
+        <p class="comp__intro">Mismo nombre, “aceite de oliva”. Mundos distintos. Esto es lo que pagas (o no) cuando eliges premium.</p>
+      </div>
+
+      <div class="comp__table" role="table" aria-label="Comparativa AURO vs supermercado">
+        <div class="comp__row comp__row--head" role="row">
+          <span class="comp__crit"></span>
+          <span class="comp__h comp__h--auro">AURO</span>
+          <span class="comp__h comp__h--super">Súper</span>
+        </div>
+
+        <div class="comp__row" role="row">
+          <span class="comp__crit">Cosecha</span>
+          <div class="comp__cell comp__cell--auro"><span class="tick">✓</span> Temprana, en verde (oct.)</div>
+          <div class="comp__cell comp__cell--super"><span class="cross">—</span> Madura / tardía</div>
+        </div>
+
+        <div class="comp__row comp__row--bars" role="row">
+          <span class="comp__crit">Polifenoles</span>
+          <div class="comp__cell comp__cell--auro"><b>580 mg/kg</b><span class="comp__bar"><i data-w="96"></i></span></div>
+          <div class="comp__cell comp__cell--super"><b>~150 mg/kg</b><span class="comp__bar comp__bar--mute"><i data-w="25"></i></span></div>
+        </div>
+
+        <div class="comp__row comp__row--bars" role="row">
+          <span class="comp__crit">Acidez <small>(menos = mejor)</small></span>
+          <div class="comp__cell comp__cell--auro"><b>0,2%</b><span class="comp__bar"><i data-w="25"></i></span></div>
+          <div class="comp__cell comp__cell--super"><b>~0,8%</b><span class="comp__bar comp__bar--mute"><i data-w="100"></i></span></div>
+        </div>
+
+        <div class="comp__row" role="row">
+          <span class="comp__crit">Extracción</span>
+          <div class="comp__cell comp__cell--auro"><span class="tick">✓</span> En frío, &lt;27&nbsp;°C</div>
+          <div class="comp__cell comp__cell--super"><span class="cross">—</span> Calor / refinado</div>
+        </div>
+
+        <div class="comp__row" role="row">
+          <span class="comp__crit">Origen</span>
+          <div class="comp__cell comp__cell--auro"><span class="tick">✓</span> Finca única, Sierra Mágina</div>
+          <div class="comp__cell comp__cell--super"><span class="cross">—</span> Mezcla de orígenes</div>
+        </div>
+
+        <div class="comp__row" role="row">
+          <span class="comp__crit">Envase</span>
+          <div class="comp__cell comp__cell--auro"><span class="tick">✓</span> Lata: 0% luz</div>
+          <div class="comp__cell comp__cell--super"><span class="cross">—</span> Botella clara</div>
+        </div>
+      </div>
+      <p class="comp__note">* Valores orientativos de AOVE premium de cosecha temprana frente a aceite de oliva estándar de gran superficie.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
        SECCIÓN PRODUCTO
        ============================================================ -->
   <section class="section" id="producto">
@@ -360,6 +418,18 @@
           <div><dt>Formato</dt><dd>Lata 500 ml</dd></div>
         </dl>
       </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA PERSONALIZACIÓN (grabado de la lata)
+       ============================================================ -->
+  <section class="section personaliza-cta">
+    <div class="container personaliza-cta__inner">
+      <p class="kicker kicker--gold">Edición personalizada</p>
+      <h2 class="h-lg">Graba tu lata: un regalo único</h2>
+      <p class="personaliza-cta__txt">Pon un nombre, una fecha o una dedicatoria sobre la lata y compruébalo en 3D antes de pedir. El regalo gourmet perfecto.</p>
+      <a href="personaliza/" class="btn btn-primary">Personalizar mi lata →</a>
     </div>
   </section>
 
@@ -450,6 +520,9 @@
 
 <!-- Proceso (revelado al hacer scroll) -->
 <script src="assets/proceso.js" defer></script>
+
+<!-- Comparador (barras + revelado) -->
+<script src="assets/comparador.js" defer></script>
 
 <!-- Banda decorativa de olivas (three.js) -->
 <script type="module" src="assets/olive-band.js"></script>

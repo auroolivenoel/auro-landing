@@ -653,6 +653,68 @@ p{ color:var(--negro-oliva); }
 }
 
 /* ------------------------------------------------------------
+   11e. COMPARADOR (AURO vs súper)
+   ------------------------------------------------------------ */
+.comp__head{ max-width:60ch; margin-bottom:clamp(28px,4vw,48px); }
+.comp__intro{ color:var(--gris-texto); margin-top:12px; max-width:54ch; }
+.comp__table{
+  border:var(--line); border-radius:var(--radius); overflow:hidden;
+  box-shadow:var(--shadow-card); background:var(--blanco-calido);
+}
+.comp__row{
+  display:grid; grid-template-columns:1.1fr 1.4fr 1.1fr; align-items:center;
+  gap:clamp(10px,2vw,28px); padding:16px clamp(14px,2.5vw,28px);
+  border-top:var(--line);
+  opacity:0; transform:translateY(14px);
+  transition:opacity .5s ease, transform .5s ease;
+}
+.comparador.in .comp__row{ opacity:1; transform:none; }
+.comparador.in .comp__row:nth-child(2){ transition-delay:.05s; }
+.comparador.in .comp__row:nth-child(3){ transition-delay:.1s; }
+.comparador.in .comp__row:nth-child(4){ transition-delay:.15s; }
+.comparador.in .comp__row:nth-child(5){ transition-delay:.2s; }
+.comparador.in .comp__row:nth-child(6){ transition-delay:.25s; }
+.comparador.in .comp__row:nth-child(7){ transition-delay:.3s; }
+.comp__row:first-child{ border-top:0; }
+.comp__row--head{ background:color-mix(in srgb,var(--negro-oliva) 4%, transparent); }
+.comp__crit{ font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.05em; font-size:.84rem; color:var(--negro-oliva); }
+.comp__crit small{ display:block; font-weight:500; letter-spacing:0; text-transform:none; font-size:.72rem; color:var(--gris-texto); }
+.comp__h{ font-family:var(--font-heading); font-weight:700; text-transform:uppercase; letter-spacing:.08em; font-size:.95rem; }
+.comp__h--auro{ color:var(--dorado); }
+.comp__h--super{ color:var(--gris-texto); }
+.comp__cell{ font-size:.95rem; }
+.comp__cell--auro{
+  font-weight:600; color:var(--negro-oliva);
+  border-left:3px solid var(--dorado); padding-left:14px;
+}
+.comp__cell--super{ color:var(--gris-texto); }
+.comp__cell b{ font-family:var(--font-heading); font-size:1.15rem; display:block; }
+.comp__cell--auro b{ color:var(--dorado); }
+.tick{ color:var(--dorado); font-weight:700; }
+.cross{ color:color-mix(in srgb,var(--gris-texto) 70%, transparent); }
+.comp__bar{ display:block; height:6px; margin-top:7px; border-radius:var(--radius-pill); background:color-mix(in srgb,var(--negro-oliva) 9%, transparent); overflow:hidden; }
+.comp__bar > i{ display:block; height:100%; width:0; border-radius:var(--radius-pill); background:linear-gradient(90deg,var(--verde-oliva),var(--dorado)); transition:width 1.1s cubic-bezier(.22,1,.36,1); }
+.comp__bar--mute > i{ background:color-mix(in srgb,var(--gris-texto) 55%, transparent); }
+.comp__note{ margin-top:18px; font-size:.78rem; color:var(--gris-texto); }
+@media (max-width:740px){
+  .comp__row{ grid-template-columns:1fr; gap:6px; }
+  .comp__row--head{ display:none; }
+  .comp__cell--auro{ border-left:3px solid var(--dorado); }
+  .comp__cell--auro::before{ content:"AURO · "; color:var(--dorado); font-family:var(--font-heading); font-weight:700; }
+  .comp__cell--super::before{ content:"Súper · "; color:var(--gris-texto); font-family:var(--font-heading); font-weight:700; }
+}
+
+/* ------------------------------------------------------------
+   11f. CTA PERSONALIZACIÓN
+   ------------------------------------------------------------ */
+.personaliza-cta{ background:var(--verde-oliva); color:var(--crema); text-align:center; }
+.personaliza-cta__inner{ max-width:60ch; margin-inline:auto; }
+.personaliza-cta h2{ color:var(--crema); }
+.personaliza-cta__txt{ color:color-mix(in srgb,var(--crema) 86%, transparent); margin:14px auto 26px; max-width:48ch; }
+.personaliza-cta .btn-primary{ background:var(--crema); color:var(--negro-oliva); }
+.personaliza-cta .btn-primary:hover{ background:var(--blanco-calido); color:var(--negro-oliva); }
+
+/* ------------------------------------------------------------
    12. FOOTER
    ------------------------------------------------------------ */
 .site-footer{ background:var(--negro-oliva); color:var(--crema); padding-block:clamp(48px,6vw,80px) 36px; }
