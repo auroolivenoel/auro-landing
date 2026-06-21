@@ -7,9 +7,9 @@
   const el = document.getElementById('mapa');
   if (!el) return;
 
-  // === EDITA ESTO con las coordenadas reales de tu finca [lat, lng] ===
-  const FINCA = [37.7900, -3.4500];   // Sierra Mágina (Jaén) — aproximado
-  const ZOOM = 13;
+  // === Coordenadas de la finca [lat, lng] ===
+  const FINCA = [37.822260, -3.418403];   // Sierra Mágina, Jaén
+  const ZOOM = 15;
 
   const map = L.map(el, {
     center: FINCA,
