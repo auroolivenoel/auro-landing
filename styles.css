@@ -715,6 +715,56 @@ p{ color:var(--negro-oliva); }
 .personaliza-cta .btn-primary:hover{ background:var(--blanco-calido); color:var(--negro-oliva); }
 
 /* ------------------------------------------------------------
+   11g. BANDAS / PATRONES DE SEPARACIÓN (mosaicos de marca)
+   ------------------------------------------------------------ */
+/* Separador fino con patrón repetido */
+.band{ width:100%; height:clamp(58px, 9vw, 104px); border-block:var(--line); background-repeat:repeat; }
+
+/* Mosaico de rombos (azulejo) — dorado + oliva sobre crema */
+.band--mosaic{
+  background-color:var(--crema);
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%3E%3Cpath%20d='M20,1L39,20L20,39L1,20Z'%20fill='none'%20stroke='%23B9983A'%20stroke-opacity='0.5'/%3E%3Ccircle%20cx='20'%20cy='20'%20r='2.4'%20fill='%236F6B2E'%20fill-opacity='0.55'/%3E%3C/svg%3E");
+  background-size:40px 40px;
+}
+/* Rejilla de puntos dorados sobre blanco cálido */
+.band--dots{
+  background-color:var(--blanco-calido);
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='22'%20height='22'%3E%3Ccircle%20cx='11'%20cy='11'%20r='2'%20fill='%23B9983A'%20fill-opacity='0.45'/%3E%3C/svg%3E");
+  background-size:22px 22px;
+}
+/* Espiga / chevron en verde oliva sobre crema */
+.band--chevron{
+  background-color:var(--crema);
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='32'%20height='16'%3E%3Cpath%20d='M0,14L16,4L32,14'%20fill='none'%20stroke='%236F6B2E'%20stroke-opacity='0.4'%20stroke-width='1.4'/%3E%3C/svg%3E");
+  background-size:32px 16px;
+}
+/* Variante oscura: rombos dorados sobre verde oliva */
+.band--olive{
+  background-color:var(--verde-oliva);
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%3E%3Cpath%20d='M20,2L38,20L20,38L2,20Z'%20fill='none'%20stroke='%23B9983A'%20stroke-opacity='0.4'/%3E%3Ccircle%20cx='20'%20cy='20'%20r='2.4'%20fill='%23F4EFE5'%20fill-opacity='0.3'/%3E%3C/svg%3E");
+  background-size:40px 40px;
+}
+
+/* Banner-bloque con frase sobre patrón (oscuro) */
+.band-statement{
+  position:relative; overflow:hidden; text-align:center;
+  padding-block:clamp(56px, 9vw, 110px);
+  background-color:var(--negro-oliva); color:var(--crema);
+}
+.band-statement::before{
+  content:""; position:absolute; inset:0; opacity:.55; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='46'%20height='46'%3E%3Cpath%20d='M23,2L44,23L23,44L2,23Z'%20fill='none'%20stroke='%23B9983A'%20stroke-opacity='0.28'/%3E%3Ccircle%20cx='23'%20cy='23'%20r='2.6'%20fill='%23B9983A'%20fill-opacity='0.25'/%3E%3C/svg%3E");
+  background-size:46px 46px;
+}
+.band-statement__txt{
+  position:relative; z-index:1;
+  font-family:var(--font-editorial); font-style:italic;
+  font-size:clamp(1.7rem, 4vw, 3rem); color:var(--dorado);
+  max-width:20ch; margin-inline:auto; line-height:1.15;
+}
+.band-statement__kicker{ position:relative; z-index:1; display:block; margin-bottom:14px; color:color-mix(in srgb,var(--crema) 70%, transparent); }
+
+/* ------------------------------------------------------------
    12. FOOTER
    ------------------------------------------------------------ */
 .site-footer{ background:var(--negro-oliva); color:var(--crema); padding-block:clamp(48px,6vw,80px) 36px; }
