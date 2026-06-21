@@ -717,63 +717,51 @@ p{ color:var(--negro-oliva); }
 /* ------------------------------------------------------------
    11g. BANDAS / PATRONES DE SEPARACIÓN (mosaicos de marca)
    ------------------------------------------------------------ */
-/* Paleta tomada de la lata:
-   bone #E7E3CE · oliva #6B6B2E · oro #BE9B3A · terracota #B43C24 · negro #1B1B17 */
-.band{ width:100%; height:clamp(58px, 9vw, 104px); border-block:var(--line); background-repeat:repeat; }
+/* Mosaicos con motivo de RAMA DE OLIVO y ACEITUNAS, en verde.
+   Cada patrón se superpone en dos capas desfasadas (medio mosaico) para
+   que se vea más denso y orgánico, no en cuadrícula. */
+.band{ width:100%; height:clamp(72px, 11vw, 130px); border-block:var(--line); }
 
-/* Mosaico de rombos (azulejo) — oro + oliva sobre bone */
-.band--mosaic{
+/* — Ramas de olivo (verde sobre bone) — */
+.band--rama{
   background-color:#E7E3CE;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%3E%3Cpath%20d='M20,1L39,20L20,39L1,20Z'%20fill='none'%20stroke='%23BE9B3A'%20stroke-opacity='0.55'/%3E%3Ccircle%20cx='20'%20cy='20'%20r='2.4'%20fill='%236B6B2E'%20fill-opacity='0.6'/%3E%3C/svg%3E");
-  background-size:40px 40px;
-}
-/* Rejilla de puntos oro sobre bone */
-.band--dots{
-  background-color:#E7E3CE;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='22'%20height='22'%3E%3Ccircle%20cx='11'%20cy='11'%20r='2'%20fill='%23BE9B3A'%20fill-opacity='0.5'/%3E%3C/svg%3E");
-  background-size:22px 22px;
-}
-/* Espiga / chevron oliva sobre bone */
-.band--chevron{
-  background-color:#E7E3CE;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='32'%20height='16'%3E%3Cpath%20d='M0,14L16,4L32,14'%20fill='none'%20stroke='%236B6B2E'%20stroke-opacity='0.45'%20stroke-width='1.4'/%3E%3C/svg%3E");
-  background-size:32px 16px;
-}
-/* Rombos oro + bone sobre verde oliva */
-.band--olive{
-  background-color:#6B6B2E;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%3E%3Cpath%20d='M20,2L38,20L20,38L2,20Z'%20fill='none'%20stroke='%23BE9B3A'%20stroke-opacity='0.55'/%3E%3Ccircle%20cx='20'%20cy='20'%20r='2.4'%20fill='%23E7E3CE'%20fill-opacity='0.4'/%3E%3C/svg%3E");
-  background-size:40px 40px;
-}
-/* Rombos bone + oro sobre terracota */
-.band--terracota{
-  background-color:#B43C24;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%3E%3Cpath%20d='M20,2L38,20L20,38L2,20Z'%20fill='none'%20stroke='%23E7E3CE'%20stroke-opacity='0.5'/%3E%3Ccircle%20cx='20'%20cy='20'%20r='2.4'%20fill='%23BE9B3A'%20fill-opacity='0.85'/%3E%3C/svg%3E");
-  background-size:40px 40px;
-}
-/* Rombos oscuros sobre oro */
-.band--gold{
-  background-color:#BE9B3A;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%3E%3Cpath%20d='M20,2L38,20L20,38L2,20Z'%20fill='none'%20stroke='%231B1B17'%20stroke-opacity='0.4'/%3E%3Ccircle%20cx='20'%20cy='20'%20r='2.4'%20fill='%231B1B17'%20fill-opacity='0.45'/%3E%3C/svg%3E");
-  background-size:40px 40px;
-}
-/* Rombos oro sobre negro */
-.band--dark{
-  background-color:#1B1B17;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='40'%20height='40'%3E%3Cpath%20d='M20,2L38,20L20,38L2,20Z'%20fill='none'%20stroke='%23BE9B3A'%20stroke-opacity='0.45'/%3E%3Ccircle%20cx='20'%20cy='20'%20r='2.4'%20fill='%23BE9B3A'%20fill-opacity='0.5'/%3E%3C/svg%3E");
-  background-size:40px 40px;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='80'%20height='80'%3E%3Cpath%20d='M10,66Q36,48,64,16'%20fill='none'%20stroke='%235d6b30'%20stroke-width='1.8'%20stroke-linecap='round'/%3E%3Cg%20fill='%236b7a3e'%3E%3Cellipse%20cx='24'%20cy='55'%20rx='10'%20ry='3.2'%20transform='rotate(38,24,55)'/%3E%3Cellipse%20cx='33'%20cy='48'%20rx='9'%20ry='2.9'%20transform='rotate(-46,33,48)'/%3E%3Cellipse%20cx='40'%20cy='38'%20rx='10'%20ry='3.2'%20transform='rotate(34,40,38)'/%3E%3Cellipse%20cx='49'%20cy='30'%20rx='9'%20ry='2.9'%20transform='rotate(-50,49,30)'/%3E%3C/g%3E%3Cg%20fill='%233a4a1e'%3E%3Cellipse%20cx='62'%20cy='18'%20rx='4.4'%20ry='5.4'/%3E%3Cellipse%20cx='55'%20cy='13'%20rx='3.8'%20ry='4.8'/%3E%3C/g%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='80'%20height='80'%3E%3Cpath%20d='M10,66Q36,48,64,16'%20fill='none'%20stroke='%235d6b30'%20stroke-width='1.8'%20stroke-linecap='round'/%3E%3Cg%20fill='%236b7a3e'%3E%3Cellipse%20cx='24'%20cy='55'%20rx='10'%20ry='3.2'%20transform='rotate(38,24,55)'/%3E%3Cellipse%20cx='33'%20cy='48'%20rx='9'%20ry='2.9'%20transform='rotate(-46,33,48)'/%3E%3Cellipse%20cx='40'%20cy='38'%20rx='10'%20ry='3.2'%20transform='rotate(34,40,38)'/%3E%3Cellipse%20cx='49'%20cy='30'%20rx='9'%20ry='2.9'%20transform='rotate(-50,49,30)'/%3E%3C/g%3E%3Cg%20fill='%233a4a1e'%3E%3Cellipse%20cx='62'%20cy='18'%20rx='4.4'%20ry='5.4'/%3E%3Cellipse%20cx='55'%20cy='13'%20rx='3.8'%20ry='4.8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:80px 80px;
+  background-position:0 0, 40px 40px;
+  background-repeat:repeat, repeat;
 }
 
-/* Banner-bloque con frase sobre patrón (negro de la lata) */
+/* — Aceitunas (verde sobre bone) — */
+.band--aceitunas{
+  background-color:#E7E3CE;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='56'%20height='56'%3E%3Cg%20fill='%236b7a3e'%3E%3Cellipse%20cx='15'%20cy='22'%20rx='8'%20ry='2.6'%20transform='rotate(32,15,22)'/%3E%3Cellipse%20cx='40'%20cy='34'%20rx='8'%20ry='2.6'%20transform='rotate(-34,40,34)'/%3E%3C/g%3E%3Cg%20fill='%233a4a1e'%3E%3Cellipse%20cx='26'%20cy='28'%20rx='4.6'%20ry='5.6'/%3E%3Cellipse%20cx='33'%20cy='24'%20rx='4'%20ry='5'/%3E%3Cellipse%20cx='21'%20cy='23'%20rx='3.6'%20ry='4.6'/%3E%3C/g%3E%3Cg%20fill='%238a9a4e'%3E%3Cellipse%20cx='25'%20cy='26'%20rx='1.2'%20ry='1.6'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:56px 56px;
+  background-position:0 0;
+  background-repeat:repeat;
+}
+
+/* — Ramas en claro sobre verde oliva (variante oscura) — */
+.band--rama-olive{
+  background-color:#5f6b2e;
+  background-image:
+    url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='80'%20height='80'%3E%3Cpath%20d='M10,66Q36,48,64,16'%20fill='none'%20stroke='%23c7cf99'%20stroke-width='1.8'%20stroke-linecap='round'/%3E%3Cg%20fill='%23d3d9a8'%3E%3Cellipse%20cx='24'%20cy='55'%20rx='10'%20ry='3.2'%20transform='rotate(38,24,55)'/%3E%3Cellipse%20cx='33'%20cy='48'%20rx='9'%20ry='2.9'%20transform='rotate(-46,33,48)'/%3E%3Cellipse%20cx='40'%20cy='38'%20rx='10'%20ry='3.2'%20transform='rotate(34,40,38)'/%3E%3Cellipse%20cx='49'%20cy='30'%20rx='9'%20ry='2.9'%20transform='rotate(-50,49,30)'/%3E%3C/g%3E%3Cg%20fill='%23BE9B3A'%3E%3Cellipse%20cx='62'%20cy='18'%20rx='4.4'%20ry='5.4'/%3E%3Cellipse%20cx='55'%20cy='13'%20rx='3.8'%20ry='4.8'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:80px 80px;
+  background-repeat:repeat;
+}
+
+/* Banner-bloque con frase sobre mosaico de ramas (negro de la lata) */
 .band-statement{
   position:relative; overflow:hidden; text-align:center;
   padding-block:clamp(56px, 9vw, 110px);
   background-color:#1B1B17; color:#E7E3CE;
 }
 .band-statement::before{
-  content:""; position:absolute; inset:0; opacity:.6; pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='46'%20height='46'%3E%3Cpath%20d='M23,2L44,23L23,44L2,23Z'%20fill='none'%20stroke='%23BE9B3A'%20stroke-opacity='0.3'/%3E%3Ccircle%20cx='23'%20cy='23'%20r='2.6'%20fill='%23BE9B3A'%20fill-opacity='0.28'/%3E%3C/svg%3E");
-  background-size:46px 46px;
+  content:""; position:absolute; inset:0; opacity:.5; pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='80'%20height='80'%3E%3Cpath%20d='M10,66Q36,48,64,16'%20fill='none'%20stroke='%23BE9B3A'%20stroke-width='1.6'%20stroke-linecap='round'/%3E%3Cg%20fill='%23BE9B3A'%3E%3Cellipse%20cx='24'%20cy='55'%20rx='10'%20ry='3.2'%20transform='rotate(38,24,55)'/%3E%3Cellipse%20cx='40'%20cy='38'%20rx='10'%20ry='3.2'%20transform='rotate(34,40,38)'/%3E%3C/g%3E%3Cg%20fill='%236b7a3e'%3E%3Cellipse%20cx='62'%20cy='18'%20rx='4.4'%20ry='5.4'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:80px 80px;
 }
 .band-statement__txt{
   position:relative; z-index:1;
