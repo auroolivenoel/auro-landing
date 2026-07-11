@@ -1005,8 +1005,8 @@ p{ color:var(--negro-oliva); }
 .site-footer{ position:relative; overflow:hidden; }
 .site-footer__art{
   position:absolute; inset:0; z-index:0; pointer-events:none;
-  background:url('assets/footer-sierra.jpg') center/cover no-repeat;
-  opacity:.16;
+  background:url('assets/footer-sierra.jpg') center bottom/cover no-repeat;
+  opacity:.22;
 }
 .site-footer__art::after{
   content:""; position:absolute; inset:0;
