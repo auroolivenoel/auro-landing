@@ -239,6 +239,68 @@
   </section>
 
   <!-- ============================================================
+       LA LATA — explorador interactivo
+       ============================================================ -->
+  <section class="section lata" id="lata">
+    <div class="container">
+      <div class="lata__head">
+        <p class="kicker kicker--gold">La lata</p>
+        <h2 class="h-lg">Por qué AURO va en lata</h2>
+        <p class="lata__intro">Toca cada punto y descubre qué hace especial a esta lata.</p>
+      </div>
+
+      <div class="lata__grid">
+        <div class="lata__media">
+          <img src="assets/lata-auro.png" alt="Lata de AURO 500 ml" loading="lazy">
+          <button class="lata__dot is-active" data-k="aluminio" aria-label="Lata de aluminio" style="top:15%;left:53%"><span>1</span></button>
+          <button class="lata__dot" data-k="dop" aria-label="D.O.P. Sierra Mágina" style="top:40%;left:39%"><span>2</span></button>
+          <button class="lata__dot" data-k="picual" aria-label="100% Picual" style="top:56%;left:62%"><span>3</span></button>
+          <button class="lata__dot" data-k="temprana" aria-label="Cosecha temprana" style="top:72%;left:43%"><span>4</span></button>
+          <button class="lata__dot" data-k="formato" aria-label="500 ml" style="top:87%;left:57%"><span>5</span></button>
+        </div>
+
+        <div class="lata__panelwrap">
+          <div class="lata__chips" role="tablist" aria-label="Aspectos de la lata">
+            <button class="lata__chip is-active" data-k="aluminio">Aluminio</button>
+            <button class="lata__chip" data-k="dop">D.O.P. Sierra Mágina</button>
+            <button class="lata__chip" data-k="picual">100% Picual</button>
+            <button class="lata__chip" data-k="temprana">Cosecha temprana</button>
+            <button class="lata__chip" data-k="formato">500 ml</button>
+          </div>
+
+          <div class="lata__panels">
+            <article class="lata__info is-active" data-k="aluminio">
+              <span class="lata__n">01</span>
+              <h3>Lata de aluminio: 0% luz</h3>
+              <p>El peor enemigo del aceite es la luz. La lata bloquea toda la luz y el oxígeno, así que el aceite llega a tu mesa como recién molturado. Y el aluminio es ligero, irrompible y 100% reciclable.</p>
+            </article>
+            <article class="lata__info" data-k="dop">
+              <span class="lata__n">02</span>
+              <h3>Denominación de Origen Protegida</h3>
+              <p>Sierra Mágina, en el corazón de Jaén, cuenta con su propia D.O.P.: un sello europeo que garantiza el origen, la variedad y la calidad del aceite de esta sierra. Altitud, frío y sol que dan un aceite más aromático y equilibrado.</p>
+            </article>
+            <article class="lata__info" data-k="picual">
+              <span class="lata__n">03</span>
+              <h3>100% Picual, la reina de Jaén</h3>
+              <p>La variedad más noble y estable de Jaén. Rica en antioxidantes, de frutado verde intenso, con un amargor y un picor nobles que delatan un aceite vivo.</p>
+            </article>
+            <article class="lata__info" data-k="temprana">
+              <span class="lata__n">04</span>
+              <h3>Cosecha temprana, recogida en verde</h3>
+              <p>Recolectada en octubre, aún verde. Da menos aceite por aceituna, pero conserva los máximos polifenoles y aroma. Calidad por encima de cantidad.</p>
+            </article>
+            <article class="lata__info" data-k="formato">
+              <span class="lata__n">05</span>
+              <h3>500 ml, la medida justa</h3>
+              <p>El formato perfecto para disfrutarlo fresco en semanas, no en meses. Consérvalo en un lugar fresco y oscuro y úsalo en crudo para notarlo todo.</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
        PROCESO DE OBTENCIÓN (timeline)
        ============================================================ -->
   <section class="section proceso" id="proceso">
@@ -524,6 +586,9 @@
 
 <!-- Ficha de cata viva (radar + datos) -->
 <script src="assets/cata.js" defer></script>
+
+<!-- La lata (explorador interactivo) -->
+<script src="assets/lata.js" defer></script>
 
 <!-- Proceso (carrusel deslizable estilo stories) -->
 <script src="assets/proceso.js" defer></script>

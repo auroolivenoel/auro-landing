@@ -1006,12 +1006,15 @@ p{ color:var(--negro-oliva); }
 .site-footer{ position:relative; overflow:hidden; }
 .site-footer__art{
   position:absolute; inset:0; z-index:0; pointer-events:none;
-  background:url('assets/footer-sierra.jpg') center bottom/cover no-repeat;
-  opacity:.22;
+  background:url('assets/footer-sierra.jpg') center/cover no-repeat;
+  opacity:.32;
 }
 .site-footer__art::after{
   content:""; position:absolute; inset:0;
-  background:linear-gradient(180deg, var(--negro-oliva) 0%, color-mix(in srgb,var(--negro-oliva) 62%, transparent) 42%, var(--negro-oliva) 100%);
+  background:linear-gradient(180deg,
+    color-mix(in srgb,var(--negro-oliva) 76%, transparent) 0%,
+    color-mix(in srgb,var(--negro-oliva) 40%, transparent) 46%,
+    color-mix(in srgb,var(--negro-oliva) 82%, transparent) 100%);
 }
 .site-footer .container{ position:relative; z-index:1; }
 .site-footer__top{ grid-template-columns:1.6fr 1fr 1fr 1fr; }
@@ -1136,3 +1139,48 @@ html.i18n-extra:not([lang="es"]) .legal__note{ display:block; }
 .faq__a{ padding:0 clamp(16px,2.5vw,24px) 20px; }
 .faq__a p{ color:var(--gris-texto); max-width:66ch; margin:0; }
 .faq__item[open] summary{ color:var(--dorado); }
+
+/* ------------------------------------------------------------
+   18. LA LATA (explorador interactivo)
+   ------------------------------------------------------------ */
+.lata{ background:linear-gradient(180deg, var(--crema), color-mix(in srgb,var(--verde-oliva) 8%, var(--crema))); }
+.lata__head{ max-width:60ch; margin-bottom:clamp(24px,3.5vw,44px); }
+.lata__intro{ color:var(--gris-texto); margin-top:12px; max-width:52ch; }
+.lata__grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:clamp(24px,4vw,56px); align-items:center; }
+.lata__media{ position:relative; justify-self:center; width:min(340px,80%); }
+.lata__media img{ width:100%; height:auto; filter:drop-shadow(0 24px 40px rgba(23,23,19,.28)); }
+.lata__dot{
+  position:absolute; transform:translate(-50%,-50%); width:30px; height:30px; border-radius:50%;
+  display:grid; place-items:center; padding:0; cursor:pointer;
+  background:var(--blanco-calido); border:2px solid var(--dorado); color:var(--negro-oliva);
+  font-family:var(--font-heading); font-weight:700; font-size:.82rem;
+  box-shadow:0 0 0 0 rgba(185,152,58,.5); animation:lataPulse 2.4s infinite; transition:transform .2s;
+}
+.lata__dot span{ pointer-events:none; }
+.lata__dot:hover{ transform:translate(-50%,-50%) scale(1.12); }
+.lata__dot.is-active{ background:var(--dorado); color:var(--negro-oliva); animation:none; box-shadow:0 6px 16px -6px rgba(185,152,58,.8); }
+@keyframes lataPulse{
+  0%{ box-shadow:0 0 0 0 rgba(185,152,58,.5); }
+  70%{ box-shadow:0 0 0 12px rgba(185,152,58,0); }
+  100%{ box-shadow:0 0 0 0 rgba(185,152,58,0); }
+}
+.lata__chips{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+.lata__chip{
+  font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.05em; font-size:.72rem;
+  padding:.5em 1em; border-radius:var(--radius-pill); cursor:pointer;
+  border:1px solid color-mix(in srgb,var(--negro-oliva) 18%,transparent);
+  color:var(--negro-oliva); background:transparent; transition:background-color .2s, color .2s, border-color .2s;
+}
+.lata__chip:hover{ border-color:var(--dorado); color:var(--dorado); }
+.lata__chip.is-active{ background:var(--negro-oliva); color:var(--crema); border-color:var(--negro-oliva); }
+.lata__panels{ position:relative; }
+.lata__info{ display:none; }
+.lata__info.is-active{ display:block; animation:lataFade .4s ease; }
+.lata__n{ font-family:var(--font-heading); font-weight:700; font-size:2.2rem; color:color-mix(in srgb,var(--dorado) 45%, transparent); line-height:1; }
+.lata__info h3{ font-size:1.5rem; margin:6px 0 12px; }
+.lata__info p{ color:var(--gris-texto); max-width:52ch; }
+@keyframes lataFade{ from{ opacity:0; transform:translateY(8px);} to{ opacity:1; transform:none; } }
+@media (max-width:820px){
+  .lata__grid{ grid-template-columns:1fr; gap:24px; }
+  .lata__media{ width:min(260px,66%); }
+}
