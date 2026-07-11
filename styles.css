@@ -1059,3 +1059,14 @@ p{ color:var(--negro-oliva); }
 /* listas dentro de páginas legales */
 .legal ul{ margin:12px 0 0; padding-left:22px; color:var(--gris-texto); line-height:1.7; }
 .legal ul li{ margin-top:8px; }
+
+/* proceso: en ordenador, tarjetas más pequeñas para que quepa todo en pantalla */
+@media (min-width:821px){
+  .proceso{ padding-block:clamp(44px,5.5vw,72px); }
+  .pslide{ flex-basis:min(40%, 340px); }
+  .pslide__media{ aspect-ratio:4/3; }
+  .pslide__body{ padding:16px 20px; gap:6px; }
+  .pslide__body h3{ font-size:1.15rem; }
+  .pslide__body p{ font-size:.92rem; }
+  .pslide__num{ font-size:1.3rem; }
+}
