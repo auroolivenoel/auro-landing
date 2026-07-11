@@ -53,6 +53,12 @@
   </div>
 </header>
 
+<!-- CTA fija: aparece al hacer scroll y se oculta sobre la propia lista -->
+<a href="#lista" class="sticky-cta" id="stickyCta">
+  <span class="sticky-cta__txt">Primera cosecha 2026 · plazas limitadas</span>
+  <span class="sticky-cta__btn">Únete a la lista</span>
+</a>
+
 <main id="top">
 
   <!-- ============================================================
@@ -279,7 +285,7 @@
               <h3>Denominación de Origen Protegida</h3>
               <p>Sierra Mágina, en el corazón de Jaén, cuenta con su propia D.O.P.: un sello europeo que garantiza el origen, la variedad y la calidad del aceite de esta sierra. Altitud, frío y sol que dan un aceite más aromático y equilibrado.</p>
               <div class="lata__sellos">
-                <img src="assets/sello-do-sierra-magina.jpg" alt="D.O.P. Sierra Mágina" class="sello sello--multiply" onerror="this.style.display='none'">
+                <img src="assets/sello-do-sierra-magina.png" alt="D.O.P. Sierra Mágina" class="sello" onerror="this.style.display='none'">
                 <img src="assets/sello-origen-espana.png" alt="Denominación de Origen Protegida" class="sello" onerror="this.style.display='none'">
               </div>
             </article>
@@ -407,14 +413,6 @@
         </button>
       </div>
     </div>
-  </section>
-
-  <!-- ============================================================
-       BANNER DE SEPARACIÓN (frase sobre patrón)
-       ============================================================ -->
-  <section class="band-statement" aria-label="Cosecha temprana, 100% Picual">
-    <span class="kicker band-statement__kicker">Sierra Mágina · Jaén</span>
-    <p class="band-statement__txt">Cosecha temprana. 100% Picual. Sin atajos.</p>
   </section>
 
   <!-- ============================================================
@@ -564,16 +562,6 @@
 </footer>
 
 <script>
-  /* Menú móvil */
-  (function(){
-    var t = document.getElementById('navToggle'), n = document.getElementById('nav');
-    t.addEventListener('click', function(){
-      var open = n.classList.toggle('is-open');
-      t.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-    n.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ n.classList.remove('is-open'); t.setAttribute('aria-expanded','false'); }); });
-  })();
-
   /* Aleja la cámara del visor 3D del hero para que la lata se vea entera */
   (function(){
     var mv = document.querySelector('.hero__media model-viewer');
@@ -590,6 +578,9 @@
 
 <!-- Ficha de cata viva (radar + datos) -->
 <script src="assets/cata.js" defer></script>
+
+<!-- Menú móvil + CTA fija -->
+<script src="assets/nav.js" defer></script>
 
 <!-- La lata (explorador interactivo) -->
 <script src="assets/lata.js" defer></script>
