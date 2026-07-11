@@ -20,16 +20,4 @@
   dots.concat(chips).forEach(function (el) {
     el.addEventListener('click', function () { activate(el.getAttribute('data-k')); });
   });
-
-  // Sellos de origen: solo se muestran si el logo existe realmente
-  (function () {
-    var wrap = document.querySelector('.sellos');
-    if (!wrap) return;
-    var imgs = Array.prototype.slice.call(wrap.querySelectorAll('.sello'));
-    function ok(img) { if (img.naturalWidth > 0) wrap.style.display = 'block'; }
-    imgs.forEach(function (img) {
-      if (img.complete) { img.naturalWidth > 0 ? ok(img) : img.remove(); }
-      else { img.addEventListener('load', function () { ok(img); }); img.addEventListener('error', function () { img.remove(); }); }
-    });
-  })();
 })();

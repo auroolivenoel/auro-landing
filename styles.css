@@ -1185,14 +1185,8 @@ html.i18n-extra:not([lang="es"]) .legal__note{ display:block; }
   .lata__media{ width:min(260px,66%); }
 }
 
-/* sellos de origen / denominación (ocultos hasta que existan los logos) */
-.sellos{ display:none; margin-top:clamp(28px,4vw,44px); text-align:center; }
-.sellos__label{
-  display:block; font-family:var(--font-heading); font-weight:600; text-transform:uppercase;
-  letter-spacing:.14em; font-size:.72rem; color:var(--gris-texto); margin-bottom:16px;
-}
-.sellos__logos{ display:flex; flex-wrap:wrap; gap:clamp(20px,4vw,48px); align-items:center; justify-content:center; }
-.sellos__logos:empty{ display:none; }
-.sello{ height:clamp(64px,9vw,92px); width:auto; }
+/* sellos de origen dentro del panel D.O.P. */
+.lata__sellos{ display:flex; flex-wrap:wrap; align-items:center; gap:clamp(18px,3vw,34px); margin-top:22px; }
+.sello{ height:clamp(56px,8vw,78px); width:auto; }
 /* el logo Sierra Mágina es negro sobre blanco: multiply funde el blanco con el fondo */
 .sello--multiply{ mix-blend-mode:multiply; }
