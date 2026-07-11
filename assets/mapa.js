@@ -7,6 +7,10 @@
   if (typeof maplibregl === 'undefined') return;
   if (!document.getElementById('mapa')) return;
 
+  // traducción (ES · EN · DE) — lee del diccionario global si está disponible
+  const T = (s) => (window.AuroI18n && window.AuroI18n.t) ? window.AuroI18n.t(s) : s;
+  let current = 0, elev = null;
+
   const LAT = 37.822260, LNG = -3.418403; // finca (Sierra Mágina, Jaén)
 
   const STEPS = [
@@ -61,10 +65,16 @@
   // Marcador de la finca
   const pin = document.createElement('div');
   pin.className = 'finca-pin'; pin.innerHTML = '<span></span>';
-  const popup = new maplibregl.Popup({ offset: 16, closeButton: false }).setHTML(
-    '<strong>AURO · Olivar de Sierra Mágina</strong><br>100% Picual · cosecha temprana<br>' +
-    '<span id="finca-alt">Sierra Mágina, Jaén</span>'
-  );
+  function altText() {
+    return elev != null
+      ? (T('Altitud ~') + Math.round(elev) + T(' m · Sierra Mágina, Jaén'))
+      : 'Sierra Mágina, Jaén';
+  }
+  function popupHTML() {
+    return T('<strong>AURO · Olivar de Sierra Mágina</strong><br>100% Picual · cosecha temprana<br>') +
+      '<span id="finca-alt">' + altText() + '</span>';
+  }
+  const popup = new maplibregl.Popup({ offset: 16, closeButton: false }).setHTML(popupHTML());
   const marker = new maplibregl.Marker({ element: pin, anchor: 'center' })
     .setLngLat([LNG, LAT]).setPopup(popup).addTo(map);
 
@@ -77,8 +87,9 @@
   function go(i, fly) {
     i = Math.max(0, Math.min(STEPS.length - 1, i));
     const s = STEPS[i];
+    current = i;
     stepBtns.forEach((b, k) => b.classList.toggle('is-active', k === i));
-    if (fact) { fact.textContent = s.fact; fact.classList.add('show'); }
+    if (fact) { fact.textContent = T(s.fact); fact.classList.add('show'); }
     map[fly === false ? 'jumpTo' : 'flyTo']({ center: s.center, zoom: s.zoom, pitch: s.pitch, bearing: s.bearing, duration: 2600, essential: true });
     const p = marker.getPopup();
     const open = p && p.isOpen && p.isOpen();
@@ -104,8 +115,13 @@
   map.once('idle', () => {
     try {
       const e = map.queryTerrainElevation([LNG, LAT]);
-      const node = document.getElementById('finca-alt');
-      if (e && node) node.textContent = 'Altitud ~' + Math.round(e) + ' m · Sierra Mágina, Jaén';
+      if (e) { elev = e; const p = marker.getPopup(); if (p) p.setHTML(popupHTML()); }
     } catch (_) {}
+  });
+
+  // Reacciona al cambio de idioma
+  document.addEventListener('auro:langchange', () => {
+    if (fact) fact.textContent = T(STEPS[current].fact);
+    const p = marker.getPopup(); if (p) p.setHTML(popupHTML());
   });
 })();

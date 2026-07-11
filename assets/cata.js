@@ -9,6 +9,7 @@
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const NS = 'http://www.w3.org/2000/svg';
   const svg = section.querySelector('.radar');
+  const T = (s) => (window.AuroI18n && window.AuroI18n.t) ? window.AuroI18n.t(s) : s;
 
   // Perfil organoléptico (0–10) — valores de ejemplo, editables
   const FLAVORS = [
@@ -39,6 +40,7 @@
       svg.appendChild(mk('polygon', { points: pts.join(' '), fill: 'none', stroke: '#171713', 'stroke-opacity': ring === 5 ? 0.28 : 0.1, 'stroke-width': 1 }));
     }
     // radios + etiquetas
+    const labelEls = [];
     for (let i = 0; i < N; i++) {
       const o = pt(i, R);
       svg.appendChild(mk('line', { x1: cx, y1: cy, x2: o[0], y2: o[1], stroke: '#171713', 'stroke-opacity': 0.1, 'stroke-width': 1 }));
@@ -49,9 +51,14 @@
         'text-anchor': Math.abs(lp[0] - cx) < 8 ? 'middle' : (lp[0] > cx ? 'start' : 'end'),
         'dominant-baseline': 'middle',
       });
-      t.textContent = FLAVORS[i].label;
+      t.textContent = T(FLAVORS[i].label);
       svg.appendChild(t);
+      labelEls.push(t);
     }
+    // actualiza las etiquetas del radar al cambiar de idioma
+    document.addEventListener('auro:langchange', () => {
+      labelEls.forEach((el, i) => { el.textContent = T(FLAVORS[i].label); });
+    });
     // polígono de datos (animado)
     const poly = mk('polygon', { fill: '#B9983A', 'fill-opacity': 0.22, stroke: '#B9983A', 'stroke-width': 2, 'stroke-linejoin': 'round' });
     svg.appendChild(poly);
