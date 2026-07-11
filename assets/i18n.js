@@ -208,6 +208,8 @@
       "Recolectada en octubre, aún verde. Da menos aceite por aceituna, pero conserva los máximos polifenoles y aroma. Calidad por encima de cantidad.": "Harvested in October, still green. It yields less oil per olive but keeps maximum polyphenols and aroma. Quality over quantity.",
       "500 ml, la medida justa": "500 ml, just the right size",
       "El formato perfecto para disfrutarlo fresco en semanas, no en meses. Consérvalo en un lugar fresco y oscuro y úsalo en crudo para notarlo todo.": "The perfect size to enjoy it fresh in weeks, not months. Keep it in a cool, dark place and use it raw to taste it all.",
+      "Origen y calidad": "Origin & quality",
+      "Producto de España": "Product of Spain",
       /* legal chrome */
       "← Volver": "← Back",
       "AURO OLIVE S.L. · última actualización: julio de 2026": "AURO OLIVE S.L. · last updated: July 2026",
@@ -401,6 +403,8 @@
       "Recolectada en octubre, aún verde. Da menos aceite por aceituna, pero conserva los máximos polifenoles y aroma. Calidad por encima de cantidad.": "Im Oktober geerntet, noch grün. Sie gibt weniger Öl pro Olive, bewahrt aber maximale Polyphenole und Aroma. Qualität vor Quantität.",
       "500 ml, la medida justa": "500 ml, das richtige Maß",
       "El formato perfecto para disfrutarlo fresco en semanas, no en meses. Consérvalo en un lugar fresco y oscuro y úsalo en crudo para notarlo todo.": "Das perfekte Format, um es in Wochen statt Monaten frisch zu genießen. An einem kühlen, dunklen Ort aufbewahren und roh verwenden, um alles zu schmecken.",
+      "Origen y calidad": "Herkunft & Qualität",
+      "Producto de España": "Produkt aus Spanien",
       "← Volver": "← Zurück",
       "AURO OLIVE S.L. · última actualización: julio de 2026": "AURO OLIVE S.L. · zuletzt aktualisiert: Juli 2026",
       "Contenido pendiente de publicación": "Inhalt folgt in Kürze",

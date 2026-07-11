@@ -1184,3 +1184,13 @@ html.i18n-extra:not([lang="es"]) .legal__note{ display:block; }
   .lata__grid{ grid-template-columns:1fr; gap:24px; }
   .lata__media{ width:min(260px,66%); }
 }
+
+/* sellos de origen / denominación (ocultos hasta que existan los logos) */
+.sellos{ display:none; margin-top:clamp(28px,4vw,44px); text-align:center; }
+.sellos__label{
+  display:block; font-family:var(--font-heading); font-weight:600; text-transform:uppercase;
+  letter-spacing:.14em; font-size:.72rem; color:var(--gris-texto); margin-bottom:16px;
+}
+.sellos__logos{ display:flex; flex-wrap:wrap; gap:clamp(20px,4vw,48px); align-items:center; justify-content:center; }
+.sellos__logos:empty{ display:none; }
+.sello{ height:clamp(58px,9vw,84px); width:auto; }
