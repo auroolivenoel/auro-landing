@@ -151,10 +151,10 @@
     <h1 id="graciasTitle">¡Bienvenido a AURO!</h1>
     <p class="gracias__lead">Hemos guardado tu sitio. Serás de los primeros en probar la primera cosecha 2026: 100% Picual de Sierra Mágina, edición numerada.</p>
 
-    <div class="g-canno" aria-label="Tu lata reservada">
-      <span class="g-canno__label">Tu lata reservada</span>
+    <div class="g-canno" aria-label="Tu puesto en la lista">
+      <span class="g-canno__label">Tu puesto en la lista</span>
       <span class="g-canno__num">Nº&nbsp;<b id="canNo">—</b></span>
-      <span class="g-canno__of">de 1.000 · edición numerada</span>
+      <span class="g-canno__of">Las primeras 1.000 se llevan la cosecha 2026 numerada</span>
     </div>
 
     <div class="gift-card">
@@ -284,7 +284,7 @@
       en: 'Redirecting to the homepage in <b>%</b>…',
       de: 'Weiterleitung zur Startseite in <b>%</b>…'
     };
-    var secs = 10;
+    var secs = 30;
     function render() { el.innerHTML = (tpl[lang] || tpl.es).replace('%', secs); }
     render();
     var iv = setInterval(function () {
