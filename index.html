@@ -33,15 +33,15 @@
     </a>
 
     <nav class="nav" id="nav" aria-label="Principal">
-      <a href="#producto">Aceite</a>
       <a href="#origen">Origen</a>
       <a href="#atributos">Cosecha</a>
       <a href="#proceso">Proceso</a>
+      <a href="#lista" class="nav__hot">Lista de espera</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
     <div class="header-actions">
-      <a href="#producto" class="btn btn-primary btn-sm">Comprar</a>
+      <a href="#lista" class="btn btn-primary btn-sm">Únete a la lista</a>
       <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
         <span></span><span></span><span></span>
       </button>
@@ -84,13 +84,13 @@
       </div>
 
       <div class="hero__copy">
-        <p class="kicker">Cosecha temprana · Edición limitada</p>
+        <p class="kicker">Prelanzamiento · Cosecha 2026</p>
         <div class="hero__rule" aria-hidden="true"></div>
         <h1 class="h-display hero__claim">Aceite de oliva virgen extra de cosecha temprana</h1>
         <p class="hero__sub">100% Picual. Un aceite intenso, elegante y profundamente mediterráneo.</p>
         <p class="hero__origin editorial editorial-i">Sierra Mágina · Jaén</p>
         <div class="hero__cta">
-          <a href="#producto" class="btn btn-primary">Comprar ahora</a>
+          <a href="#lista" class="btn btn-primary">Únete a la lista</a>
           <a href="#origen" class="btn btn-secondary">Conocer el origen</a>
         </div>
       </div>
@@ -254,83 +254,100 @@
       <div class="proceso__head">
         <p class="kicker kicker--gold">El proceso</p>
         <h2 class="h-lg">Del árbol a la lata, en frío</h2>
-        <p class="proceso__intro">Seis pasos y pocas horas: así nace AURO sin perder ni un matiz.</p>
+        <p class="proceso__intro">Seis pasos y pocas horas. <span class="proceso__swipe">Desliza para verlo →</span></p>
       </div>
+    </div>
 
-      <ol class="proceso__timeline">
-        <li class="pstep">
-          <div class="pstep__media">
-            <span class="pstep__ph">Recolección</span>
-            <img src="assets/proceso/01.jpg" alt="Recolección de la aceituna Picual" loading="lazy" onerror="this.remove()">
+    <!-- Carrusel deslizable (estilo stories) -->
+    <div class="pcar" id="pcar" aria-roledescription="carrusel" aria-label="El proceso de elaboración de AURO">
+      <div class="container pcar__bars" id="pcarBars" aria-hidden="true"></div>
+
+      <div class="pcar__track" id="pcarTrack" tabindex="0" aria-live="polite">
+
+        <article class="pslide" aria-label="Paso 1 de 6">
+          <div class="pslide__media">
+            <img src="assets/proceso/01.jpg" alt="Recolección de la aceituna Picual" loading="lazy" onerror="this.closest('.pslide__media').classList.add('is-empty');this.remove()">
+            <span class="pslide__tag">Recolección</span>
           </div>
-          <div class="pstep__body">
-            <span class="pstep__num">01</span>
+          <div class="pslide__body">
+            <span class="pslide__num">01<i>/ 06</i></span>
             <h3>Recolección temprana</h3>
             <p>Recogemos la Picual aún verde, en octubre, en su punto de máxima fuerza y aroma.</p>
           </div>
-        </li>
+        </article>
 
-        <li class="pstep">
-          <div class="pstep__media">
-            <span class="pstep__ph">Al molino</span>
-            <img src="assets/proceso/02.jpg" alt="Aceituna recién recogida camino del molino" loading="lazy" onerror="this.remove()">
+        <article class="pslide" aria-label="Paso 2 de 6">
+          <div class="pslide__media">
+            <img src="assets/proceso/02.jpg" alt="Aceituna recién recogida camino del molino" loading="lazy" onerror="this.closest('.pslide__media').classList.add('is-empty');this.remove()">
+            <span class="pslide__tag">Al molino</span>
           </div>
-          <div class="pstep__body">
-            <span class="pstep__num">02</span>
+          <div class="pslide__body">
+            <span class="pslide__num">02<i>/ 06</i></span>
             <h3>Al molino en horas</h3>
             <p>De la rama al molino en menos de un día. Limpiamos y lavamos la aceituna recién cogida.</p>
           </div>
-        </li>
+        </article>
 
-        <li class="pstep">
-          <div class="pstep__media">
-            <span class="pstep__ph">Molturación</span>
-            <img src="assets/proceso/03.jpg" alt="Molienda de la aceituna" loading="lazy" onerror="this.remove()">
+        <article class="pslide" aria-label="Paso 3 de 6">
+          <div class="pslide__media">
+            <img src="assets/proceso/03.jpg" alt="Molienda de la aceituna" loading="lazy" onerror="this.closest('.pslide__media').classList.add('is-empty');this.remove()">
+            <span class="pslide__tag">Molturación</span>
           </div>
-          <div class="pstep__body">
-            <span class="pstep__num">03</span>
+          <div class="pslide__body">
+            <span class="pslide__num">03<i>/ 06</i></span>
             <h3>Molturación</h3>
             <p>Molemos la aceituna entera, hueso incluido, hasta obtener una pasta homogénea.</p>
           </div>
-        </li>
+        </article>
 
-        <li class="pstep">
-          <div class="pstep__media">
-            <span class="pstep__ph">Batido en frío</span>
-            <img src="assets/proceso/04.jpg" alt="Batido de la pasta de aceituna en frío" loading="lazy" onerror="this.remove()">
+        <article class="pslide" aria-label="Paso 4 de 6">
+          <div class="pslide__media">
+            <img src="assets/proceso/04.jpg" alt="Batido de la pasta de aceituna en frío" loading="lazy" onerror="this.closest('.pslide__media').classList.add('is-empty');this.remove()">
+            <span class="pslide__tag">Batido en frío</span>
           </div>
-          <div class="pstep__body">
-            <span class="pstep__num">04</span>
+          <div class="pslide__body">
+            <span class="pslide__num">04<i>/ 06</i></span>
             <h3>Batido en frío</h3>
             <p>Batimos la pasta lentamente <strong>por debajo de 27&nbsp;°C</strong> para preservar polifenoles y aromas.</p>
             <span class="pstep__badge">Extracción en frío · &lt;27&nbsp;°C</span>
           </div>
-        </li>
+        </article>
 
-        <li class="pstep">
-          <div class="pstep__media">
-            <span class="pstep__ph">Extracción</span>
-            <img src="assets/proceso/05.jpg" alt="Separación del aceite por centrifugado" loading="lazy" onerror="this.remove()">
+        <article class="pslide" aria-label="Paso 5 de 6">
+          <div class="pslide__media">
+            <img src="assets/proceso/05.jpg" alt="Separación del aceite por centrifugado" loading="lazy" onerror="this.closest('.pslide__media').classList.add('is-empty');this.remove()">
+            <span class="pslide__tag">Extracción</span>
           </div>
-          <div class="pstep__body">
-            <span class="pstep__num">05</span>
+          <div class="pslide__body">
+            <span class="pslide__num">05<i>/ 06</i></span>
             <h3>Extracción por centrifugado</h3>
             <p>Separamos el aceite por centrifugación, sin calor y sin disolventes. Solo zumo de aceituna.</p>
           </div>
-        </li>
+        </article>
 
-        <li class="pstep">
-          <div class="pstep__media">
-            <span class="pstep__ph">Envasado</span>
-            <img src="assets/proceso/06.jpg" alt="Envasado del aceite en lata" loading="lazy" onerror="this.remove()">
+        <article class="pslide" aria-label="Paso 6 de 6">
+          <div class="pslide__media">
+            <img src="assets/proceso/06.jpg" alt="Envasado del aceite en lata" loading="lazy" onerror="this.closest('.pslide__media').classList.add('is-empty');this.remove()">
+            <span class="pslide__tag">Envasado</span>
           </div>
-          <div class="pstep__body">
-            <span class="pstep__num">06</span>
+          <div class="pslide__body">
+            <span class="pslide__num">06<i>/ 06</i></span>
             <h3>Decantación y envasado</h3>
             <p>Reposa, se clarifica y se envasa en lata, protegido de la luz para que llegue como recién hecho.</p>
           </div>
-        </li>
-      </ol>
+        </article>
+
+      </div>
+
+      <div class="container pcar__nav">
+        <button class="pcar__arrow" id="pcarPrev" type="button" aria-label="Paso anterior" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <div class="pcar__dots" id="pcarDots" role="tablist" aria-label="Ir a un paso"></div>
+        <button class="pcar__arrow" id="pcarNext" type="button" aria-label="Paso siguiente">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -401,6 +418,50 @@
   </section>
 
   <!-- ============================================================
+       LISTA DE ESPERA (prelanzamiento) — capta leads → Odoo
+       ============================================================ -->
+  <section class="waitlist" id="lista">
+    <div class="waitlist__bg" aria-hidden="true"></div>
+    <div class="container waitlist__inner">
+      <p class="kicker waitlist__kicker">Lista de espera</p>
+      <h2 class="waitlist__title">Sé de los primeros<br>en probar AURO</h2>
+      <p class="waitlist__sub">Apúntate y te avisaremos en cuanto salga la primera cosecha.</p>
+
+      <span class="waitlist__pill">Producción limitada</span>
+      <p class="waitlist__scarce">Primera cosecha 2026 · solo <strong>1.000 latas numeradas</strong>. Acceso anticipado para los primeros 500.</p>
+      <div class="waitlist__meter" aria-hidden="true"><span style="width:88%"></span></div>
+      <p class="waitlist__scarce-note">Plazas casi agotadas — quedan pocas</p>
+
+      <div class="waitlist__gift">
+        <svg class="waitlist__gift-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7S11 3 8.5 3 5 5.5 7 7M12 7s1-4 3.5-4S19 5.5 17 7"/>
+        </svg>
+        <p><strong>Regalo para los primeros:</strong> acceso anticipado a una IA de recetas creada para cocinar con AURO.</p>
+      </div>
+
+      <form class="waitlist__form" id="waitlistForm" novalidate>
+        <div class="wl-fields">
+          <label class="wl-field">
+            <span class="wl-label">Email</span>
+            <input type="email" id="wlEmail" name="email" placeholder="tu@email.com" required autocomplete="email" inputmode="email">
+          </label>
+          <label class="wl-field">
+            <span class="wl-label">Nombre <i>(opcional)</i></span>
+            <input type="text" id="wlName" name="name" placeholder="Tu nombre" autocomplete="name">
+          </label>
+        </div>
+        <label class="wl-consent">
+          <input type="checkbox" id="wlConsent" required>
+          <span>Acepto recibir un email cuando AURO esté disponible y el tratamiento de mis datos según la <a href="politica-privacidad.html">política de privacidad</a>. Puedo darme de baja en cualquier momento.</span>
+        </label>
+        <button type="submit" class="btn btn-primary wl-submit" id="wlSubmit">Únete a la lista</button>
+        <p class="wl-mini">Sin spam. Solo un email cuando arranque.</p>
+        <p class="wl-error" id="wlError" role="alert" hidden></p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ============================================================
        SECCIÓN PRODUCTO
        ============================================================ -->
   <section class="section" id="producto">
@@ -410,19 +471,14 @@
       </div>
 
       <div class="product__info">
-        <span class="badge">Edición cosecha 2026</span>
+        <span class="badge">Primera cosecha 2026 · aún no a la venta</span>
         <h2 class="product__name">AURO · 500 ml</h2>
-        <p class="product__price">29,00 € <small>/ lata · IVA incl.</small></p>
-        <p class="product__fresh"><span class="product__fresh-dot" aria-hidden="true"></span><span id="freshTxt">Recién embotellado</span></p>
+        <p class="product__price">Precio de lanzamiento <small>reservado para la lista</small></p>
+        <p class="product__fresh"><span class="product__fresh-dot" aria-hidden="true"></span><span id="freshTxt">Edición limitada · 1.000 latas numeradas</span></p>
         <p class="product__desc">Aceite de oliva virgen extra 100% Picual de cosecha temprana. Verde, frutado y con un amargor noble. Envasado en lata para protegerlo de la luz.</p>
 
         <div class="product__buy">
-          <div class="qty" aria-label="Cantidad">
-            <button type="button" id="qtyMinus" aria-label="Quitar uno">−</button>
-            <input type="number" id="qty" value="1" min="1" max="99" inputmode="numeric" aria-label="Cantidad">
-            <button type="button" id="qtyPlus" aria-label="Añadir uno">+</button>
-          </div>
-          <a href="#" class="btn btn-primary" id="buyBtn">Comprar ahora</a>
+          <a href="#lista" class="btn btn-primary" id="buyBtn">Resérvala — únete a la lista</a>
         </div>
 
         <dl class="product__details">
@@ -466,7 +522,27 @@
      FOOTER
      ============================================================ -->
 <footer class="site-footer" id="contacto">
+  <div class="site-footer__art" aria-hidden="true"></div>
   <div class="container">
+
+    <!-- Cuenta atrás real hasta la primera cosecha -->
+    <div class="footer-count">
+      <p class="kicker kicker--gold footer-count__k">Primera cosecha · 1 nov 2026</p>
+      <h3 class="footer-count__title">La cuenta atrás ha empezado</h3>
+      <div class="countdown" id="countdown" data-deadline="2026-11-01T00:00:00" role="timer" aria-label="Cuenta atrás para la primera cosecha de AURO">
+        <div class="cd-unit"><span class="cd-num" data-cd="days">--</span><span class="cd-lab">Días</span></div>
+        <span class="cd-sep" aria-hidden="true">:</span>
+        <div class="cd-unit"><span class="cd-num" data-cd="hours">--</span><span class="cd-lab">Horas</span></div>
+        <span class="cd-sep" aria-hidden="true">:</span>
+        <div class="cd-unit"><span class="cd-num" data-cd="mins">--</span><span class="cd-lab">Min</span></div>
+        <span class="cd-sep" aria-hidden="true">:</span>
+        <div class="cd-unit"><span class="cd-num" data-cd="secs">--</span><span class="cd-lab">Seg</span></div>
+      </div>
+      <a href="#lista" class="btn btn-primary footer-count__cta">Únete a la lista</a>
+    </div>
+
+    <div class="site-footer__rule" aria-hidden="true"></div>
+
     <div class="site-footer__top">
       <div>
         <div class="footer-logo">AURO</div>
@@ -474,7 +550,7 @@
       </div>
       <div class="footer-col">
         <h4>Explorar</h4>
-        <a href="#producto">El aceite</a>
+        <a href="#lista">Lista de espera</a>
         <a href="#origen">Origen</a>
         <a href="#atributos">Cosecha</a>
         <a href="#proceso">Proceso</a>
@@ -485,6 +561,13 @@
         <a href="tel:+34000000000">+34 000 000 000</a>
         <a href="#">Instagram</a>
         <a href="#">Mayoristas</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="aviso-legal.html">Aviso legal</a>
+        <a href="politica-privacidad.html">Política de privacidad</a>
+        <a href="politica-cookies.html">Política de cookies</a>
+        <a href="politica-redes-sociales.html">Política de redes sociales</a>
       </div>
     </div>
 
@@ -508,15 +591,6 @@
     n.querySelectorAll('a').forEach(function(a){ a.addEventListener('click', function(){ n.classList.remove('is-open'); t.setAttribute('aria-expanded','false'); }); });
   })();
 
-  /* Selector de cantidad */
-  (function(){
-    var input = document.getElementById('qty');
-    var clamp = function(v){ return Math.max(1, Math.min(99, v||1)); };
-    document.getElementById('qtyMinus').addEventListener('click', function(){ input.value = clamp(parseInt(input.value,10)-1); });
-    document.getElementById('qtyPlus').addEventListener('click', function(){ input.value = clamp(parseInt(input.value,10)+1); });
-    input.addEventListener('change', function(){ input.value = clamp(parseInt(input.value,10)); });
-  })();
-
   /* Aleja la cámara del visor 3D del hero para que la lata se vea entera */
   (function(){
     var mv = document.querySelector('.hero__media model-viewer');
@@ -529,23 +603,16 @@
       }catch(e){}
     });
   })();
-
-  /* Contador de frescura (edita BOTTLED con tu fecha real de embotellado) */
-  (function(){
-    var BOTTLED = new Date('2026-05-20');
-    var el = document.getElementById('freshTxt'); if(!el) return;
-    var d = Math.max(0, Math.floor((Date.now() - BOTTLED.getTime()) / 86400000));
-    el.textContent = d <= 0
-      ? 'Embotellado hoy · cosecha 2025/26'
-      : 'Embotellado hace ' + d + (d === 1 ? ' día' : ' días') + ' · cosecha 2025/26';
-  })();
 </script>
 
 <!-- Ficha de cata viva (radar + datos) -->
 <script src="assets/cata.js" defer></script>
 
-<!-- Proceso (revelado al hacer scroll) -->
+<!-- Proceso (carrusel deslizable estilo stories) -->
 <script src="assets/proceso.js" defer></script>
+
+<!-- Lista de espera (lead → Odoo) + cuenta atrás del footer -->
+<script src="assets/waitlist.js" defer></script>
 
 <!-- Comparador (barras + revelado) -->
 <script src="assets/comparador.js" defer></script>

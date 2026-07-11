@@ -839,3 +839,219 @@ p{ color:var(--negro-oliva); }
 @media (prefers-reduced-motion:reduce){
   *{ scroll-behavior:auto; transition:none !important; }
 }
+
+/* ============================================================
+   15. PRELANZAMIENTO — añadidos (lista de espera, carrusel de
+   proceso, cuenta atrás del footer, mapa de marca, legales)
+   ============================================================ */
+
+/* nav destacado hacia la lista de espera */
+.nav__hot{ color:var(--dorado) !important; font-weight:600; }
+
+/* ------------------------------------------------------------
+   15a. LISTA DE ESPERA
+   ------------------------------------------------------------ */
+.waitlist{
+  position:relative; overflow:hidden;
+  background:var(--verde-oliva); color:var(--crema);
+  padding-block:clamp(56px,8vw,104px);
+}
+.waitlist__bg{
+  position:absolute; inset:0; pointer-events:none; opacity:.55;
+  background:
+    radial-gradient(58% 55% at 82% 8%, color-mix(in srgb,var(--dorado) 32%, transparent), transparent 70%),
+    radial-gradient(52% 55% at 8% 92%, color-mix(in srgb,var(--negro-oliva) 45%, transparent), transparent 70%);
+}
+.waitlist__inner{ position:relative; z-index:1; max-width:620px; margin-inline:auto; text-align:center; }
+.waitlist__kicker{ color:var(--dorado); }
+.waitlist__title{
+  font-family:var(--font-heading); font-weight:700; text-transform:uppercase;
+  font-size:clamp(2.2rem,7vw,3.6rem); line-height:.98; letter-spacing:.01em;
+  color:var(--crema); margin:.18em 0 .32em;
+}
+.waitlist__sub{ color:color-mix(in srgb,var(--crema) 86%,transparent); font-size:1.05rem; max-width:44ch; margin-inline:auto; }
+.waitlist__pill{
+  display:inline-block; margin-top:26px;
+  font-family:var(--font-heading); font-weight:700; text-transform:uppercase; letter-spacing:.08em;
+  font-size:.72rem; color:var(--crema); background:var(--terracota);
+  padding:7px 16px; border-radius:var(--radius-pill);
+}
+.waitlist__scarce{ margin-top:16px; color:color-mix(in srgb,var(--crema) 88%,transparent); }
+.waitlist__scarce strong{ color:var(--crema); }
+.waitlist__meter{
+  height:8px; border-radius:var(--radius-pill); margin:16px auto 8px; max-width:420px;
+  background:color-mix(in srgb,var(--negro-oliva) 38%, transparent); overflow:hidden;
+}
+.waitlist__meter > span{
+  display:block; height:100%; border-radius:var(--radius-pill);
+  background:linear-gradient(90deg, var(--terracota), color-mix(in srgb,var(--terracota) 55%, var(--dorado)));
+}
+.waitlist__scarce-note{
+  font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.1em;
+  font-size:.72rem; color:var(--dorado);
+}
+.waitlist__gift{
+  display:flex; gap:12px; align-items:center; text-align:left;
+  max-width:470px; margin:28px auto 0; padding:14px 16px;
+  border:1px solid color-mix(in srgb,var(--dorado) 55%, transparent); border-radius:14px;
+  background:color-mix(in srgb,var(--negro-oliva) 20%, transparent);
+}
+.waitlist__gift-ic{ width:26px; height:26px; flex:0 0 auto; color:var(--dorado); }
+.waitlist__gift p{ color:color-mix(in srgb,var(--crema) 90%,transparent); font-size:.92rem; margin:0; }
+.waitlist__gift strong{ color:var(--dorado); }
+.waitlist__form{ margin-top:30px; text-align:left; }
+.wl-fields{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+.wl-label{ display:block; font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; color:var(--dorado); margin-bottom:7px; }
+.wl-label i{ font-style:normal; color:color-mix(in srgb,var(--crema) 60%,transparent); }
+.wl-field input{
+  width:100%; padding:14px 18px; border-radius:var(--radius-pill); border:0;
+  background:var(--crema); color:var(--negro-oliva); font:inherit; font-size:1rem;
+}
+.wl-field input::placeholder{ color:color-mix(in srgb,var(--negro-oliva) 45%,transparent); }
+.wl-field input:focus-visible{ outline:2px solid var(--dorado); outline-offset:2px; }
+.wl-consent{ display:flex; gap:10px; align-items:flex-start; margin-top:16px; font-size:.85rem; color:color-mix(in srgb,var(--crema) 82%,transparent); }
+.wl-consent input{ margin-top:3px; width:16px; height:16px; accent-color:var(--dorado); flex:0 0 auto; }
+.wl-consent a{ color:var(--dorado); text-decoration:underline; }
+.wl-submit{ width:100%; margin-top:20px; justify-content:center; }
+.wl-submit[disabled]{ opacity:.6; cursor:progress; }
+.wl-mini{ text-align:center; margin-top:12px; font-size:.8rem; color:color-mix(in srgb,var(--crema) 60%,transparent); }
+.wl-error{ margin-top:14px; text-align:center; color:#ffe4dc; background:color-mix(in srgb,var(--terracota) 42%, transparent); padding:9px 14px; border-radius:8px; font-size:.86rem; }
+@media (max-width:560px){ .wl-fields{ grid-template-columns:1fr; } }
+
+/* ------------------------------------------------------------
+   15b. PROCESO — carrusel deslizable (estilo stories)
+   ------------------------------------------------------------ */
+.proceso{ overflow:hidden; }
+.proceso__swipe{ color:var(--dorado); font-weight:600; white-space:nowrap; }
+.pcar{ margin-top:clamp(22px,3vw,34px); }
+.pcar__bars{ display:flex; gap:6px; margin-bottom:18px; }
+.pcar__bar{ flex:1; height:3px; border-radius:var(--radius-pill); background:color-mix(in srgb,var(--negro-oliva) 14%,transparent); overflow:hidden; }
+.pcar__bar > i{ display:block; height:100%; width:0; background:var(--dorado); transition:width .45s ease; }
+.pcar__bar.is-done > i{ width:100%; background:color-mix(in srgb,var(--dorado) 55%, transparent); }
+.pcar__bar.is-active > i{ width:100%; }
+.pcar__track{
+  position:relative; display:flex; gap:clamp(14px,2.5vw,26px);
+  overflow-x:auto; scroll-snap-type:x mandatory; scroll-behavior:smooth;
+  -webkit-overflow-scrolling:touch; padding:6px var(--pad-x) 12px;
+  scrollbar-width:none;
+}
+.pcar__track::-webkit-scrollbar{ display:none; }
+.pcar__track:focus-visible{ outline:2px solid var(--dorado); outline-offset:4px; }
+.pcar__track.is-drag{ scroll-behavior:auto; scroll-snap-type:none; cursor:grabbing; }
+.pslide{
+  flex:0 0 min(86%, 440px); scroll-snap-align:center;
+  background:var(--blanco-calido); border:var(--line); border-radius:16px;
+  overflow:hidden; box-shadow:var(--shadow-card);
+  display:flex; flex-direction:column;
+}
+.pslide__media{
+  position:relative; aspect-ratio:4/5; overflow:hidden;
+  background:linear-gradient(150deg, color-mix(in srgb,var(--verde-oliva) 32%, var(--blanco-calido)), color-mix(in srgb,var(--dorado) 24%, var(--blanco-calido)));
+}
+.pslide__media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:saturate(1.03) contrast(1.02); }
+.pslide__media.is-empty::after{
+  content:"AURO"; position:absolute; inset:0; display:grid; place-items:center;
+  font-family:var(--font-heading); font-weight:700; letter-spacing:.35em; font-size:1.1rem;
+  color:color-mix(in srgb,var(--negro-oliva) 32%,transparent);
+}
+.pslide__tag{
+  position:absolute; left:12px; bottom:12px; z-index:1;
+  font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.1em;
+  font-size:.66rem; color:var(--crema);
+  background:color-mix(in srgb,var(--negro-oliva) 68%, transparent);
+  padding:6px 12px; border-radius:var(--radius-pill); backdrop-filter:blur(3px);
+}
+.pslide__body{ padding:clamp(18px,3vw,26px); display:flex; flex-direction:column; gap:8px; }
+.pslide__num{ font-family:var(--font-heading); font-weight:700; font-size:1.5rem; color:var(--dorado); line-height:1; }
+.pslide__num i{ font-style:normal; font-size:.82rem; color:color-mix(in srgb,var(--negro-oliva) 40%,transparent); margin-left:6px; letter-spacing:.05em; }
+.pslide__body h3{ font-size:1.3rem; margin:0; }
+.pslide__body p{ color:var(--gris-texto); margin:0; }
+.pslide__body .pstep__badge{ align-self:flex-start; margin-top:4px; }
+.pcar__nav{ display:flex; align-items:center; justify-content:center; gap:18px; margin-top:20px; }
+.pcar__arrow{
+  width:44px; height:44px; border-radius:50%; display:grid; place-items:center; padding:0;
+  border:1px solid color-mix(in srgb,var(--negro-oliva) 20%,transparent);
+  background:var(--blanco-calido); color:var(--negro-oliva); cursor:pointer;
+  transition:background .2s,color .2s,border-color .2s,opacity .2s;
+}
+.pcar__arrow svg{ width:20px; height:20px; }
+.pcar__arrow:hover{ border-color:var(--dorado); color:var(--dorado); }
+.pcar__arrow:disabled{ opacity:.3; cursor:default; }
+.pcar__dots{ display:flex; gap:8px; }
+.pcar__dot{
+  width:8px; height:8px; border-radius:50%; padding:0; cursor:pointer; border:0;
+  background:color-mix(in srgb,var(--negro-oliva) 22%,transparent);
+  transition:background .2s, transform .2s;
+}
+.pcar__dot.is-active{ background:var(--dorado); transform:scale(1.45); }
+
+/* ------------------------------------------------------------
+   15c. MAPA — tinte de marca (duotono oliva / oro)
+   ------------------------------------------------------------ */
+#mapa .maplibregl-canvas{
+  filter:sepia(.55) saturate(1.18) hue-rotate(3deg) brightness(1.03) contrast(.97);
+}
+.mapa::after{
+  content:""; position:absolute; inset:0; pointer-events:none; z-index:1;
+  background:
+    radial-gradient(130% 100% at 50% -10%, transparent 62%, color-mix(in srgb,var(--verde-oliva) 34%, transparent) 100%),
+    linear-gradient(180deg, transparent 68%, color-mix(in srgb,var(--negro-oliva) 24%, transparent) 100%);
+  mix-blend-mode:multiply;
+}
+
+/* ------------------------------------------------------------
+   15d. FOOTER — arte sierra + cuenta atrás real
+   ------------------------------------------------------------ */
+.site-footer{ position:relative; overflow:hidden; }
+.site-footer__art{
+  position:absolute; inset:0; z-index:0; pointer-events:none;
+  background:url('assets/footer-sierra.jpg') center/cover no-repeat;
+  opacity:.16;
+}
+.site-footer__art::after{
+  content:""; position:absolute; inset:0;
+  background:linear-gradient(180deg, var(--negro-oliva) 0%, color-mix(in srgb,var(--negro-oliva) 62%, transparent) 42%, var(--negro-oliva) 100%);
+}
+.site-footer .container{ position:relative; z-index:1; }
+.site-footer__top{ grid-template-columns:1.6fr 1fr 1fr 1fr; }
+.footer-count{ text-align:center; padding-bottom:6px; }
+.footer-count__k{ color:var(--dorado); }
+.footer-count__title{
+  font-family:var(--font-heading); font-weight:600; text-transform:uppercase;
+  font-size:clamp(1.4rem,4vw,2.1rem); color:var(--crema); margin:.2em 0 .65em;
+}
+.countdown{ display:flex; align-items:flex-start; justify-content:center; gap:clamp(6px,2vw,16px); }
+.cd-unit{ display:flex; flex-direction:column; align-items:center; min-width:clamp(54px,14vw,84px); }
+.cd-num{ font-family:var(--font-heading); font-weight:700; font-size:clamp(2rem,7vw,3.4rem); line-height:1; color:var(--dorado); font-variant-numeric:tabular-nums; }
+.cd-lab{ font-family:var(--font-heading); text-transform:uppercase; letter-spacing:.14em; font-size:.64rem; color:color-mix(in srgb,var(--crema) 68%,transparent); margin-top:8px; }
+.cd-sep{ font-family:var(--font-heading); font-weight:700; font-size:clamp(1.5rem,5vw,2.4rem); color:color-mix(in srgb,var(--dorado) 50%,transparent); line-height:1.05; }
+.footer-count__cta{ margin-top:26px; background:var(--dorado); color:var(--negro-oliva); }
+.footer-count__cta:hover{ background:var(--crema); color:var(--negro-oliva); }
+@media (max-width:560px){ .cd-sep{ display:none; } .countdown{ gap:10px; } }
+
+/* ------------------------------------------------------------
+   15e. PÁGINAS LEGALES + GRACIAS
+   ------------------------------------------------------------ */
+.simple-header{ border-bottom:var(--line); }
+.simple-header .container{ display:flex; align-items:center; justify-content:space-between; padding-block:16px; }
+.simple-header .brand img{ height:34px; }
+.simple-header a.back{ font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.08em; font-size:.78rem; color:var(--verde-oliva); }
+.simple-header a.back:hover{ color:var(--dorado); }
+.legal{ max-width:820px; margin-inline:auto; padding-block:clamp(40px,7vw,80px); }
+.legal .kicker{ margin-bottom:10px; }
+.legal h1{ font-size:clamp(2rem,6vw,3rem); margin-bottom:10px; }
+.legal__updated{ color:var(--gris-texto); font-size:.85rem; margin-bottom:34px; }
+.legal__ph{
+  border:1px dashed color-mix(in srgb,var(--dorado) 60%, transparent);
+  border-radius:var(--radius); background:var(--blanco-calido);
+  padding:clamp(22px,4vw,40px); color:var(--gris-texto);
+}
+.legal__ph h2{ font-size:1.1rem; margin-bottom:8px; }
+.legal h2{ margin-top:34px; }
+.legal p{ color:var(--gris-texto); margin-top:12px; line-height:1.7; }
+/* asegura que el velo del mapa se posiciona sobre el propio mapa */
+.mapa{ position:relative; }
+
+/* footer: columnas responsivas (deben ir DESPUÉS del override de 4 columnas) */
+@media (max-width:960px){ .site-footer__top{ grid-template-columns:1fr 1fr; } }
+@media (max-width:600px){ .site-footer__top{ grid-template-columns:1fr; } }
