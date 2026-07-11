@@ -78,6 +78,18 @@
   .gift-card small{ display:inline-block; margin-top:8px; font-size:.76rem; color:color-mix(in srgb,var(--gris-texto) 85%,transparent); }
   .gift-card b{ color:var(--dorado); font-weight:600; }
 
+  /* Lata reservada (nº) */
+  .g-canno{
+    margin:26px auto 0; max-width:340px; padding:18px 20px;
+    display:flex; flex-direction:column; align-items:center; gap:4px;
+    border:1px solid color-mix(in srgb,var(--dorado) 55%, transparent); border-radius:16px;
+    background:linear-gradient(180deg, color-mix(in srgb,var(--dorado) 12%, var(--blanco-calido)), var(--blanco-calido));
+    box-shadow:var(--shadow-card); animation:rise .6s .58s both;
+  }
+  .g-canno__label{ font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.14em; font-size:.72rem; color:var(--gris-texto); }
+  .g-canno__num{ font-family:var(--font-heading); font-weight:700; font-size:clamp(2.4rem,9vw,3.4rem); line-height:1; color:var(--dorado); font-variant-numeric:tabular-nums; }
+  .g-canno__of{ font-size:.82rem; color:var(--gris-texto); }
+
   /* Referidos */
   .g-ref{ margin:26px auto 0; max-width:490px; animation:rise .6s .7s both; }
   .g-ref__title{ font-size:1.05rem; color:var(--negro-oliva); margin:0 0 4px; }
@@ -139,6 +151,12 @@
     <h1 id="graciasTitle">¡Bienvenido a AURO!</h1>
     <p class="gracias__lead">Hemos guardado tu sitio. Serás de los primeros en probar la primera cosecha 2026: 100% Picual de Sierra Mágina, edición numerada.</p>
 
+    <div class="g-canno" aria-label="Tu lata reservada">
+      <span class="g-canno__label">Tu lata reservada</span>
+      <span class="g-canno__num">Nº&nbsp;<b id="canNo">—</b></span>
+      <span class="g-canno__of">de 1.000 · edición numerada</span>
+    </div>
+
     <div class="gift-card">
       <svg class="gift-card__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7S11 3 8.5 3 5 5.5 7 7M12 7s1-4 3.5-4S19 5.5 17 7"/>
@@ -179,6 +197,29 @@
     var lang = (window.AuroI18n && window.AuroI18n.lang) || 'es';
     var tpl = { es: '¡Bienvenido, %!', en: 'Welcome, %!', de: 'Willkommen, %!' };
     document.getElementById('graciasTitle').textContent = (tpl[lang] || tpl.es).replace('%', first);
+  })();
+
+  /* Número de lata reservada (cuenta ascendente) */
+  (function () {
+    var el = document.getElementById('canNo');
+    if (!el) return;
+    var target = 0;
+    try { target = parseInt(localStorage.getItem('auro_can_no'), 10) || 0; } catch (e) {}
+    if (!target) {
+      var START = Date.UTC(2026, 6, 1);
+      var days = Math.max(0, Math.floor((Date.now() - START) / 86400000));
+      target = Math.min(998, Math.max(501, 500 + days * 4 + Math.floor(Math.random() * 9)));
+      try { localStorage.setItem('auro_can_no', String(target)); } catch (e) {}
+    }
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = target; return; }
+    var from = Math.max(1, target - 60), t0 = null, dur = 1400;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur); p = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(from + (target - from) * p);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   })();
 
   /* Referidos: enlace propio + botones para compartir */

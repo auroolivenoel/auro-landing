@@ -57,6 +57,20 @@
   }
   incomingRef(); // se ejecuta al cargar la página para capturar el ?ref
 
+  // Número de lata reservada (1..1000). Cosmético hasta conectarlo al nº real de Odoo.
+  function myCanNumber() {
+    var n = 0;
+    try { n = parseInt(localStorage.getItem('auro_can_no'), 10) || 0; } catch (e) {}
+    if (!n) {
+      var START = Date.UTC(2026, 6, 1);           // 1 jul 2026
+      var days = Math.max(0, Math.floor((Date.now() - START) / 86400000));
+      n = 500 + days * 4 + Math.floor(Math.random() * 9);
+      n = Math.min(998, Math.max(501, n));
+      try { localStorage.setItem('auro_can_no', String(n)); } catch (e) {}
+    }
+    return n;
+  }
+
   /* ---------- utilidades ---------- */
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
   function pad(x) { return (x < 10 ? '0' : '') + x; }
@@ -92,6 +106,7 @@
 
     var mine = myRefCode();
     var ref = incomingRef();
+    var can = myCanNumber();
     var fd = new FormData();
     fd.append('email_from', email);
     fd.append('contact_name', name || email);
@@ -99,6 +114,7 @@
     fd.append('description',
       'Alta en la lista de espera (prelanzamiento AURO).\n' +
       'Origen: ' + ODOO.source + '\n' +
+      'Lata reservada: Nº ' + can + ' / 1000\n' +
       'Regalo prometido: acceso a la IA de recetas.\n' +
       'Código de referido propio: ' + mine +
       (ref ? ('\nInvitado por (ref): ' + ref) : ''));
@@ -149,7 +165,8 @@
       var original = submit.textContent;
       submit.textContent = 'Enviando…';
 
-      myRefCode(); // garantiza que existe el código de referido para la página de gracias
+      myRefCode();    // garantiza el código de referido para la página de gracias
+      myCanNumber();  // asigna y guarda el número de lata reservada
 
       // Copia local SIEMPRE (aunque Odoo falle, no perdemos el registro)
       saveLocal({ email: em, name: nm, ref: incomingRef() || '', ts: new Date().toISOString() });
