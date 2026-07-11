@@ -26,7 +26,8 @@
      window.auroExportLeads() desde la consola) y lleva a gracias.html.
      ---------------------------------------------------------- */
   var ODOO = {
-    endpoint: '',                       // ← pega aquí tu URL (A o B)
+    // Formulario web de Odoo (crea el lead en crm.lead)
+    endpoint: 'https://www.proyectocaminodesantiago.com/website/form/crm.lead',
     csrfToken: '',                      // opcional: token CSRF de Odoo si tu instancia lo exige
     campaign: 'Lista de espera AURO',   // aparecerá en el nombre del lead
     source: 'Landing prelanzamiento'
