@@ -36,6 +36,27 @@
   var LS_KEY = 'auro_waitlist_leads';
   var WAITLIST_BASE = 500;   // plazas de partida (ya llenas). Edítalo cuando quieras.
 
+  /* ---------- referidos ---------- */
+  // Código de referido propio (estable en este navegador)
+  function myRefCode() {
+    var c = null;
+    try { c = localStorage.getItem('auro_ref_me'); } catch (e) {}
+    if (!c) {
+      c = (Math.random().toString(36).slice(2, 8) + Math.random().toString(36).slice(2, 5)).toUpperCase().slice(0, 7);
+      try { localStorage.setItem('auro_ref_me', c); } catch (e) {}
+    }
+    return c;
+  }
+  // Captura ?ref= de la URL (quién te ha invitado) y lo recuerda
+  function incomingRef() {
+    try {
+      var u = new URLSearchParams(location.search).get('ref');
+      if (u) { u = u.replace(/[^A-Za-z0-9_-]/g, '').slice(0, 32); if (u) localStorage.setItem('auro_ref_in', u); }
+      return localStorage.getItem('auro_ref_in') || '';
+    } catch (e) { return ''; }
+  }
+  incomingRef(); // se ejecuta al cargar la página para capturar el ?ref
+
   /* ---------- utilidades ---------- */
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
   function pad(x) { return (x < 10 ? '0' : '') + x; }
@@ -69,6 +90,8 @@
   function sendToOdoo(email, name) {
     if (!ODOO.endpoint) return Promise.resolve({ local: true }); // modo local
 
+    var mine = myRefCode();
+    var ref = incomingRef();
     var fd = new FormData();
     fd.append('email_from', email);
     fd.append('contact_name', name || email);
@@ -76,7 +99,9 @@
     fd.append('description',
       'Alta en la lista de espera (prelanzamiento AURO).\n' +
       'Origen: ' + ODOO.source + '\n' +
-      'Regalo prometido: acceso a la IA de recetas.');
+      'Regalo prometido: acceso a la IA de recetas.\n' +
+      'Código de referido propio: ' + mine +
+      (ref ? ('\nInvitado por (ref): ' + ref) : ''));
     if (ODOO.csrfToken) fd.append('csrf_token', ODOO.csrfToken);
 
     return fetch(ODOO.endpoint, { method: 'POST', body: fd, mode: 'cors' })
@@ -124,8 +149,10 @@
       var original = submit.textContent;
       submit.textContent = 'Enviando…';
 
+      myRefCode(); // garantiza que existe el código de referido para la página de gracias
+
       // Copia local SIEMPRE (aunque Odoo falle, no perdemos el registro)
-      saveLocal({ email: em, name: nm, ts: new Date().toISOString() });
+      saveLocal({ email: em, name: nm, ref: incomingRef() || '', ts: new Date().toISOString() });
 
       sendToOdoo(em, nm)
         .then(function () { goThanks(nm); })

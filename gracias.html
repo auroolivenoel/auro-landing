@@ -78,7 +78,35 @@
   .gift-card small{ display:inline-block; margin-top:8px; font-size:.76rem; color:color-mix(in srgb,var(--gris-texto) 85%,transparent); }
   .gift-card b{ color:var(--dorado); font-weight:600; }
 
-  .gracias__actions{ margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; animation:rise .6s .75s both; }
+  /* Referidos */
+  .g-ref{ margin:26px auto 0; max-width:490px; animation:rise .6s .7s both; }
+  .g-ref__title{ font-size:1.05rem; color:var(--negro-oliva); margin:0 0 4px; }
+  .g-ref__sub{ color:var(--gris-texto); font-size:.9rem; margin:0 0 14px; max-width:44ch; margin-inline:auto; }
+  .g-ref__link{ display:flex; gap:8px; }
+  .g-ref__link input{
+    flex:1 1 auto; min-width:0; padding:11px 14px; border-radius:var(--radius-pill);
+    border:1px solid color-mix(in srgb,var(--negro-oliva) 16%,transparent);
+    background:var(--blanco-calido); color:var(--negro-oliva); font:inherit; font-size:.85rem;
+  }
+  .g-ref__copy{
+    flex:0 0 auto; padding:11px 16px; border-radius:var(--radius-pill);
+    background:var(--negro-oliva); color:var(--crema);
+    font-family:var(--font-body); font-weight:600; font-size:.78rem; text-transform:uppercase; letter-spacing:.05em;
+    transition:background-color .2s;
+  }
+  .g-ref__copy:hover{ background:var(--verde-oliva); }
+  .g-ref__copy.is-done{ background:var(--dorado); color:var(--negro-oliva); }
+  .g-ref__share{ display:flex; gap:10px; justify-content:center; margin-top:14px; }
+  .g-ref__share a{
+    width:42px; height:42px; border-radius:50%; display:grid; place-items:center;
+    border:1px solid color-mix(in srgb,var(--negro-oliva) 16%,transparent);
+    color:var(--negro-oliva); background:var(--blanco-calido); transition:background-color .2s, color .2s, border-color .2s;
+  }
+  .g-ref__share a:hover{ background:var(--negro-oliva); color:var(--crema); border-color:var(--negro-oliva); }
+  .g-ref__share svg{ width:20px; height:20px; }
+  @media (max-width:480px){ .g-ref__link{ flex-direction:column; } .g-ref__copy{ width:100%; } }
+
+  .gracias__actions{ margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; animation:rise .6s .8s both; }
   .gracias__hint{ margin-top:22px; font-size:.82rem; color:var(--gris-texto); animation:rise .6s .85s both; }
 
   .gracias__redir{
@@ -122,6 +150,16 @@
       </div>
     </div>
 
+    <div class="g-ref">
+      <h2 class="g-ref__title">Sube en la lista: invita a tus amigos</h2>
+      <p class="g-ref__sub">Comparte tu enlace y, por cada amigo que se apunte, subes puestos hacia el acceso anticipado.</p>
+      <div class="g-ref__link">
+        <input type="text" id="gRefUrl" readonly aria-label="Tu enlace de invitación">
+        <button type="button" id="gRefCopy" class="g-ref__copy">Copiar enlace</button>
+      </div>
+      <div class="g-ref__share" id="gRefShare" aria-label="Compartir"></div>
+    </div>
+
     <div class="gracias__actions">
       <a href="index.html" class="btn btn-primary">Volver a la web</a>
       <a href="index.html#proceso" class="btn btn-secondary">Ver cómo se hace</a>
@@ -143,6 +181,58 @@
     document.getElementById('graciasTitle').textContent = (tpl[lang] || tpl.es).replace('%', first);
   })();
 
+  /* Referidos: enlace propio + botones para compartir */
+  (function () {
+    var t = function (s) { return (window.AuroI18n && window.AuroI18n.t) ? window.AuroI18n.t(s) : s; };
+    var code = '';
+    try { code = localStorage.getItem('auro_ref_me') || ''; } catch (e) {}
+    if (!code) { code = (Math.random().toString(36).slice(2, 8) + Math.random().toString(36).slice(2, 5)).toUpperCase().slice(0, 7); try { localStorage.setItem('auro_ref_me', code); } catch (e) {} }
+
+    var url = new URL('index.html', window.location.href);
+    url.searchParams.set('ref', code);
+    var link = url.toString();
+
+    var input = document.getElementById('gRefUrl');
+    if (input) input.value = link;
+
+    var msg = t('Me apunto a la lista de espera de AURO, el aceite de oliva virgen extra 100% Picual de cosecha temprana de Sierra Mágina. Apúntate tú también:');
+    var text = encodeURIComponent(msg + ' ' + link);
+    var eurl = encodeURIComponent(link);
+
+    var ICON = {
+      wa: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M.06 24l1.68-6.13A11.9 11.9 0 0 1 .16 11.9C.16 5.34 5.5 0 12.06 0a11.8 11.8 0 0 1 8.4 3.49 11.8 11.8 0 0 1 3.48 8.42c0 6.56-5.34 11.9-11.9 11.9a11.9 11.9 0 0 1-5.68-1.45L.06 24zM6.6 20.13l.36.22a9.9 9.9 0 0 0 5.05 1.38 9.88 9.88 0 0 0 9.88-9.88 9.88 9.88 0 0 0-16.87-6.99A9.82 9.82 0 0 0 2.14 11.9a9.86 9.86 0 0 0 1.51 5.26l.24.38-1 3.63 3.71-.97zM17.5 14.3c-.07-.12-.26-.19-.55-.33-.29-.15-1.7-.84-1.96-.94-.26-.1-.46-.14-.65.15-.19.29-.74.94-.91 1.13-.17.19-.34.22-.62.07-.29-.14-1.21-.45-2.3-1.42-.85-.76-1.42-1.7-1.59-1.98-.17-.29-.02-.44.13-.59.13-.13.29-.34.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.65-1.57-.89-2.14-.24-.57-.47-.49-.65-.5l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .97-1 2.37 0 1.4 1.02 2.75 1.17 2.94.14.19 2.01 3.06 4.86 4.29.68.29 1.21.47 1.62.6.68.22 1.3.19 1.79.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36z"/></svg>',
+      tg: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.94 4.6l-3.32 15.66c-.25 1.1-.9 1.38-1.83.86l-5.05-3.72-2.44 2.35c-.27.27-.5.5-1.02.5l.36-5.14 9.36-8.46c.41-.36-.09-.56-.63-.2L5.1 13.86l-4.98-1.56c-1.08-.34-1.1-1.08.23-1.6L20.54 3c.9-.34 1.69.2 1.4 1.6z"/></svg>',
+      x: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.22-6.82-5.97 6.82H1.66l7.73-8.83L1.24 2.25h6.83l4.71 6.23 5.46-6.23zm-1.16 17.52h1.83L7.01 4.13H5.05l12.03 15.64z"/></svg>',
+      mail: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>'
+    };
+    var shares = [
+      { n: 'WhatsApp', href: 'https://wa.me/?text=' + text, i: ICON.wa },
+      { n: 'Telegram', href: 'https://t.me/share/url?url=' + eurl + '&text=' + encodeURIComponent(msg), i: ICON.tg },
+      { n: 'X', href: 'https://twitter.com/intent/tweet?text=' + text, i: ICON.x },
+      { n: 'Email', href: 'mailto:?subject=' + encodeURIComponent('AURO') + '&body=' + text, i: ICON.mail }
+    ];
+    var wrap = document.getElementById('gRefShare');
+    if (wrap) shares.forEach(function (s) {
+      var a = document.createElement('a');
+      a.href = s.href; a.target = '_blank'; a.rel = 'noopener';
+      a.setAttribute('aria-label', s.n); a.title = s.n; a.innerHTML = s.i;
+      wrap.appendChild(a);
+    });
+
+    var btn = document.getElementById('gRefCopy');
+    if (btn) btn.addEventListener('click', function () {
+      var done = function () {
+        var original = t('Copiar enlace');
+        btn.classList.add('is-done');
+        btn.textContent = t('¡Enlace copiado!');
+        setTimeout(function () { btn.classList.remove('is-done'); btn.textContent = original; }, 2000);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(link).then(done, function () { input.select(); document.execCommand('copy'); done(); });
+      } else { input.select(); try { document.execCommand('copy'); } catch (e) {} done(); }
+    });
+  })();
+
   /* Cuenta atrás y redirección a la página de inicio */
   (function () {
     var el = document.getElementById('redir');
@@ -157,10 +247,20 @@
     function render() { el.innerHTML = (tpl[lang] || tpl.es).replace('%', secs); }
     render();
     var iv = setInterval(function () {
+      if (window.__auroCancelRedirect) { clearInterval(iv); el.style.display = 'none'; return; }
       secs -= 1;
       if (secs <= 0) { clearInterval(iv); window.location.href = 'index.html'; return; }
       render();
     }, 1000);
+
+    // Si el usuario interactúa con los referidos, cancelamos la redirección automática
+    var ref = document.querySelector('.g-ref');
+    if (ref) {
+      var cancel = function () { window.__auroCancelRedirect = true; };
+      ref.addEventListener('click', cancel);
+      var inp = document.getElementById('gRefUrl');
+      if (inp) inp.addEventListener('focus', cancel);
+    }
   })();
 
   /* Confeti ligero en colores de marca (sobre fondo claro) */
