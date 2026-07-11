@@ -38,7 +38,7 @@
       },
     },
     layers: [
-      { id: 'bg', type: 'background', paint: { 'background-color': '#dfeaf2' } },
+      { id: 'bg', type: 'background', paint: { 'background-color': '#F4EFE5' } },
       { id: 'topo', type: 'raster', source: 'topo' },
       { id: 'hills', type: 'hillshade', source: 'dem', paint: { 'hillshade-exaggeration': 0.45 } },
     ],
