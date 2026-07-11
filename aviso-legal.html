@@ -15,10 +15,22 @@
 </head>
 <body>
 
-<header class="simple-header">
-  <div class="container">
+<header class="site-header">
+  <div class="container site-header__inner">
     <a href="index.html" class="brand" aria-label="AURO — Inicio"><img src="assets/logo-auro.png" alt="AURO"></a>
-    <a href="index.html" class="back">← Volver</a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="index.html#origen">Origen</a>
+      <a href="index.html#atributos">Cosecha</a>
+      <a href="index.html#proceso">Proceso</a>
+      <a href="index.html#lista" class="nav__hot">Lista de espera</a>
+      <a href="index.html#contacto">Contacto</a>
+    </nav>
+    <div class="header-actions">
+      <a href="index.html#lista" class="btn btn-primary btn-sm">Únete a la lista</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </header>
 
@@ -180,5 +192,6 @@
   </div>
 </footer>
 
+<script src="assets/nav.js" defer></script>
 </body>
 </html>

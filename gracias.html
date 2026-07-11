@@ -16,93 +16,82 @@
   .gracias{
     position:relative; overflow:hidden; min-height:100vh;
     display:flex; align-items:center; justify-content:center;
-    background:var(--verde-oliva); color:var(--crema); text-align:center;
-    padding:clamp(40px,8vw,90px) var(--pad-x);
+    background:var(--crema); color:var(--negro-oliva); text-align:center;
+    padding:clamp(40px,7vw,80px) var(--pad-x);
   }
   .gracias__bg{
-    position:absolute; inset:0; pointer-events:none; opacity:.6;
+    position:absolute; inset:0; pointer-events:none;
     background:
-      radial-gradient(55% 55% at 82% 6%, color-mix(in srgb,var(--dorado) 34%, transparent), transparent 70%),
-      radial-gradient(52% 55% at 10% 94%, color-mix(in srgb,var(--negro-oliva) 48%, transparent), transparent 70%);
+      radial-gradient(48% 42% at 50% 6%, color-mix(in srgb,var(--dorado) 20%, transparent), transparent 70%),
+      radial-gradient(60% 50% at 88% 100%, color-mix(in srgb,var(--verde-oliva) 16%, transparent), transparent 70%),
+      radial-gradient(55% 50% at 6% 92%, color-mix(in srgb,var(--terracota) 12%, transparent), transparent 70%);
   }
   #confetti{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:2; }
   .gracias__inner{ position:relative; z-index:3; max-width:600px; }
 
-  /* Logotipo AURO cuya "O" se rellena con una gota de aceite */
-  .fill-logo{
-    display:flex; align-items:flex-end; justify-content:center; gap:.01em;
-    font-family:var(--font-heading); font-weight:700; letter-spacing:.01em;
-    font-size:clamp(3.4rem,15vw,6rem); line-height:1; color:var(--crema);
-    margin:0 auto 30px; user-select:none;
+  /* Logotipo real con gota de aceite que cae sobre la O */
+  .g-logo{ position:relative; display:inline-block; width:min(340px,74vw); margin:0 auto 6px; }
+  .g-logo__img{
+    width:100%; height:auto; display:block; position:relative; z-index:1;
+    animation:gLogoIn 1s cubic-bezier(.2,1,.3,1) both;
   }
-  .fill-word{ display:inline-block; }
-  .fill-o{ position:relative; display:inline-block; width:.72em; height:.9em; margin-left:.02em; }
-  .fill-o__ring{
-    position:absolute; inset:0; border:.1em solid var(--crema); border-radius:50%; overflow:hidden;
-    background:color-mix(in srgb,var(--negro-oliva) 22%, transparent);
+  .g-glow{
+    position:absolute; inset:-22% -12%; z-index:0; border-radius:50%;
+    background:radial-gradient(closest-side, color-mix(in srgb,var(--dorado) 42%, transparent), transparent 72%);
+    filter:blur(8px); opacity:0; animation:gGlow 2.6s ease .4s both;
   }
-  .fill-o__fill{
-    position:absolute; left:-2%; right:-2%; bottom:0; height:0;
+  .g-drop{
+    position:absolute; left:63%; top:-8%; width:12px; height:16px; z-index:2;
+    transform:translate(-50%,0);
     background:linear-gradient(180deg, color-mix(in srgb,var(--dorado) 70%, white), var(--dorado));
-    animation:oFill 1.5s cubic-bezier(.4,.1,.3,1) .95s forwards;
+    border-radius:50% 50% 50% 50% / 60% 60% 42% 42%;
+    box-shadow:0 0 8px color-mix(in srgb,var(--dorado) 55%, transparent);
+    animation:gDrop 1s cubic-bezier(.6,.05,.7,.4) .25s both;
   }
-  .fill-o__fill::before{
-    content:""; position:absolute; top:-.12em; left:0; right:0; height:.16em; border-radius:50%;
-    background:color-mix(in srgb,var(--dorado) 70%, white);
+  @keyframes gLogoIn{ from{ opacity:0; transform:scale(.92) translateY(8px);} to{ opacity:1; transform:none; } }
+  @keyframes gGlow{ 0%{ opacity:0; } 45%{ opacity:1; } 100%{ opacity:.55; } }
+  @keyframes gDrop{
+    0%{ top:-26%; opacity:0; transform:translate(-50%,0) scaleY(.7); }
+    20%{ opacity:1; }
+    78%{ top:19%; opacity:1; transform:translate(-50%,0) scaleY(1.25); }
+    100%{ top:25%; opacity:0; transform:translate(-50%,0) scaleY(.5); }
   }
-  .fill-drop{
-    position:absolute; left:50%; top:-1.3em; width:.22em; height:.28em; transform:translateX(-50%);
-    background:var(--dorado); border-radius:50% 50% 50% 50% / 62% 62% 40% 40%;
-    box-shadow:0 0 .3em color-mix(in srgb,var(--dorado) 60%, transparent);
-    animation:dropFall .95s cubic-bezier(.6,.05,.7,.4) forwards;
-  }
-  @keyframes dropFall{
-    0%{ top:-1.4em; opacity:0; transform:translateX(-50%) scaleY(.7); }
-    18%{ opacity:1; }
-    80%{ top:.28em; opacity:1; transform:translateX(-50%) scaleY(1.25); }
-    100%{ top:.42em; opacity:0; transform:translateX(-50%) scaleY(.6); }
-  }
-  @keyframes oFill{ from{ height:0; } to{ height:100%; } }
 
-  /* Cuenta atrás de redirección */
+  .gracias .kicker{ color:var(--dorado); animation:rise .6s .35s both; }
+  .gracias h1{
+    font-family:var(--font-heading); font-weight:700; text-transform:uppercase;
+    color:var(--negro-oliva); font-size:clamp(2rem,6.5vw,3.4rem); line-height:1; margin:.14em 0 .3em;
+    animation:rise .6s .45s both;
+  }
+  .gracias__lead{ color:var(--gris-texto); font-size:1.06rem; max-width:46ch; margin:0 auto; animation:rise .6s .55s both; }
+
+  .gift-card{
+    margin:32px auto 0; max-width:490px; text-align:left;
+    display:flex; gap:16px; align-items:flex-start; padding:20px 22px;
+    border:1px solid color-mix(in srgb,var(--dorado) 55%, transparent); border-radius:16px;
+    background:var(--blanco-calido); box-shadow:var(--shadow-card);
+    animation:rise .6s .65s both;
+  }
+  .gift-card__ic{ width:34px; height:34px; flex:0 0 auto; color:var(--dorado); margin-top:2px; }
+  .gift-card h2{ font-size:1.02rem; color:var(--negro-oliva); margin:0 0 4px; }
+  .gift-card p{ color:var(--gris-texto); font-size:.92rem; margin:0; line-height:1.55; }
+  .gift-card small{ display:inline-block; margin-top:8px; font-size:.76rem; color:color-mix(in srgb,var(--gris-texto) 85%,transparent); }
+  .gift-card b{ color:var(--dorado); font-weight:600; }
+
+  .gracias__actions{ margin-top:32px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; animation:rise .6s .75s both; }
+  .gracias__hint{ margin-top:22px; font-size:.82rem; color:var(--gris-texto); animation:rise .6s .85s both; }
+
   .gracias__redir{
-    margin-top:26px; font-family:var(--font-heading); text-transform:uppercase; letter-spacing:.1em;
-    font-size:.78rem; color:color-mix(in srgb,var(--crema) 72%,transparent);
-    animation:rise .6s .9s both;
+    margin-top:24px; font-family:var(--font-heading); text-transform:uppercase; letter-spacing:.1em;
+    font-size:.76rem; color:color-mix(in srgb,var(--gris-texto) 90%,transparent);
+    animation:rise .6s .95s both;
   }
   .gracias__redir b{ color:var(--dorado); font-size:1.05rem; }
 
-  .gracias .kicker{ color:var(--dorado); }
-  .gracias h1{
-    font-family:var(--font-heading); font-weight:700; text-transform:uppercase;
-    color:var(--crema); font-size:clamp(2.2rem,7vw,3.6rem); line-height:1; margin:.2em 0 .3em;
-  }
-  .gracias__lead{ color:color-mix(in srgb,var(--crema) 88%,transparent); font-size:1.08rem; max-width:46ch; margin:0 auto; }
-  .gracias__lead b{ color:var(--crema); }
-
-  .gift-card{
-    margin:34px auto 0; max-width:480px; text-align:left;
-    display:flex; gap:16px; align-items:flex-start; padding:20px 22px;
-    border:1px solid color-mix(in srgb,var(--dorado) 60%, transparent); border-radius:16px;
-    background:color-mix(in srgb,var(--negro-oliva) 22%, transparent);
-    animation:rise .6s .5s both;
-  }
-  .gift-card__ic{ width:34px; height:34px; flex:0 0 auto; color:var(--dorado); margin-top:2px; }
-  .gift-card h2{ font-size:1.05rem; color:var(--dorado); margin:0 0 4px; }
-  .gift-card p{ color:color-mix(in srgb,var(--crema) 88%,transparent); font-size:.92rem; margin:0; line-height:1.55; }
-  .gift-card small{ display:inline-block; margin-top:8px; font-size:.76rem; color:color-mix(in srgb,var(--crema) 62%,transparent); }
-
-  .gracias__actions{ margin-top:34px; display:flex; gap:14px; justify-content:center; flex-wrap:wrap; animation:rise .6s .65s both; }
-  .gracias__actions .btn-primary{ background:var(--dorado); color:var(--negro-oliva); }
-  .gracias__actions .btn-primary:hover{ background:var(--crema); color:var(--negro-oliva); }
-  .gracias__actions .btn-secondary{ border-color:color-mix(in srgb,var(--crema) 55%,transparent); color:var(--crema); }
-  .gracias__hint{ margin-top:22px; font-size:.82rem; color:color-mix(in srgb,var(--crema) 60%,transparent); animation:rise .6s .8s both; }
-
   @keyframes rise{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:none; } }
   @media (prefers-reduced-motion:reduce){
-    .fill-o__fill{ animation:none; height:100%; }
-    .fill-drop{ display:none; }
-    .gift-card, .gracias__actions, .gracias__hint, .gracias__redir{ animation:none; }
+    .g-logo__img,.g-glow,.gracias .kicker,.gracias h1,.gracias__lead,.gift-card,.gracias__actions,.gracias__hint,.gracias__redir{ animation:none; }
+    .g-glow{ opacity:.55; } .g-drop{ display:none; }
   }
 </style>
 </head>
@@ -112,12 +101,10 @@
   <canvas id="confetti" aria-hidden="true"></canvas>
 
   <div class="gracias__inner">
-    <div class="fill-logo" aria-hidden="true">
-      <span class="fill-word">AUR</span>
-      <span class="fill-o">
-        <span class="fill-drop"></span>
-        <span class="fill-o__ring"><span class="fill-o__fill"></span></span>
-      </span>
+    <div class="g-logo">
+      <span class="g-glow" aria-hidden="true"></span>
+      <img src="assets/logo-auro.png" alt="AURO" class="g-logo__img">
+      <span class="g-drop" aria-hidden="true"></span>
     </div>
 
     <p class="kicker">Estás en la lista</p>
@@ -176,53 +163,37 @@
     }, 1000);
   })();
 
-  /* Confeti ligero en colores de marca */
+  /* Confeti ligero en colores de marca (sobre fondo claro) */
   (function () {
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     var c = document.getElementById('confetti');
     var ctx = c.getContext('2d');
     var W, H, parts = [];
-    var colors = ['#B9983A', '#B64222', '#F4EFE5', '#6F6B2E', '#FFFAF2'];
-
+    var colors = ['#B9983A', '#B64222', '#6F6B2E', '#171713'];
     function resize() { W = c.width = c.offsetWidth; H = c.height = c.offsetHeight; }
     resize();
     window.addEventListener('resize', resize);
-
-    for (var i = 0; i < 140; i++) {
+    for (var i = 0; i < 120; i++) {
       parts.push({
-        x: Math.random() * W,
-        y: Math.random() * -H,
-        r: 4 + Math.random() * 6,
-        c: colors[(Math.random() * colors.length) | 0],
-        vy: 1.5 + Math.random() * 3,
-        vx: -1.2 + Math.random() * 2.4,
-        rot: Math.random() * Math.PI,
-        vr: -0.1 + Math.random() * 0.2,
-        sway: Math.random() * Math.PI
+        x: Math.random() * W, y: Math.random() * -H,
+        r: 4 + Math.random() * 6, c: colors[(Math.random() * colors.length) | 0],
+        vy: 1.4 + Math.random() * 2.6, vx: -1.1 + Math.random() * 2.2,
+        rot: Math.random() * Math.PI, vr: -0.1 + Math.random() * 0.2, sway: Math.random() * Math.PI
       });
     }
-
     var start = null, DURATION = 4200;
     function frame(t) {
       if (start === null) start = t;
       var elapsed = t - start;
       ctx.clearRect(0, 0, W, H);
       parts.forEach(function (p) {
-        p.sway += 0.03;
-        p.x += p.vx + Math.sin(p.sway) * 0.6;
-        p.y += p.vy;
-        p.rot += p.vr;
+        p.sway += 0.03; p.x += p.vx + Math.sin(p.sway) * 0.6; p.y += p.vy; p.rot += p.vr;
         if (p.y > H + 20) { p.y = -20; p.x = Math.random() * W; }
-        ctx.save();
-        ctx.translate(p.x, p.y);
-        ctx.rotate(p.rot);
-        ctx.globalAlpha = elapsed > DURATION - 900 ? Math.max(0, (DURATION - elapsed) / 900) : 1;
-        ctx.fillStyle = p.c;
-        ctx.fillRect(-p.r / 2, -p.r / 2, p.r, p.r * 0.6);
-        ctx.restore();
+        ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.rot);
+        ctx.globalAlpha = (elapsed > DURATION - 900 ? Math.max(0, (DURATION - elapsed) / 900) : 1) * 0.85;
+        ctx.fillStyle = p.c; ctx.fillRect(-p.r / 2, -p.r / 2, p.r, p.r * 0.6); ctx.restore();
       });
-      if (elapsed < DURATION) requestAnimationFrame(frame);
-      else ctx.clearRect(0, 0, W, H);
+      if (elapsed < DURATION) requestAnimationFrame(frame); else ctx.clearRect(0, 0, W, H);
     }
     requestAnimationFrame(frame);
   })();

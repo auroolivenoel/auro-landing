@@ -105,6 +105,11 @@
     function showError(msg) { errEl.textContent = msg; errEl.hidden = false; }
     function clearError() { errEl.textContent = ''; errEl.hidden = true; }
 
+    // El botón solo se habilita si se acepta la política de privacidad
+    function syncConsent() { submit.disabled = !consent.checked; }
+    consent.addEventListener('change', syncConsent);
+    syncConsent();
+
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       clearError();
