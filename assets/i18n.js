@@ -100,6 +100,8 @@
       "1.000 latas numeradas": "1,000 numbered tins",
       ". Acceso anticipado para los primeros 500.": ". Early access for the first 500.",
       "Plazas casi agotadas — quedan pocas": "Almost sold out — few spots left",
+      "Las 500 plazas de acceso anticipado están llenas.": "All 500 early-access spots are taken.",
+      "Ya en la lista de espera:": "Already on the waitlist:",
       "Regalo para los primeros:": "Gift for the first ones:",
       "acceso anticipado a una IA de recetas creada para cocinar con AURO.": "early access to a recipe AI built for cooking with AURO.",
       "Email": "Email",
@@ -173,6 +175,7 @@
       "← Volver": "← Back",
       "AURO OLIVE S.L. · última actualización: julio de 2026": "AURO OLIVE S.L. · last updated: July 2026",
       "Contenido pendiente de publicación": "Content coming soon",
+      "Traducción orientativa. La versión en español es la única legalmente vinculante.": "Informational translation. Only the Spanish version is legally binding.",
       "Idioma": "Language"
     },
 
@@ -258,6 +261,8 @@
       "1.000 latas numeradas": "1.000 nummerierte Dosen",
       ". Acceso anticipado para los primeros 500.": ". Früher Zugang für die ersten 500.",
       "Plazas casi agotadas — quedan pocas": "Fast ausverkauft — nur noch wenige Plätze",
+      "Las 500 plazas de acceso anticipado están llenas.": "Alle 500 Plätze für den frühen Zugang sind vergeben.",
+      "Ya en la lista de espera:": "Bereits auf der Warteliste:",
       "Regalo para los primeros:": "Geschenk für die Ersten:",
       "acceso anticipado a una IA de recetas creada para cocinar con AURO.": "früher Zugang zu einer Rezept-KI, die fürs Kochen mit AURO gemacht ist.",
       "Email": "E-Mail",
@@ -325,9 +330,19 @@
       "← Volver": "← Zurück",
       "AURO OLIVE S.L. · última actualización: julio de 2026": "AURO OLIVE S.L. · zuletzt aktualisiert: Juli 2026",
       "Contenido pendiente de publicación": "Inhalt folgt in Kürze",
+      "Traducción orientativa. La versión en español es la única legalmente vinculante.": "Informative Übersetzung. Nur die spanische Fassung ist rechtsverbindlich.",
       "Idioma": "Sprache"
     }
   };
+
+  // Diccionario extra opcional (p.ej. textos legales) cargado en su propio archivo
+  if (window.AURO_I18N_EXTRA) {
+    ['en', 'de'].forEach(function (l) {
+      var ex = window.AURO_I18N_EXTRA[l];
+      if (ex) for (var k in ex) { if (Object.prototype.hasOwnProperty.call(ex, k)) DICT[l][k] = ex[k]; }
+    });
+    if (document.documentElement) document.documentElement.classList.add('i18n-extra');
+  }
 
   var ATTRS = ['placeholder', 'alt', 'aria-label', 'title'];
 

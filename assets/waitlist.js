@@ -34,6 +34,7 @@
   };
 
   var LS_KEY = 'auro_waitlist_leads';
+  var WAITLIST_BASE = 500;   // plazas de partida (ya llenas). Edítalo cuando quieras.
 
   /* ---------- utilidades ---------- */
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
@@ -131,6 +132,26 @@
           goThanks(nm);
         });
     });
+  })();
+
+  /* ---------- contador de plazas (sube al apuntarse) ---------- */
+  (function initCounter() {
+    var el = document.getElementById('wlCount');
+    if (!el) return;
+    var local = 0;
+    try { local = (JSON.parse(localStorage.getItem(LS_KEY) || '[]')).length; } catch (e) {}
+    var target = WAITLIST_BASE + local;
+    function fmt(n) { return Math.round(n).toLocaleString('es-ES'); }
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = fmt(target); return; }
+    var from = Math.max(0, target - 40), t0 = null, dur = 1200;
+    function step(ts) {
+      if (t0 === null) t0 = ts;
+      var p = Math.min(1, (ts - t0) / dur);
+      p = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(from + (target - from) * p);
+      if (p < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
   })();
 
   /* ---------- cuenta atrás (footer) ---------- */

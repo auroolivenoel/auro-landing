@@ -1091,3 +1091,20 @@ p{ color:var(--negro-oliva); }
 @media (max-width:400px){
   .lang-switch button{ padding:4px 7px; font-size:.68rem; }
 }
+
+/* nota de traducción orientativa en páginas legales (solo EN/DE) */
+.legal__note{
+  margin:-16px 0 30px; padding:10px 14px; border-left:3px solid var(--dorado);
+  background:color-mix(in srgb,var(--dorado) 10%, transparent);
+  border-radius:0 var(--radius) var(--radius) 0;
+  font-size:.85rem; color:var(--gris-texto);
+}
+.legal__note{ display:none; }
+html.i18n-extra:not([lang="es"]) .legal__note{ display:block; }
+
+/* contador de plazas de la lista de espera */
+.waitlist__count{
+  margin-top:6px; font-family:var(--font-heading); text-transform:uppercase; letter-spacing:.08em;
+  font-size:.8rem; color:color-mix(in srgb,var(--crema) 80%,transparent);
+}
+.waitlist__count strong{ color:var(--dorado); font-size:1.1rem; }
