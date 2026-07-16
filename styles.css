@@ -909,6 +909,21 @@ p{ color:var(--negro-oliva); }
 .waitlist__gift-ic{ width:26px; height:26px; flex:0 0 auto; color:var(--dorado); }
 .waitlist__gift p{ color:color-mix(in srgb,var(--crema) 90%,transparent); font-size:.92rem; margin:0; }
 .waitlist__gift strong{ color:var(--dorado); }
+/* ---- Ideas para tu mesa (recetas / usos del aceite) ---- */
+.recetas__head{ max-width:720px; }
+.recetas__lead{ margin-top:12px; color:var(--gris-texto); font-size:1.05rem; line-height:1.6; }
+.recetas__grid{ margin-top:32px; display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+.receta-card{ background:var(--blanco-calido); border:1px solid color-mix(in srgb,var(--dorado) 22%,transparent); border-radius:18px; overflow:hidden; box-shadow:var(--shadow-card); }
+.receta-card__media{ aspect-ratio:4/3; overflow:hidden; }
+.receta-card__media img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
+.receta-card:hover .receta-card__media img{ transform:scale(1.04); }
+.receta-card__body{ padding:18px 20px 20px; }
+.receta-card__body h3{ font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.03em; font-size:1.05rem; color:var(--negro-oliva); margin:0 0 6px; }
+.receta-card__body p{ color:var(--gris-texto); font-size:.94rem; line-height:1.55; margin:0; }
+.recetas__ideas{ margin:26px 0 0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:10px; }
+.recetas__ideas li{ font-family:var(--font-heading); font-weight:500; text-transform:uppercase; letter-spacing:.06em; font-size:.72rem; color:var(--verde-oliva); background:color-mix(in srgb,var(--verde-oliva) 10%,var(--crema)); border:1px solid color-mix(in srgb,var(--verde-oliva) 22%,transparent); padding:8px 14px; border-radius:var(--radius-pill); }
+@media (max-width:640px){ .recetas__grid{ grid-template-columns:1fr; } }
+
 .waitlist__form{ margin-top:22px; text-align:left; }
 /* Honeypot anti-bots: fuera de pantalla, sin tab ni lectura. No usar display:none
    (algunos bots ignoran los campos ocultos así). */
