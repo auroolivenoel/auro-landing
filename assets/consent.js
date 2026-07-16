@@ -47,7 +47,7 @@
       analytics: 'Analyse',
       analyticsDesc: 'Google Analytics – hilft uns zu verstehen, wie die Website genutzt wird.',
       marketing: 'Marketing',
-      marketingDesc: 'Messung von Werbung und Reichweite (Google Ads).',
+      marketingDesc: 'Messung von Werbung und Reichweite (Google Ads, TikTok).',
       reopen: 'Cookie-Einstellungen'
     },
     es: {
@@ -64,7 +64,7 @@
       analytics: 'Analítica',
       analyticsDesc: 'Google Analytics — nos ayuda a entender cómo se usa la web.',
       marketing: 'Marketing',
-      marketingDesc: 'Medición de publicidad y alcance (Google Ads).',
+      marketingDesc: 'Medición de publicidad y alcance (Google Ads, TikTok).',
       reopen: 'Configurar cookies'
     },
     en: {
@@ -81,7 +81,7 @@
       analytics: 'Analytics',
       analyticsDesc: 'Google Analytics — helps us understand how the site is used.',
       marketing: 'Marketing',
-      marketingDesc: 'Advertising and reach measurement (Google Ads).',
+      marketingDesc: 'Advertising and reach measurement (Google Ads, TikTok).',
       reopen: 'Cookie settings'
     }
   };
@@ -117,6 +117,23 @@
       consent_analytics: !!consent.analytics,
       consent_ads: !!consent.ads
     });
+    // Etiquetas de marketing (TikTok) — solo con consentimiento de marketing/ads
+    if (consent.ads) loadTikTok();
+    else if (window.ttq && window.ttq.revokeConsent) { try { window.ttq.revokeConsent(); } catch (e) {} }
+  }
+
+  /* ---------- TikTok Pixel — se carga SOLO con consentimiento de marketing ---------- */
+  var TIKTOK_ID = 'D9CH2B3C77U133LMPGH0';
+  var tiktokLoaded = false;
+  function loadTikTok() {
+    if (tiktokLoaded) { if (window.ttq && window.ttq.grantConsent) { try { window.ttq.grantConsent(); } catch (e) {} } return; }
+    tiktokLoaded = true;
+    !function (w, d, t) {
+      w.TiktokAnalyticsObject = t; var ttq = w[t] = w[t] || []; ttq.methods = ["page", "track", "identify", "instances", "debug", "on", "off", "once", "ready", "alias", "group", "enableCookie", "disableCookie", "holdConsent", "revokeConsent", "grantConsent"], ttq.setAndDefer = function (t, e) { t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } }; for (var i = 0; i < ttq.methods.length; i++) ttq.setAndDefer(ttq, ttq.methods[i]); ttq.instance = function (t) { for (var e = ttq._i[t] || [], n = 0; n < ttq.methods.length; n++) ttq.setAndDefer(e, ttq.methods[n]); return e }, ttq.load = function (e, n) { var r = "https://analytics.tiktok.com/i18n/pixel/events.js", o = n && n.partner; ttq._i = ttq._i || {}, ttq._i[e] = [], ttq._i[e]._u = r, ttq._t = ttq._t || {}, ttq._t[e] = +new Date, ttq._o = ttq._o || {}, ttq._o[e] = n || {}; n = document.createElement("script"); n.type = "text/javascript", n.async = !0, n.src = r + "?sdkid=" + e + "&lib=" + t; e = document.getElementsByTagName("script")[0]; e.parentNode.insertBefore(n, e) };
+      ttq.load(TIKTOK_ID);
+      ttq.grantConsent && ttq.grantConsent();
+      ttq.page();
+    }(window, document, 'ttq');
   }
 
   /* ---------- CSS ---------- */
@@ -303,7 +320,9 @@
 
     var existing = load();
     if (existing && (existing.analytics != null)) {
-      // Ya eligió: el head ya aplicó el estado; solo dejamos el acceso para cambiarlo.
+      // Ya eligió: el head ya aplicó el estado de Google; cargamos TikTok si aceptó
+      // marketing y dejamos el acceso para cambiar la elección.
+      if (existing.ads) loadTikTok();
       ensureReopen();
     } else {
       buildBanner(null);
