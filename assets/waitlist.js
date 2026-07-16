@@ -142,6 +142,8 @@
     var consent = document.getElementById('wlConsent');
     var submit  = document.getElementById('wlSubmit');
     var errEl   = document.getElementById('wlError');
+    var honey   = document.getElementById('wlCompany'); // honeypot anti-bots
+    var loadedAt = Date.now();                          // marca de tiempo para el "time trap"
 
     function showError(msg) { errEl.textContent = msg; errEl.hidden = false; }
     function clearError() { errEl.textContent = ''; errEl.hidden = true; }
@@ -157,6 +159,14 @@
 
       var em = (email.value || '').trim();
       var nm = (name.value || '').trim();
+
+      // Anti-bots (honeypot): si el campo señuelo trae valor, es un bot.
+      // Simulamos éxito sin enviar nada a Odoo ni guardar el registro.
+      if (honey && honey.value) { goThanks(nm); return; }
+
+      // Anti-bots (time trap): los bots rellenan y envían en milisegundos.
+      // Un humano tarda en escribir el email y marcar el consentimiento.
+      if (Date.now() - loadedAt < 2000) { goThanks(nm); return; }
 
       if (!isEmail(em)) { showError('Introduce un email válido.'); email.focus(); return; }
       if (!consent.checked) { showError('Necesitamos tu consentimiento para poder avisarte.'); return; }

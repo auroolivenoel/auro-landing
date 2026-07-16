@@ -1,6 +1,54 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<!-- Consent Mode v2 (RGPD/DSGVO) — por defecto DENEGADO hasta que el usuario consienta.
+     Debe ejecutarse ANTES de Google Tag Manager y de Google Analytics. -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    analytics_storage: 'denied',
+    functionality_storage: 'granted',
+    personalization_storage: 'denied',
+    security_storage: 'granted',
+    wait_for_update: 500
+  });
+  gtag('set', 'ads_data_redaction', true);
+  gtag('set', 'url_passthrough', true);
+  // Aplica la elección previa del usuario (si ya decidió) antes de que carguen las etiquetas.
+  try {
+    var c = JSON.parse(localStorage.getItem('auro_cookie_consent') || 'null');
+    if (c && c.analytics != null) {
+      gtag('consent', 'update', {
+        analytics_storage: c.analytics ? 'granted' : 'denied',
+        ad_storage: c.ads ? 'granted' : 'denied',
+        ad_user_data: c.ads ? 'granted' : 'denied',
+        ad_personalization: c.ads ? 'granted' : 'denied'
+      });
+    }
+  } catch (e) {}
+</script>
+<!-- End Consent Mode v2 -->
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NSVQBTKM');</script>
+<!-- End Google Tag Manager -->
+<!-- Google Analytics 4 (gtag.js) — respeta Consent Mode v2 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7HM0J4KLWY"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-7HM0J4KLWY');
+</script>
+<!-- End Google Analytics 4 -->
+<!-- Banner de consentimiento de cookies (RGPD/DSGVO) -->
+<script defer src="../assets/consent.js"></script>
+<!-- End banner de consentimiento -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Datenschutzerklärung — AURO</title>
@@ -39,6 +87,10 @@ footer a{color:var(--crema);}
 </style>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NSVQBTKM"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 <div class="topbar"><div class="inner"><a href="index.html" class="brand">AURO</a><a href="index.html" class="back">← Zurück</a></div></div>
 
 <main class="wrap">
