@@ -28,6 +28,10 @@ jobs:
 
       - name: Configurar Pages
         uses: actions/configure-pages@v5
+        with:
+          # Habilita GitHub Pages automáticamente (build_type: workflow) si no
+          # lo está, para que el despliegue no falle con "Pages site Not Found".
+          enablement: true
 
       - name: Subir artefacto (sitio estático en la raíz)
         uses: actions/upload-pages-artifact@v3
