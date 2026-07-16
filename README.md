@@ -48,6 +48,12 @@ Configuración: **Settings → Pages → Source: GitHub Actions**.
 - Web principal: `https://<usuario>.github.io/<repo>/`
 - Landing alemana: `https://<usuario>.github.io/<repo>/de/`
 
+> **Importante:** GitHub Pages en cuentas gratuitas solo funciona con el
+> repositorio **público**. Si el repo se pasa a privado, Pages se desactiva y
+> la web devuelve 404 (haría falta GitHub Pro para Pages en repos privados).
+> El workflow usa `enablement: true`, por lo que reactiva Pages solo en cuanto
+> el repositorio vuelve a ser público.
+
 ### Dominio propio (opcional)
 
 `CNAME.example` contiene el dominio. Renómbralo a `CNAME` cuando el DNS apunte a GitHub Pages
