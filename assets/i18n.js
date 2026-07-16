@@ -430,13 +430,14 @@
 
   var ATTRS = ['placeholder', 'alt', 'aria-label', 'title'];
 
-  var lang = 'es';
+  // Idioma por defecto: ALEMÁN. Se respeta la elección guardada del usuario
+  // (selector ES · EN · DE); cualquier visitante nuevo ve la web en alemán.
+  var lang = 'de';
   try {
     var saved = localStorage.getItem('auro_lang');
-    if (saved) lang = saved;
-    else { var nav = (navigator.language || 'es').slice(0, 2).toLowerCase(); if (nav === 'en' || nav === 'de') lang = nav; }
+    if (saved === 'es' || saved === 'en' || saved === 'de') lang = saved;
   } catch (e) {}
-  if (lang !== 'en' && lang !== 'de') lang = 'es';
+  if (lang !== 'en' && lang !== 'es') lang = 'de';
 
   function t(str) {
     if (!str || lang === 'es') return str;

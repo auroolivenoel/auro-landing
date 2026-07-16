@@ -910,6 +910,9 @@ p{ color:var(--negro-oliva); }
 .waitlist__gift p{ color:color-mix(in srgb,var(--crema) 90%,transparent); font-size:.92rem; margin:0; }
 .waitlist__gift strong{ color:var(--dorado); }
 .waitlist__form{ margin-top:22px; text-align:left; }
+/* Honeypot anti-bots: fuera de pantalla, sin tab ni lectura. No usar display:none
+   (algunos bots ignoran los campos ocultos así). */
+.wl-hp{ position:absolute; left:-5000px; top:auto; width:1px; height:1px; overflow:hidden; }
 .wl-fields{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
 .wl-label{ display:block; font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.08em; font-size:.72rem; color:var(--dorado); margin-bottom:7px; }
 .wl-label i{ font-style:normal; color:color-mix(in srgb,var(--crema) 60%,transparent); }
