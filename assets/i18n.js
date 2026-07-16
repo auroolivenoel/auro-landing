@@ -12,6 +12,23 @@
 
   var DICT = {
     en: {
+      /* Ideas para tu mesa (recetas) */
+      "En crudo": "Finishing oil",
+      "Un hilo de AURO lo cambia todo": "A drizzle of AURO changes everything",
+      "Recién abierto, en frío: sobre una tostada, unas hojas o unas verduras a la brasa. Un chorro final que realza lo que ya tienes.": "Freshly opened, cold: over toast, greens or grilled vegetables. A finishing drizzle that lifts what you already have.",
+      "Tostadas y pan": "Toast & bread",
+      "Sobre pan caliente, con tomate o solo. El desayuno más sencillo y el mejor.": "On warm bread, with tomato or on its own. The simplest breakfast — and the best.",
+      "Ensaladas y verduras": "Salads & vegetables",
+      "Un chorro final sobre hojas, tomate o verduras asadas. Aliño y aroma al instante.": "A final drizzle over leaves, tomato or roasted vegetables. Dressing and aroma in an instant.",
+      "Pan con tomate": "Bread with tomato",
+      "Pescados y carnes a la brasa": "Grilled fish & meat",
+      "Cremas y hummus": "Soups & hummus",
+      "Pasta y arroces": "Pasta & rice",
+      "Quesos": "Cheeses",
+      "Un buen chorro final": "A generous finishing drizzle",
+      "Tostada de pan con un chorro de aceite de oliva virgen extra AURO": "Toast drizzled with AURO extra virgin olive oil",
+      "Ensalada fresca aliñada con aceite de oliva virgen extra AURO": "Fresh salad dressed with AURO extra virgin olive oil",
+      "Más ideas para usar AURO": "More ways to use AURO",
       /* head / nav / hero */
       "AURO — Aceite de Oliva Virgen Extra · Sierra Mágina, Jaén": "AURO — Extra Virgin Olive Oil · Sierra Mágina, Jaén",
       "Origen": "Origin",
@@ -222,6 +239,23 @@
     },
 
     de: {
+      /* Ideas para tu mesa (recetas) */
+      "En crudo": "Zum Verfeinern",
+      "Un hilo de AURO lo cambia todo": "Ein Spritzer AURO verändert alles",
+      "Recién abierto, en frío: sobre una tostada, unas hojas o unas verduras a la brasa. Un chorro final que realza lo que ya tienes.": "Frisch geöffnet, kalt: über Brot, Blattsalat oder gegrilltem Gemüse. Ein letzter Spritzer, der hervorhebt, was du schon hast.",
+      "Tostadas y pan": "Brot & Toast",
+      "Sobre pan caliente, con tomate o solo. El desayuno más sencillo y el mejor.": "Auf warmem Brot, mit Tomate oder pur. Das einfachste Frühstück – und das beste.",
+      "Ensaladas y verduras": "Salate & Gemüse",
+      "Un chorro final sobre hojas, tomate o verduras asadas. Aliño y aroma al instante.": "Ein letzter Spritzer über Blattsalat, Tomate oder Ofengemüse. Dressing und Aroma im Nu.",
+      "Pan con tomate": "Brot mit Tomate",
+      "Pescados y carnes a la brasa": "Fisch & Fleisch vom Grill",
+      "Cremas y hummus": "Cremesuppen & Hummus",
+      "Pasta y arroces": "Pasta & Reis",
+      "Quesos": "Käse",
+      "Un buen chorro final": "Ein großzügiger Schuss zum Schluss",
+      "Tostada de pan con un chorro de aceite de oliva virgen extra AURO": "Brot mit einem Spritzer AURO nativem Olivenöl extra",
+      "Ensalada fresca aliñada con aceite de oliva virgen extra AURO": "Frischer Salat mit AURO nativem Olivenöl extra",
+      "Más ideas para usar AURO": "Weitere Ideen für AURO",
       "AURO — Aceite de Oliva Virgen Extra · Sierra Mágina, Jaén": "AURO — Natives Olivenöl Extra · Sierra Mágina, Jaén",
       "Origen": "Herkunft",
       "Cosecha": "Ernte",
