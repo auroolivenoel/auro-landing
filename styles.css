@@ -294,6 +294,15 @@ p{ color:var(--negro-oliva); }
   align-items:center;
   background:#14140f;                /* fallback oscuro si el vídeo no carga */
 }
+/* Degradado inferior: funde el vídeo con el color del bloque de origen
+   (evita el corte brusco vídeo → oliva) */
+.hero--video::after{
+  content:"";
+  position:absolute; left:0; right:0; bottom:0;
+  height:clamp(120px,22vh,240px); z-index:1;
+  background:linear-gradient(180deg, transparent, color-mix(in srgb, var(--verde-oliva) 88%, #000 12%));
+  pointer-events:none;
+}
 .hero__bg{ position:absolute; inset:0; z-index:0; overflow:hidden; }
 .hero__video{
   position:absolute; inset:0;
@@ -1105,20 +1114,68 @@ p{ color:var(--negro-oliva); }
 .waitlist__gift-ic{ width:26px; height:26px; flex:0 0 auto; color:var(--dorado); }
 .waitlist__gift p{ color:color-mix(in srgb,var(--crema) 90%,transparent); font-size:.92rem; margin:0; }
 .waitlist__gift strong{ color:var(--dorado); }
-/* ---- Ideas para tu mesa (recetas / usos del aceite) ---- */
-.recetas__head{ max-width:720px; }
-.recetas__lead{ margin-top:12px; color:var(--gris-texto); font-size:1.05rem; line-height:1.6; }
-.recetas__grid{ margin-top:32px; display:grid; grid-template-columns:1fr 1fr; gap:22px; }
-.receta-card{ background:var(--blanco-calido); border:1px solid color-mix(in srgb,var(--dorado) 22%,transparent); border-radius:18px; overflow:hidden; box-shadow:var(--shadow-card); }
-.receta-card__media{ aspect-ratio:4/3; overflow:hidden; }
-.receta-card__media img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .5s ease; }
-.receta-card:hover .receta-card__media img{ transform:scale(1.04); }
-.receta-card__body{ padding:18px 20px 20px; }
-.receta-card__body h3{ font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.03em; font-size:1.05rem; color:var(--negro-oliva); margin:0 0 6px; }
-.receta-card__body p{ color:var(--gris-texto); font-size:.94rem; line-height:1.55; margin:0; }
-.recetas__ideas{ margin:26px 0 0; padding:0; list-style:none; display:flex; flex-wrap:wrap; gap:10px; }
-.recetas__ideas li{ font-family:var(--font-heading); font-weight:500; text-transform:uppercase; letter-spacing:.06em; font-size:.72rem; color:var(--verde-oliva); background:color-mix(in srgb,var(--verde-oliva) 10%,var(--crema)); border:1px solid color-mix(in srgb,var(--verde-oliva) 22%,transparent); padding:8px 14px; border-radius:var(--radius-pill); }
-@media (max-width:640px){ .recetas__grid{ grid-template-columns:1fr; } }
+/* ---- En crudo: selector interactivo de usos ---- */
+.usos__head{ max-width:720px; }
+.usos__lead{ margin-top:12px; color:var(--gris-texto); font-size:1.05rem; line-height:1.6; }
+.usos__grid{
+  margin-top:clamp(28px,4vw,44px);
+  display:grid; grid-template-columns:minmax(210px,.8fr) 1.2fr;
+  gap:clamp(24px,4vw,60px); align-items:center;
+}
+/* selector (lista de usos, tipo editorial) */
+.usos__list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:2px; }
+.usos__opt{
+  display:inline-flex; align-items:center; gap:.55em; text-align:left;
+  font-family:var(--font-heading); font-weight:600; text-transform:none;
+  font-size:clamp(1.3rem,2.1vw,1.85rem); line-height:1.15;
+  color:color-mix(in srgb,var(--negro-oliva) 40%, transparent);
+  padding:.2em 0; transition:color .2s ease;
+}
+.usos__opt::before{ content:""; width:0; height:2px; background:var(--dorado); transition:width .28s ease; flex:0 0 auto; }
+.usos__opt:hover{ color:var(--negro-oliva); }
+.usos__opt.is-active{ color:var(--negro-oliva); }
+.usos__opt.is-active::before{ width:26px; }
+/* escenario (foto que cambia con el uso) */
+.usos__stage{ position:relative; }
+.usos__panel{ opacity:0; transition:opacity .45s ease; }
+.usos__panel:not(.is-active){ position:absolute; inset:0; pointer-events:none; }
+.usos__panel.is-active{ position:relative; opacity:1; }
+.usos__shot{
+  position:relative; aspect-ratio:4/3; overflow:hidden;
+  border-radius:20px; box-shadow:var(--shadow-card);
+  background:linear-gradient(150deg, color-mix(in srgb,var(--dorado) 20%, var(--blanco-calido)), color-mix(in srgb,var(--verde-oliva) 22%, var(--blanco-calido)));
+}
+.usos__shot img{ width:100%; height:100%; object-fit:cover; display:block; }
+.usos__word{ display:none; }
+.usos__shot.is-noimg{ display:grid; place-items:center; }
+.usos__shot.is-noimg .usos__word{
+  display:block; text-align:center; padding:24px; max-width:14ch;
+  font-family:var(--font-heading); font-weight:700; text-transform:uppercase; letter-spacing:.04em;
+  font-size:clamp(1.4rem,3vw,2.1rem); color:color-mix(in srgb,var(--negro-oliva) 62%, transparent);
+}
+.usos__cap{ margin-top:18px; }
+.usos__cap h3{ font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.03em; font-size:1.1rem; color:var(--negro-oliva); margin:0 0 6px; }
+.usos__cap p{ color:var(--gris-texto); font-size:.98rem; line-height:1.55; margin:0; max-width:52ch; }
+
+@media (max-width:820px){
+  .usos__grid{ grid-template-columns:1fr; gap:20px; }
+  /* la lista pasa a fila de chips deslizable arriba de la foto */
+  .usos__list{
+    flex-direction:row; gap:10px; overflow-x:auto; scrollbar-width:none;
+    margin-inline:calc(var(--pad-x) * -1); padding:4px var(--pad-x) 10px;
+    scroll-snap-type:x proximity; order:-1;
+  }
+  .usos__list::-webkit-scrollbar{ display:none; }
+  .usos__opt{
+    flex:0 0 auto; scroll-snap-align:start;
+    font-size:1rem; padding:.55em .95em;
+    color:var(--negro-oliva);
+    border:1px solid color-mix(in srgb,var(--negro-oliva) 16%,transparent);
+    border-radius:var(--radius-pill);
+  }
+  .usos__opt::before{ display:none; }
+  .usos__opt.is-active{ background:var(--negro-oliva); color:var(--crema); border-color:var(--negro-oliva); }
+}
 
 .waitlist__form{ margin-top:22px; text-align:left; }
 /* Honeypot anti-bots: fuera de pantalla, sin tab ni lectura. No usar display:none

@@ -60,10 +60,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Tipografías -->
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 
-<link rel="stylesheet" href="styles.css?v=20260719g">
+<link rel="stylesheet" href="styles.css?v=20260719h">
 
 <!-- i18n (ES · EN · DE) — define window.AuroI18n antes que mapa/cata -->
-<script src="assets/i18n.js?v=20260719g"></script>
+<script src="assets/i18n.js?v=20260719h"></script>
 
 <!-- Mapa relieve 3D (MapLibre GL) -->
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
@@ -462,48 +462,88 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <!-- ============================================================
-       IDEAS PARA TU MESA — dónde brilla AURO (en crudo)
-       Para añadir más fotos: sube la imagen a assets/recetas/ y duplica
-       un <article class="receta-card"> con su <img> y su texto.
+       EN CRUDO — selector interactivo de usos de AURO.
+       Cada uso muestra su foto. Para añadir una foto: súbela a
+       assets/recetas/ con el nombre del data-k (p.ej. brasa.jpg) y
+       aparecerá sola (mientras no exista, se ve un panel de marca).
        ============================================================ -->
-  <section class="section recetas" id="recetas">
+  <section class="section usos" id="recetas">
     <div class="container">
-      <div class="recetas__head">
+      <div class="usos__head">
         <p class="kicker kicker--gold">En crudo</p>
         <h2 class="h-lg">Un hilo de AURO lo cambia todo</h2>
-        <p class="recetas__lead">Recién abierto, en frío: sobre una tostada, unas hojas o unas verduras a la brasa. Un chorro final que realza lo que ya tienes.</p>
+        <p class="usos__lead">Elige un uso y descubre dónde brilla AURO, recién abierto y en frío.</p>
       </div>
 
-      <div class="recetas__grid">
-        <article class="receta-card">
-          <div class="receta-card__media">
-            <img src="assets/recetas/tostada.jpg" alt="Tostada de pan con un chorro de aceite de oliva virgen extra AURO" loading="lazy" width="1400" height="1400">
-          </div>
-          <div class="receta-card__body">
-            <h3>Tostadas y pan</h3>
-            <p>Sobre pan caliente, con tomate o solo. El desayuno más sencillo y el mejor.</p>
-          </div>
-        </article>
+      <div class="usos__grid">
+        <ul class="usos__list" role="tablist" aria-label="Usos de AURO en crudo">
+          <li><button class="usos__opt is-active" type="button" role="tab" aria-selected="true" data-k="tostadas">Tostadas y pan</button></li>
+          <li><button class="usos__opt" type="button" role="tab" aria-selected="false" data-k="ensaladas">Ensaladas y verduras</button></li>
+          <li><button class="usos__opt" type="button" role="tab" aria-selected="false" data-k="brasa">Pescados y carnes a la brasa</button></li>
+          <li><button class="usos__opt" type="button" role="tab" aria-selected="false" data-k="cremas">Cremas y hummus</button></li>
+          <li><button class="usos__opt" type="button" role="tab" aria-selected="false" data-k="pasta">Pasta y arroces</button></li>
+          <li><button class="usos__opt" type="button" role="tab" aria-selected="false" data-k="quesos">Quesos</button></li>
+          <li><button class="usos__opt" type="button" role="tab" aria-selected="false" data-k="final">Un buen chorro final</button></li>
+        </ul>
 
-        <article class="receta-card">
-          <div class="receta-card__media">
-            <img src="assets/recetas/ensalada.jpg" alt="Ensalada fresca aliñada con aceite de oliva virgen extra AURO" loading="lazy" width="1400" height="1400">
-          </div>
-          <div class="receta-card__body">
-            <h3>Ensaladas y verduras</h3>
-            <p>Un chorro final sobre hojas, tomate o verduras asadas. Aliño y aroma al instante.</p>
-          </div>
-        </article>
+        <div class="usos__stage">
+          <article class="usos__panel is-active" data-k="tostadas" role="tabpanel">
+            <div class="usos__shot">
+              <img src="assets/recetas/tostada.jpg" alt="Tostada con un chorro de aceite de oliva virgen extra AURO" loading="lazy" onerror="this.closest('.usos__shot').classList.add('is-noimg');this.remove();">
+              <span class="usos__word" aria-hidden="true">Tostadas y pan</span>
+            </div>
+            <div class="usos__cap"><h3>Tostadas y pan</h3><p>Sobre pan caliente, con tomate o solo. El desayuno más sencillo y el mejor.</p></div>
+          </article>
+
+          <article class="usos__panel" data-k="ensaladas" role="tabpanel">
+            <div class="usos__shot">
+              <img src="assets/recetas/ensalada.jpg" alt="Ensalada fresca aliñada con aceite de oliva virgen extra AURO" loading="lazy" onerror="this.closest('.usos__shot').classList.add('is-noimg');this.remove();">
+              <span class="usos__word" aria-hidden="true">Ensaladas y verduras</span>
+            </div>
+            <div class="usos__cap"><h3>Ensaladas y verduras</h3><p>Un chorro final sobre hojas, tomate o verduras asadas. Aliño y aroma al instante.</p></div>
+          </article>
+
+          <article class="usos__panel" data-k="brasa" role="tabpanel">
+            <div class="usos__shot">
+              <img src="assets/recetas/brasa.jpg" alt="Pescado a la brasa con un hilo de aceite de oliva virgen extra AURO" loading="lazy" onerror="this.closest('.usos__shot').classList.add('is-noimg');this.remove();">
+              <span class="usos__word" aria-hidden="true">A la brasa</span>
+            </div>
+            <div class="usos__cap"><h3>Pescados y carnes a la brasa</h3><p>Un hilo en crudo al salir de la brasa realza el punto y perfuma el plato.</p></div>
+          </article>
+
+          <article class="usos__panel" data-k="cremas" role="tabpanel">
+            <div class="usos__shot">
+              <img src="assets/recetas/cremas.jpg" alt="Crema o hummus coronado con aceite de oliva virgen extra AURO" loading="lazy" onerror="this.closest('.usos__shot').classList.add('is-noimg');this.remove();">
+              <span class="usos__word" aria-hidden="true">Cremas y hummus</span>
+            </div>
+            <div class="usos__cap"><h3>Cremas y hummus</h3><p>Corona un hummus o una crema de verduras: textura sedosa y un final vivo.</p></div>
+          </article>
+
+          <article class="usos__panel" data-k="pasta" role="tabpanel">
+            <div class="usos__shot">
+              <img src="assets/recetas/pasta.jpg" alt="Pasta o arroz con un chorro final de aceite de oliva virgen extra AURO" loading="lazy" onerror="this.closest('.usos__shot').classList.add('is-noimg');this.remove();">
+              <span class="usos__word" aria-hidden="true">Pasta y arroces</span>
+            </div>
+            <div class="usos__cap"><h3>Pasta y arroces</h3><p>Fuera del fuego, un buen chorro final da brillo, aroma y cuerpo.</p></div>
+          </article>
+
+          <article class="usos__panel" data-k="quesos" role="tabpanel">
+            <div class="usos__shot">
+              <img src="assets/recetas/quesos.jpg" alt="Tabla de quesos con aceite de oliva virgen extra AURO" loading="lazy" onerror="this.closest('.usos__shot').classList.add('is-noimg');this.remove();">
+              <span class="usos__word" aria-hidden="true">Quesos</span>
+            </div>
+            <div class="usos__cap"><h3>Quesos</h3><p>Sobre un queso curado o fresco: contraste de amargor noble y untuosidad.</p></div>
+          </article>
+
+          <article class="usos__panel" data-k="final" role="tabpanel">
+            <div class="usos__shot">
+              <img src="assets/recetas/final.jpg" alt="Un chorro final de aceite de oliva virgen extra AURO sobre un plato" loading="lazy" onerror="this.closest('.usos__shot').classList.add('is-noimg');this.remove();">
+              <span class="usos__word" aria-hidden="true">Chorro final</span>
+            </div>
+            <div class="usos__cap"><h3>Un buen chorro final</h3><p>El gesto que lo cambia todo: un hilo en crudo justo antes de servir.</p></div>
+          </article>
+        </div>
       </div>
-
-      <ul class="recetas__ideas" aria-label="Más ideas para usar AURO">
-        <li>Pan con tomate</li>
-        <li>Pescados y carnes a la brasa</li>
-        <li>Cremas y hummus</li>
-        <li>Pasta y arroces</li>
-        <li>Quesos</li>
-        <li>Un buen chorro final</li>
-      </ul>
     </div>
   </section>
 
@@ -678,13 +718,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </script>
 
 <!-- Hero: elige vídeo horizontal (escritorio) o vertical (móvil) -->
-<script src="assets/hero.js?v=20260719g" defer></script>
+<script src="assets/hero.js?v=20260719h" defer></script>
+
+<!-- En crudo: selector interactivo de usos -->
+<script src="assets/recetas.js?v=20260719h" defer></script>
 
 <!-- Ficha de cata viva (radar + datos) -->
 <script src="assets/cata.js" defer></script>
 
 <!-- Menú móvil + CTA fija + cabecera transparente al scroll -->
-<script src="assets/nav.js?v=20260719g" defer></script>
+<script src="assets/nav.js?v=20260719h" defer></script>
 
 <!-- La lata (explorador interactivo) -->
 <script src="assets/lata.js" defer></script>
