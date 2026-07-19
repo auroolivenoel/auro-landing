@@ -470,12 +470,21 @@
 
   var ATTRS = ['placeholder', 'alt', 'aria-label', 'title'];
 
-  // Idioma por defecto: ALEMÁN. Se respeta la elección guardada del usuario
-  // (selector ES · EN · DE); cualquier visitante nuevo ve la web en alemán.
+  // Idioma: 1) elección guardada del usuario (selector ES · EN · DE);
+  // 2) si no hay, el idioma del navegador (es · en · de);
+  // 3) por defecto, alemán. Detectar el idioma del navegador evita que el
+  // traductor automático del navegador (p. ej. Chrome) destroce los textos.
   var lang = 'de';
   try {
     var saved = localStorage.getItem('auro_lang');
-    if (saved === 'es' || saved === 'en' || saved === 'de') lang = saved;
+    if (saved === 'es' || saved === 'en' || saved === 'de') {
+      lang = saved;
+    } else {
+      var nav = ((navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage || '').toLowerCase();
+      if (nav.indexOf('es') === 0) lang = 'es';
+      else if (nav.indexOf('en') === 0) lang = 'en';
+      else lang = 'de';
+    }
   } catch (e) {}
   if (lang !== 'en' && lang !== 'es') lang = 'de';
 
