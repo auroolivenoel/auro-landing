@@ -18,7 +18,6 @@
     { name: 'Andalucía',     center: [-4.55, 37.55], zoom: 6.6,  pitch: 38, bearing: -6,  fact: 'Andalucía concentra cerca del 80% del aceite de España.' },
     { name: 'Jaén',          center: [-3.60, 37.90], zoom: 8.1,  pitch: 50, bearing: -10, fact: 'Jaén: la capital mundial del olivar, con más de 60 millones de olivos.' },
     { name: 'Sierra Mágina', center: [-3.46, 37.78], zoom: 10.4, pitch: 60, bearing: -14, fact: 'Sierra Mágina: aceite de montaña con Denominación de Origen.' },
-    { name: 'La finca',      center: [LNG, LAT],     zoom: 14,   pitch: 66, bearing: -8,  fact: 'Aquí nace AURO: 100% Picual, cosecha temprana.' },
   ];
 
   const style = {

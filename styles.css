@@ -572,6 +572,12 @@ p{ color:var(--negro-oliva); }
    11c. FICHA DE CATA (radar + datos) + botón AR
    ------------------------------------------------------------ */
 .cata__head{ max-width:60ch; margin-bottom:clamp(28px,4vw,52px); }
+/* Separación entre el sub-bloque de Carácter y el de Análisis & cata (bloque unificado) */
+.cata__head--joined{
+  margin-top:clamp(48px,7vw,88px);
+  padding-top:clamp(40px,6vw,72px);
+  border-top:1px solid color-mix(in srgb,var(--negro-oliva) 12%, transparent);
+}
 .cata__intro{ color:var(--gris-texto); margin-top:12px; max-width:54ch; }
 .cata__grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,72px); align-items:center; }
 .cata__radar{ display:flex; justify-content:center; }
