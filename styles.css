@@ -201,18 +201,46 @@ p{ color:var(--negro-oliva); }
 .nav-toggle{ display:none; flex-direction:column; gap:5px; padding:8px; }
 .nav-toggle span{ width:24px; height:2px; background:var(--negro-oliva); transition:.3s; }
 
+/* --- Cabecera transparente sobre el hero de vídeo (se vuelve sólida al scroll) --- */
+.site-header--transparent{
+  position:fixed; left:0; right:0; top:0;
+  background:transparent;
+  backdrop-filter:none;
+  border-bottom:1px solid transparent;
+  transition:background-color .35s ease, border-color .35s ease, backdrop-filter .35s ease;
+}
+/* Estado inicial (arriba del todo, sobre el vídeo): texto y logo en claro */
+.site-header--transparent:not(.is-solid) .nav a{ color:var(--crema); }
+.site-header--transparent:not(.is-solid) .nav a::after{ background:var(--dorado); }
+.site-header--transparent:not(.is-solid) .brand img{ filter:brightness(0) invert(1); }
+.site-header--transparent:not(.is-solid) .nav-toggle span{ background:var(--crema); }
+.site-header--transparent:not(.is-solid) .btn-primary{ background:var(--crema); color:var(--negro-oliva); }
+.site-header--transparent:not(.is-solid) .btn-primary:hover{ background:var(--dorado); color:var(--negro-oliva); }
+.site-header--transparent:not(.is-solid) .lang-switch button{ color:color-mix(in srgb,var(--crema) 80%,transparent); border-color:color-mix(in srgb,var(--crema) 45%,transparent); }
+.site-header--transparent:not(.is-solid) .lang-switch button.is-active{ color:var(--crema); }
+/* Al hacer scroll: fondo crema sólido y limpio (transición nítida sobre el vídeo) */
+.site-header--transparent.is-solid{
+  background:var(--crema);
+  backdrop-filter:saturate(120%) blur(8px);
+  border-bottom:var(--line);
+  box-shadow:0 6px 24px rgba(23,23,19,.06);
+}
+@media (prefers-reduced-motion:reduce){
+  .site-header--transparent{ transition:none; }
+}
+
 /* ------------------------------------------------------------
-   6b. LATA 3D — visor en el hero (columna izquierda)
+   6b. LATA 3D — visor interactivo (sección propia)
    ------------------------------------------------------------ */
-.hero__media model-viewer{
+.vista3d__media model-viewer{
   width:100%;
-  height:clamp(520px, 86vh, 820px);
+  height:clamp(460px, 72vh, 720px);
   background:transparent;
   --poster-color:transparent;
   --progress-bar-color:var(--dorado);
   cursor:grab;
 }
-.hero__media model-viewer:active{ cursor:grabbing; }
+.vista3d__media model-viewer:active{ cursor:grabbing; }
 .hero__hint{
   position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
   display:inline-flex; gap:.5em; align-items:center;
@@ -252,6 +280,62 @@ p{ color:var(--negro-oliva); }
    7. HERO
    ------------------------------------------------------------ */
 .hero{ position:relative; overflow:hidden; }
+
+/* --- Hero con vídeo a pantalla completa --- */
+.hero--video{
+  min-height:100svh;
+  display:flex;
+  align-items:center;
+  background:#14140f;                /* fallback oscuro si el vídeo no carga */
+}
+.hero__bg{ position:absolute; inset:0; z-index:0; overflow:hidden; }
+.hero__video{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
+}
+/* Filtro oscuro sobre el vídeo (legibilidad del texto) */
+.hero__scrim{
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(20,20,15,.55) 0%, rgba(20,20,15,.30) 38%, rgba(20,20,15,.30) 60%, rgba(20,20,15,.70) 100%),
+    radial-gradient(120% 90% at 20% 60%, rgba(20,20,15,.28), transparent 60%);
+}
+.hero__inner{
+  position:relative; z-index:2; width:100%;
+  padding-block:clamp(120px,20vh,220px) clamp(56px,10vh,120px);
+}
+.hero--video .hero__copy{ max-width:640px; }
+.hero--video .kicker{ color:color-mix(in srgb,var(--dorado) 92%, white); }
+.hero--video .hero__rule{ border-top-color:var(--dorado); }
+.hero--video .hero__claim{ color:var(--crema); text-shadow:0 2px 24px rgba(0,0,0,.35); }
+.hero--video .hero__sub{ color:color-mix(in srgb,var(--crema) 92%, transparent); }
+.hero--video .hero__origin{ color:color-mix(in srgb,var(--crema) 90%, transparent); }
+.hero--video .hero__cta .btn-primary{ background:var(--crema); color:var(--negro-oliva); }
+.hero--video .hero__cta .btn-primary:hover{ background:var(--dorado); color:var(--negro-oliva); }
+.hero--video .hero__cta .btn-secondary{ color:var(--crema); border-color:color-mix(in srgb,var(--crema) 70%, transparent); }
+.hero--video .hero__cta .btn-secondary:hover{ background:var(--crema); color:var(--negro-oliva); border-color:var(--crema); }
+
+/* Indicador de scroll */
+.hero__scroll{
+  position:absolute; left:50%; bottom:26px; transform:translateX(-50%);
+  width:26px; height:42px; z-index:2;
+  border:2px solid color-mix(in srgb,var(--crema) 70%, transparent);
+  border-radius:14px;
+}
+.hero__scroll span{
+  position:absolute; left:50%; top:8px; transform:translateX(-50%);
+  width:3px; height:8px; border-radius:2px; background:var(--crema);
+  animation:heroScroll 1.6s ease-in-out infinite;
+}
+@keyframes heroScroll{ 0%{ opacity:0; transform:translate(-50%,0);} 40%{ opacity:1;} 80%{ opacity:0; transform:translate(-50%,12px);} 100%{ opacity:0;} }
+
+/* Accesibilidad: sin movimiento, ocultamos el vídeo y dejamos el fondo oscuro */
+@media (prefers-reduced-motion:reduce){
+  .hero__video{ display:none; }
+  .hero__scroll span{ animation:none; }
+}
 .hero__grid{
   display:grid;
   grid-template-columns:1fr 1fr;   /* 360° izquierda · texto derecha */
@@ -301,6 +385,22 @@ p{ color:var(--negro-oliva); }
 .hero__rule{
   width:120px; height:0; border-top:2px solid var(--dorado);
   margin-bottom:26px;
+}
+
+/* ------------------------------------------------------------
+   7b. LATA EN 3D — sección propia (visor reubicado desde el hero)
+   ------------------------------------------------------------ */
+.vista3d__grid{
+  display:grid;
+  grid-template-columns:1fr 1.1fr;
+  gap:clamp(32px,5vw,80px);
+  align-items:center;
+}
+.vista3d__lead{ color:var(--gris-texto); margin-top:14px; max-width:44ch; }
+.vista3d__media{ position:relative; display:flex; justify-content:center; }
+@media (max-width:880px){
+  .vista3d__grid{ grid-template-columns:1fr; gap:24px; }
+  .vista3d__media{ order:-1; }
 }
 
 /* Visor 360° (secuencia de imágenes) */
