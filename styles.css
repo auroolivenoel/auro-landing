@@ -128,6 +128,7 @@ p{ color:var(--negro-oliva); }
   letter-spacing:.06em;
   padding:.95em 1.9em;
   border-radius:var(--radius-pill);
+  white-space:nowrap;   /* el texto del botón nunca se parte */
   transition:background-color .25s ease, color .25s ease, border-color .25s ease, transform .15s ease;
 }
 .btn:active{ transform:translateY(1px); }
@@ -187,6 +188,7 @@ p{ color:var(--negro-oliva); }
   color:var(--negro-oliva);
   position:relative;
   padding-block:6px;
+  white-space:nowrap;   /* el enlace nunca salta a dos líneas */
 }
 .nav a::after{
   content:""; position:absolute; left:0; bottom:0;
@@ -208,6 +210,10 @@ p{ color:var(--negro-oliva); }
   backdrop-filter:none;
   border-bottom:1px solid transparent;
   transition:background-color .35s ease, border-color .35s ease, backdrop-filter .35s ease;
+}
+/* Degradado sutil arriba: mantiene el menú legible sobre cualquier fotograma del vídeo */
+.site-header--transparent:not(.is-solid){
+  background:linear-gradient(180deg, rgba(20,20,15,.55), rgba(20,20,15,0));
 }
 /* Estado inicial (arriba del todo, sobre el vídeo): texto y logo en claro */
 .site-header--transparent:not(.is-solid) .nav a{ color:var(--crema); }
