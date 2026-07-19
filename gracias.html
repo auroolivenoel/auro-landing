@@ -111,19 +111,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   }
   .gracias__lead{ color:var(--gris-texto); font-size:1.06rem; max-width:46ch; margin:0 auto; animation:rise .6s .55s both; }
 
-  .gift-card{
-    margin:32px auto 0; max-width:490px; text-align:left;
-    display:flex; gap:16px; align-items:flex-start; padding:20px 22px;
-    border:1px solid color-mix(in srgb,var(--dorado) 55%, transparent); border-radius:16px;
-    background:var(--blanco-calido); box-shadow:var(--shadow-card);
-    animation:rise .6s .65s both;
-  }
-  .gift-card__ic{ width:34px; height:34px; flex:0 0 auto; color:var(--dorado); margin-top:2px; }
-  .gift-card h2{ font-size:1.02rem; color:var(--negro-oliva); margin:0 0 4px; }
-  .gift-card p{ color:var(--gris-texto); font-size:.92rem; margin:0; line-height:1.55; }
-  .gift-card small{ display:inline-block; margin-top:8px; font-size:.76rem; color:color-mix(in srgb,var(--gris-texto) 85%,transparent); }
-  .gift-card b{ color:var(--dorado); font-weight:600; }
-
   /* Lata reservada (nº) */
   .g-canno{
     margin:26px auto 0; max-width:340px; padding:18px 20px;
@@ -176,7 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
   @keyframes rise{ from{ opacity:0; transform:translateY(16px); } to{ opacity:1; transform:none; } }
   @media (prefers-reduced-motion:reduce){
-    .g-logo__img,.g-glow,.gracias .kicker,.gracias h1,.gracias__lead,.gift-card,.gracias__actions,.gracias__hint,.gracias__redir{ animation:none; }
+    .g-logo__img,.g-glow,.gracias .kicker,.gracias h1,.gracias__lead,.gracias__actions,.gracias__hint,.gracias__redir{ animation:none; }
     .g-glow{ opacity:.55; } .g-drop{ display:none; }
   }
 </style>
@@ -205,17 +192,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="g-canno__label">Tu puesto en la lista</span>
       <span class="g-canno__num">Nº&nbsp;<b id="canNo">—</b></span>
       <span class="g-canno__of">Las primeras 1.000 se llevan la cosecha 2026 numerada</span>
-    </div>
-
-    <div class="gift-card">
-      <svg class="gift-card__ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7S11 3 8.5 3 5 5.5 7 7M12 7s1-4 3.5-4S19 5.5 17 7"/>
-      </svg>
-      <div>
-        <h2>Tu regalo: IA de recetas AURO</h2>
-        <p>Como parte de los primeros, tendrás acceso anticipado a una inteligencia artificial especializada en recetas para sacarle todo el partido a este aceite.</p>
-        <small>Te enviaremos el acceso por email antes del lanzamiento.</small>
-      </div>
     </div>
 
     <div class="g-ref">

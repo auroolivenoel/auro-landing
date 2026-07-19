@@ -194,7 +194,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <button class="mapa__step" data-i="1">Andalucía</button>
           <button class="mapa__step" data-i="2">Jaén</button>
           <button class="mapa__step" data-i="3">Sierra Mágina</button>
-          <button class="mapa__step" data-i="4">La finca</button>
         </div>
       </div>
       <div class="mapa__wrap">
@@ -205,9 +204,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </section>
 
   <!-- ============================================================
-       ATRIBUTOS (4 cards)
+       CARÁCTER + ANÁLISIS & CATA (bloque unificado)
        ============================================================ -->
-  <section class="section" id="atributos">
+  <section class="section attrs-cata" id="atributos">
     <div class="container">
       <div class="attrs__head">
         <p class="kicker">Carácter</p>
@@ -252,21 +251,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </article>
 
       </div>
-    </div>
-  </section>
 
-  <!-- ============================================================
-       FICHA DE CATA VIVA (radar + datos)
-       ============================================================ -->
-  <section class="section cata" id="cata">
-    <div class="container">
-      <div class="cata__head">
+      <!-- Ficha de cata viva (radar + datos) dentro del mismo bloque -->
+      <div class="cata__head cata__head--joined">
         <p class="kicker kicker--gold">Análisis &amp; cata</p>
         <h2 class="h-lg">La calidad, en números</h2>
         <p class="cata__intro">Cosecha temprana 100% Picual. Esto es, de verdad, lo que hay dentro de cada lata.</p>
       </div>
 
-      <div class="cata__grid">
+      <div class="cata__grid" id="cata">
         <div class="cata__radar">
           <svg class="radar" role="img" aria-label="Perfil de cata: frutado, amargo, picante, verde, almendra y manzana"></svg>
         </div>
@@ -527,13 +520,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <p class="waitlist__scarce-note">Las 500 plazas de acceso anticipado están llenas.</p>
       <p class="waitlist__count">Ya en la lista de espera: <strong id="wlCount" data-no-i18n>500</strong></p>
 
-      <div class="waitlist__gift">
-        <svg class="waitlist__gift-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M20 12v9H4v-9M2 7h20v5H2zM12 22V7M12 7S11 3 8.5 3 5 5.5 7 7M12 7s1-4 3.5-4S19 5.5 17 7"/>
-        </svg>
-        <p><strong>Regalo para los primeros:</strong> acceso anticipado a una IA de recetas creada para cocinar con AURO.</p>
-      </div>
-
       <form class="waitlist__form" id="waitlistForm" novalidate>
         <!-- Honeypot anti-bots: campo señuelo oculto. Los humanos no lo ven ni lo rellenan;
              los bots automáticos sí. Si llega con valor, descartamos el envío. data-no-i18n
@@ -575,28 +561,36 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
       <div class="faq__list">
         <details class="faq__item">
-          <summary>¿Cuándo estará disponible AURO?</summary>
-          <div class="faq__a"><p>La primera cosecha sale en 2026. Quienes estén en la lista serán los primeros en recibir el aviso y tendrán acceso anticipado antes que nadie.</p></div>
+          <summary>¿Cuándo podré comprar AURO?</summary>
+          <div class="faq__a"><p>La primera cosecha —100% Picual de Sierra Mágina— se envasa en otoño de 2026 en una edición limitada y numerada. La lista de espera es la forma de reservar tu acceso: avisamos antes a la lista, con condiciones exclusivas, antes de abrir la venta al público.</p></div>
         </details>
         <details class="faq__item">
-          <summary>¿Apuntarme me compromete a algo?</summary>
-          <div class="faq__a"><p>No. Apuntarte es gratis y sin compromiso: solo te avisamos cuando salga la primera cosecha. Puedes darte de baja cuando quieras.</p></div>
+          <summary>¿Qué diferencia a AURO de un aceite de supermercado?</summary>
+          <div class="faq__a"><p>La mayoría de aceites del lineal mezclan variedades, cosechas y orígenes distintos. AURO es justo lo contrario: monovarietal 100% Picual, de una sola finca en Sierra Mágina, de cosecha temprana y extracción en frío, con trazabilidad total del árbol a la lata. El resultado es un AOVE de gama alta —intenso, frutado y rico en antioxidantes— muy por encima de la calidad media.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>¿Qué es la «cosecha temprana» y por qué importa?</summary>
+          <div class="faq__a"><p>Consiste en recoger la aceituna aún verde, en octubre, semanas antes de lo habitual. Se obtiene menos aceite por aceituna, pero mucho más completo: máximos polifenoles (antioxidantes naturales), aromas herbáceos intensos y ese amargor y picor nobles que distinguen a un AOVE realmente premium. Calidad por encima de cantidad.</p></div>
+        </details>
+        <details class="faq__item">
+          <summary>¿Por qué AURO va en lata y no en botella?</summary>
+          <div class="faq__a"><p>Porque la luz y el oxígeno son los grandes enemigos del aceite: lo oxidan y le roban aroma y propiedades. La lata bloquea el 100% de la luz, así los polifenoles y la vitamina E llegan intactos a tu mesa. Además es más ligera, irrompible y 100% reciclable.</p></div>
         </details>
         <details class="faq__item">
           <summary>¿Cuánto costará?</summary>
-          <div class="faq__a"><p>Habrá un precio de lanzamiento exclusivo para la lista. Lo comunicaremos por email antes de abrir la venta, para que los primeros tengan la mejor condición.</p></div>
+          <div class="faq__a"><p>AURO es una edición limitada, con un precio a la altura de un AOVE premium de finca. Quienes estén en la lista de espera tendrán un precio de lanzamiento exclusivo: lo comunicaremos por email antes de abrir la venta, para que los primeros consigan la mejor condición.</p></div>
         </details>
         <details class="faq__item">
-          <summary>¿Qué es la «cosecha temprana»?</summary>
-          <div class="faq__a"><p>Recogemos la aceituna Picual aún verde, en octubre. Así el aceite conserva más polifenoles (antioxidantes), más aroma y un amargor y picor nobles: el sello de un AOVE premium.</p></div>
+          <summary>¿Apuntarme a la lista me compromete a algo?</summary>
+          <div class="faq__a"><p>En absoluto. Unirte es gratis y sin compromiso de compra: solo guardas tu puesto y recibes el aviso —con las condiciones exclusivas— en cuanto salga la primera cosecha. Puedes darte de baja cuando quieras.</p></div>
         </details>
         <details class="faq__item">
-          <summary>¿Cómo se hará el envío?</summary>
-          <div class="faq__a"><p>Prepararemos el envío a domicilio cuando abramos la venta. Los detalles de zonas, plazos y gastos llegarán primero a quienes estén en la lista.</p></div>
+          <summary>¿Cómo y dónde hacéis los envíos?</summary>
+          <div class="faq__a"><p>Enviaremos a domicilio en España peninsular desde el primer día, con el aceite bien protegido para que llegue en perfectas condiciones. Trabajamos para ampliar a más destinos; los detalles de zonas, plazos y gastos de envío se anunciarán primero a la lista de espera.</p></div>
         </details>
         <details class="faq__item">
-          <summary>¿En qué consiste el regalo de la IA de recetas?</summary>
-          <div class="faq__a"><p>Los primeros en apuntarse tendrán acceso anticipado a una inteligencia artificial especializada en recetas para sacarle todo el partido a AURO en la cocina.</p></div>
+          <summary>¿Cómo debo conservar y usar el aceite?</summary>
+          <div class="faq__a"><p>Guárdalo en un lugar fresco, seco y sin luz directa, y disfrútalo preferiblemente en pocas semanas tras abrir la lata. Para notar todo su carácter, úsalo en crudo: sobre una tostada, unas verduras, un pescado o como toque final de tus platos.</p></div>
         </details>
       </div>
     </div>

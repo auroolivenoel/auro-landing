@@ -115,7 +115,6 @@
       'Alta en la lista de espera (prelanzamiento AURO).\n' +
       'Origen: ' + ODOO.source + '\n' +
       'Puesto en la lista: Nº ' + can + ' (las primeras 1.000 se llevan la cosecha numerada)\n' +
-      'Regalo prometido: acceso a la IA de recetas.\n' +
       'Código de referido propio: ' + mine +
       (ref ? ('\nInvitado por (ref): ' + ref) : ''));
     if (ODOO.csrfToken) fd.append('csrf_token', ODOO.csrfToken);
