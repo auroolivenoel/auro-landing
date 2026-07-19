@@ -565,9 +565,37 @@ p{ color:var(--negro-oliva); }
   color:var(--dorado);
   letter-spacing:.1em;
 }
-.attr-card__icon{ width:30px; height:30px; margin:14px 0 16px; color:var(--verde-oliva); }
+.attr-card__icon{ width:30px; height:30px; margin:0 0 16px; color:var(--verde-oliva); }
 .attr-card h3{ font-size:1.18rem; margin-bottom:8px; }
 .attr-card p{ font-size:.92rem; color:var(--gris-texto); }
+
+/* Bloque unificado "Carácter & calidad": una sola rejilla (rasgos + números) */
+.feats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:clamp(12px,1.6vw,20px);
+}
+.feats .attr-card{ display:flex; flex-direction:column; }
+/* Tarjeta de número (dato de calidad) */
+.attr-card--stat{
+  background:linear-gradient(180deg, color-mix(in srgb,var(--dorado) 12%, var(--blanco-calido)), var(--blanco-calido));
+}
+.attr-card__stat{
+  display:block; margin-bottom:10px;
+  font-family:var(--font-heading); font-weight:700; line-height:1;
+  font-size:clamp(2.1rem,5vw,2.7rem); color:var(--dorado);
+  font-variant-numeric:tabular-nums;
+}
+.attr-card__stat i{
+  font-style:normal; font-weight:600; font-size:.82rem; color:var(--gris-texto);
+  margin-left:.28em; letter-spacing:.02em;
+}
+@media (max-width:1024px){ .feats{ grid-template-columns:repeat(3,1fr); } }
+@media (max-width:760px){
+  .feats{ grid-template-columns:repeat(2,1fr); gap:12px; }
+  .feats .attr-card{ padding:18px 16px 20px; }
+}
+@media (max-width:380px){ .feats{ grid-template-columns:1fr; } }
 
 /* ------------------------------------------------------------
    10. SECCIÓN PRODUCTO
