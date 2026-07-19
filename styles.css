@@ -569,33 +569,78 @@ p{ color:var(--negro-oliva); }
 .attr-card h3{ font-size:1.18rem; margin-bottom:8px; }
 .attr-card p{ font-size:.92rem; color:var(--gris-texto); }
 
-/* Bloque unificado "Carácter & calidad": una sola rejilla (rasgos + números) */
-.feats{
+/* ------------------------------------------------------------
+   Bloque unificado "Carácter & calidad" (diseño editorial +
+   ficha de análisis). Un solo bloque, mobile-first.
+   ------------------------------------------------------------ */
+.ac-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:clamp(12px,1.6vw,20px);
+  grid-template-columns:1fr 1fr;
+  gap:clamp(28px,4vw,68px);
+  align-items:start;
 }
-.feats .attr-card{ display:flex; flex-direction:column; }
-/* Tarjeta de número (dato de calidad) */
-.attr-card--stat{
-  background:linear-gradient(180deg, color-mix(in srgb,var(--dorado) 12%, var(--blanco-calido)), var(--blanco-calido));
+
+/* --- Carácter: lista editorial (sin cajas, con hilo separador) --- */
+.ac-traits{ display:flex; flex-direction:column; }
+.ac-trait{
+  display:flex; gap:18px; align-items:flex-start;
+  padding:clamp(16px,2vw,22px) 0;
+  border-bottom:1px solid color-mix(in srgb,var(--negro-oliva) 12%, transparent);
 }
-.attr-card__stat{
-  display:block; margin-bottom:10px;
-  font-family:var(--font-heading); font-weight:700; line-height:1;
-  font-size:clamp(2.1rem,5vw,2.7rem); color:var(--dorado);
-  font-variant-numeric:tabular-nums;
+.ac-trait:first-child{ padding-top:0; }
+.ac-trait:last-child{ border-bottom:0; padding-bottom:0; }
+.ac-trait__icon{
+  width:34px; height:34px; flex:0 0 auto; margin-top:2px;
+  padding:6px; border-radius:50%;
+  color:var(--verde-oliva);
+  border:1px solid color-mix(in srgb,var(--dorado) 55%, transparent);
 }
-.attr-card__stat i{
-  font-style:normal; font-weight:600; font-size:.82rem; color:var(--gris-texto);
-  margin-left:.28em; letter-spacing:.02em;
+.ac-trait__body h3{ font-size:1.12rem; margin-bottom:4px; }
+.ac-trait__body p{ font-size:.94rem; color:var(--gris-texto); max-width:42ch; }
+
+/* --- Análisis: ficha de la cosecha (estilo certificado) --- */
+.ac-panel{
+  background:var(--blanco-calido);
+  border:1px solid color-mix(in srgb,var(--verde-oliva) 34%, transparent);
+  border-radius:var(--radius);
+  padding:clamp(22px,3vw,34px);
+  box-shadow:var(--shadow-card);
 }
-@media (max-width:1024px){ .feats{ grid-template-columns:repeat(3,1fr); } }
-@media (max-width:760px){
-  .feats{ grid-template-columns:repeat(2,1fr); gap:12px; }
-  .feats .attr-card{ padding:18px 16px 20px; }
+.ac-panel__head{
+  display:flex; flex-direction:column; gap:4px;
+  padding-bottom:18px; margin-bottom:6px;
+  border-bottom:1px solid color-mix(in srgb,var(--negro-oliva) 12%, transparent);
 }
-@media (max-width:380px){ .feats{ grid-template-columns:1fr; } }
+.ac-panel__kick{
+  font-family:var(--font-heading); font-weight:600; text-transform:uppercase;
+  letter-spacing:.18em; font-size:.72rem; color:var(--dorado);
+}
+.ac-panel__title{ font-family:var(--font-heading); font-weight:600; font-size:1.15rem; color:var(--negro-oliva); }
+.ac-metric{
+  padding:18px 0;
+  border-bottom:1px solid color-mix(in srgb,var(--negro-oliva) 10%, transparent);
+}
+.ac-metric:last-child{ border-bottom:0; padding-bottom:0; }
+.ac-metric__row{ display:flex; justify-content:space-between; align-items:baseline; gap:14px; }
+.ac-metric__label{
+  font-family:var(--font-heading); font-weight:600; text-transform:uppercase;
+  letter-spacing:.05em; font-size:.9rem; color:var(--negro-oliva);
+}
+.ac-metric__value{
+  font-family:var(--font-heading); font-weight:700; font-size:1.5rem;
+  color:var(--negro-oliva); white-space:nowrap; font-variant-numeric:tabular-nums;
+}
+.ac-metric__value i{ font-style:normal; font-weight:600; font-size:.78rem; color:var(--gris-texto); margin-left:.25em; }
+.ac-metric__bar{
+  height:6px; margin:11px 0 9px;
+  background:color-mix(in srgb,var(--negro-oliva) 9%, transparent);
+  border-radius:var(--radius-pill); overflow:hidden;
+}
+.ac-metric__ref{ font-size:.82rem; color:var(--gris-texto); }
+
+@media (max-width:860px){
+  .ac-grid{ grid-template-columns:1fr; gap:clamp(28px,7vw,40px); }
+}
 
 /* ------------------------------------------------------------
    10. SECCIÓN PRODUCTO

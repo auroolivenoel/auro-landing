@@ -60,10 +60,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Tipografías -->
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 
-<link rel="stylesheet" href="styles.css?v=20260719e">
+<link rel="stylesheet" href="styles.css?v=20260719f">
 
 <!-- i18n (ES · EN · DE) — define window.AuroI18n antes que mapa/cata -->
-<script src="assets/i18n.js?v=20260719e"></script>
+<script src="assets/i18n.js?v=20260719f"></script>
 
 <!-- Mapa relieve 3D (MapLibre GL) -->
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
@@ -221,62 +221,75 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="attrs__intro">Cosecha temprana 100% Picual: lo que lo define y los números que lo demuestran.</p>
       </div>
 
-      <!-- Un solo bloque: rasgos + números de calidad, misma rejilla (pensada para móvil) -->
-      <div class="feats" id="cata">
+      <div class="ac-grid">
 
-        <article class="attr-card">
-          <svg class="attr-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <ellipse cx="12" cy="14" rx="6" ry="8"/><path d="M12 6c1-3 4-4 6-4 0 3-2 5-5 5"/>
-          </svg>
-          <h3>100% Picual</h3>
-          <p>La variedad más noble de Jaén. Robusta, frutada e inconfundible.</p>
-        </article>
+        <!-- Carácter: lista editorial -->
+        <div class="ac-traits">
+          <div class="ac-trait">
+            <svg class="ac-trait__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <ellipse cx="12" cy="14" rx="6" ry="8"/><path d="M12 6c1-3 4-4 6-4 0 3-2 5-5 5"/>
+            </svg>
+            <div class="ac-trait__body">
+              <h3>100% Picual</h3>
+              <p>La variedad más noble de Jaén. Robusta, frutada e inconfundible.</p>
+            </div>
+          </div>
+          <div class="ac-trait">
+            <svg class="ac-trait__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="13" r="4"/><path d="M12 4v2M5 8 6 9M19 8l-1 1M3 16h3M18 16h3"/>
+            </svg>
+            <div class="ac-trait__body">
+              <h3>Cosecha temprana</h3>
+              <p>Recogida cuando la aceituna aún está verde. Máximos polifenoles.</p>
+            </div>
+          </div>
+          <div class="ac-trait">
+            <svg class="ac-trait__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9M9 4l3 2 3-2M9 20l3-2 3 2"/>
+            </svg>
+            <div class="ac-trait__body">
+              <h3>Extracción en frío</h3>
+              <p>Prensado por debajo de 27 °C. Se conservan aroma y nutrientes.</p>
+            </div>
+          </div>
+          <div class="ac-trait">
+            <svg class="ac-trait__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 21s7-6.4 7-11a7 7 0 0 0-14 0c0 4.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>
+            </svg>
+            <div class="ac-trait__body">
+              <h3>Origen Jaén</h3>
+              <p>Sierra Mágina, D.O. y corazón olivarero del mundo. Trazabilidad total.</p>
+            </div>
+          </div>
+        </div>
 
-        <article class="attr-card">
-          <svg class="attr-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="12" cy="13" r="4"/><path d="M12 4v2M5 8 6 9M19 8l-1 1M3 16h3M18 16h3"/>
-          </svg>
-          <h3>Cosecha temprana</h3>
-          <p>Recogida cuando la aceituna aún está verde. Máximos polifenoles.</p>
-        </article>
+        <!-- Análisis: ficha de la cosecha (estilo certificado) -->
+        <div class="ac-panel" id="cata">
+          <div class="ac-panel__head">
+            <span class="ac-panel__kick">Análisis</span>
+            <span class="ac-panel__title">Ficha de la cosecha 2026</span>
+          </div>
 
-        <article class="attr-card">
-          <svg class="attr-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 3v18M4.5 7.5l15 9M19.5 7.5l-15 9M9 4l3 2 3-2M9 20l3-2 3 2"/>
-          </svg>
-          <h3>Extracción en frío</h3>
-          <p>Prensado por debajo de 27 °C. Se conservan aroma y nutrientes.</p>
-        </article>
+          <div class="ac-metric">
+            <div class="ac-metric__row"><span class="ac-metric__label">Polifenoles</span><span class="ac-metric__value">580 <i>mg/kg</i></span></div>
+            <div class="ac-metric__bar"><div class="stat__fill" data-pct="83"></div></div>
+            <p class="ac-metric__ref">Antioxidantes naturales. Saludable ya por encima de 250.</p>
+          </div>
 
-        <article class="attr-card">
-          <svg class="attr-card__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M12 21s7-6.4 7-11a7 7 0 0 0-14 0c0 4.6 7 11 7 11Z"/><circle cx="12" cy="10" r="2.5"/>
-          </svg>
-          <h3>Origen Jaén</h3>
-          <p>Sierra Mágina, D.O. y corazón olivarero del mundo. Trazabilidad total.</p>
-        </article>
+          <div class="ac-metric">
+            <div class="ac-metric__row"><span class="ac-metric__label">Acidez</span><span class="ac-metric__value">0,2 <i>%</i></span></div>
+            <div class="ac-metric__bar"><div class="stat__fill" data-pct="75"></div></div>
+            <p class="ac-metric__ref">Muy por debajo del límite del AOVE (≤0,8%).</p>
+          </div>
 
-        <article class="attr-card attr-card--stat">
-          <span class="attr-card__stat">580<i>mg/kg</i></span>
-          <h3>Polifenoles</h3>
-          <p>Máximos antioxidantes. Muy por encima de los 250 que ya se consideran saludables.</p>
-        </article>
-
-        <article class="attr-card attr-card--stat">
-          <span class="attr-card__stat">0,2<i>%</i></span>
-          <h3>Acidez</h3>
-          <p>Muy por debajo del límite del AOVE (≤0,8%). Menos acidez, más pureza.</p>
-        </article>
-
-        <article class="attr-card attr-card--stat">
-          <span class="attr-card__stat">8<i>meq O₂/kg</i></span>
-          <h3>Peróxidos</h3>
-          <p>Frescura óptima: menos de la mitad del límite legal (≤20).</p>
-        </article>
+          <div class="ac-metric">
+            <div class="ac-metric__row"><span class="ac-metric__label">Peróxidos</span><span class="ac-metric__value">8 <i>meq O₂/kg</i></span></div>
+            <div class="ac-metric__bar"><div class="stat__fill" data-pct="40"></div></div>
+            <p class="ac-metric__ref">Frescura óptima. Menos de la mitad del límite legal (≤20).</p>
+          </div>
+        </div>
 
       </div>
-
-      <p class="cata__note">* Valores de ejemplo de la cosecha 2026. Sustitúyelos por los de tu analítica.</p>
     </div>
   </section>
 
@@ -668,13 +681,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </script>
 
 <!-- Hero: elige vídeo horizontal (escritorio) o vertical (móvil) -->
-<script src="assets/hero.js?v=20260719e" defer></script>
+<script src="assets/hero.js?v=20260719f" defer></script>
 
 <!-- Ficha de cata viva (radar + datos) -->
 <script src="assets/cata.js" defer></script>
 
 <!-- Menú móvil + CTA fija + cabecera transparente al scroll -->
-<script src="assets/nav.js?v=20260719e" defer></script>
+<script src="assets/nav.js?v=20260719f" defer></script>
 
 <!-- La lata (explorador interactivo) -->
 <script src="assets/lata.js" defer></script>
