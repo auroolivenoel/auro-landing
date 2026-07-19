@@ -70,6 +70,13 @@
       "Prensado por debajo de 27 °C. Se conservan aroma y nutrientes.": "Pressed below 27 °C. Aroma and nutrients preserved.",
       "Origen Jaén": "From Jaén",
       "Sierra Mágina, corazón olivarero del mundo. Trazabilidad total.": "Sierra Mágina, the world's olive-growing heart. Full traceability.",
+      /* Bloque unificado Carácter & calidad */
+      "Carácter & calidad": "Character & quality",
+      "Cosecha temprana 100% Picual: lo que lo define y los números que lo demuestran.": "Early-harvest 100% Picual: what defines it and the numbers that prove it.",
+      "Sierra Mágina, D.O. y corazón olivarero del mundo. Trazabilidad total.": "Sierra Mágina, a PDO and the world's olive-growing heart. Full traceability.",
+      "Máximos antioxidantes. Muy por encima de los 250 que ya se consideran saludables.": "Maximum antioxidants — well above the 250 already considered healthy.",
+      "Muy por debajo del límite del AOVE (≤0,8%). Menos acidez, más pureza.": "Well below the EVOO limit (≤0.8%). Less acidity, more purity.",
+      "Frescura óptima: menos de la mitad del límite legal (≤20).": "Optimal freshness: less than half the legal limit (≤20).",
       /* cata */
       "Análisis & cata": "Analysis & tasting",
       "La calidad, en números": "Quality, in numbers",
@@ -296,6 +303,13 @@
       "Prensado por debajo de 27 °C. Se conservan aroma y nutrientes.": "Pressung unter 27 °C. Aroma und Nährstoffe bleiben erhalten.",
       "Origen Jaén": "Herkunft Jaén",
       "Sierra Mágina, corazón olivarero del mundo. Trazabilidad total.": "Sierra Mágina, das Olivenherz der Welt. Vollständige Rückverfolgbarkeit.",
+      /* Bloque unificado Carácter & calidad */
+      "Carácter & calidad": "Charakter & Qualität",
+      "Cosecha temprana 100% Picual: lo que lo define y los números que lo demuestran.": "Frühe Ernte, 100% Picual: was es ausmacht und die Zahlen, die es belegen.",
+      "Sierra Mágina, D.O. y corazón olivarero del mundo. Trazabilidad total.": "Sierra Mágina, g.U. und Olivenherz der Welt. Vollständige Rückverfolgbarkeit.",
+      "Máximos antioxidantes. Muy por encima de los 250 que ya se consideran saludables.": "Maximale Antioxidantien — weit über den 250, die bereits als gesund gelten.",
+      "Muy por debajo del límite del AOVE (≤0,8%). Menos acidez, más pureza.": "Weit unter dem Grenzwert für natives Öl extra (≤0,8%). Weniger Säure, mehr Reinheit.",
+      "Frescura óptima: menos de la mitad del límite legal (≤20).": "Optimale Frische: weniger als die Hälfte des gesetzlichen Grenzwerts (≤20).",
       "Análisis & cata": "Analyse & Verkostung",
       "La calidad, en números": "Qualität in Zahlen",
       "Cosecha temprana 100% Picual. Esto es, de verdad, lo que hay dentro de cada lata.": "Frühe Ernte, 100% Picual. Das ist wirklich in jeder Dose.",
