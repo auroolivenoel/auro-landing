@@ -579,6 +579,7 @@
       b.type = 'button';
       b.setAttribute('data-lang', p[0]);
       b.setAttribute('data-no-i18n', '');
+      b.setAttribute('translate', 'no');   // que el traductor del navegador no toque ES/EN/DE
       b.textContent = p[1];
       b.addEventListener('click', function () { setLang(p[0]); });
       wrap.appendChild(b);
