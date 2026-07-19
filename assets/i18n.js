@@ -43,6 +43,11 @@
       "Aceite de oliva virgen extra de cosecha temprana": "Early-harvest extra virgin olive oil",
       "100% Picual. Un aceite intenso, elegante y profundamente mediterráneo.": "100% Picual. An intense, elegant and deeply Mediterranean oil.",
       "Conocer el origen": "Discover the origin",
+      "Bajar al contenido": "Scroll down",
+      /* Lata en 3D */
+      "En 3D": "In 3D",
+      "Gírala 360°": "Spin it 360°",
+      "Explora la lata de AURO desde todos los ángulos. Arrástrala para girarla y, desde el móvil, mírala en tu propia cocina en realidad aumentada.": "Explore the AURO tin from every angle. Drag to spin it and, on mobile, see it in your own kitchen in augmented reality.",
       /* origen */
       "El origen": "The origin",
       "en cada gota": "in every drop",
@@ -267,6 +272,11 @@
       "Aceite de oliva virgen extra de cosecha temprana": "Natives Olivenöl extra aus früher Ernte",
       "100% Picual. Un aceite intenso, elegante y profundamente mediterráneo.": "100% Picual. Ein intensives, elegantes und zutiefst mediterranes Öl.",
       "Conocer el origen": "Den Ursprung entdecken",
+      "Bajar al contenido": "Nach unten scrollen",
+      /* Lata en 3D */
+      "En 3D": "In 3D",
+      "Gírala 360°": "Dreh sie 360°",
+      "Explora la lata de AURO desde todos los ángulos. Arrástrala para girarla y, desde el móvil, mírala en tu propia cocina en realidad aumentada.": "Entdecke die AURO-Dose aus jedem Blickwinkel. Zieh, um sie zu drehen, und sieh sie am Handy per Augmented Reality in deiner eigenen Küche.",
       "El origen": "Der Ursprung",
       "en cada gota": "in jedem Tropfen",
       "“Un aceite pensado para quien entiende que el sabor también puede contar un lugar.”": "„Ein Öl für alle, die verstehen, dass Geschmack auch von einem Ort erzählen kann.“",

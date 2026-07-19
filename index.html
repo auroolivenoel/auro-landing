@@ -79,7 +79,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ============================================================
      HEADER
      ============================================================ -->
-<header class="site-header">
+<header class="site-header site-header--transparent" id="siteHeader">
   <div class="container site-header__inner">
     <a href="#top" class="brand" aria-label="AURO — Inicio">
       <img src="assets/logo-auro.png" alt="AURO">
@@ -112,37 +112,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main id="top">
 
   <!-- ============================================================
-       HERO — 360° (izquierda) + texto (derecha)
+       HERO — vídeo a pantalla completa + texto superpuesto
        ============================================================ -->
-  <section class="hero">
-    <div class="container hero__grid">
-      <div class="hero__media">
-        <model-viewer
-            src="assets/3d/lata.glb"
-            alt="Lata de AURO — aceite de oliva virgen extra 500 ml, modelo 3D interactivo"
-            poster="assets/lata-auro.png"
-            camera-controls
-            disable-zoom
-            auto-rotate
-            auto-rotate-delay="0"
-            rotation-per-second="20deg"
-            interaction-prompt="auto"
-            camera-orbit="-25deg 80deg auto"
-            max-camera-orbit="auto auto 1000m"
-            field-of-view="32deg"
-            shadow-intensity="0.9"
-            shadow-softness="1"
-            exposure="1"
-            environment-image="neutral"
-            touch-action="pan-y"
-            ar
-            ar-modes="webxr scene-viewer quick-look"
-            loading="eager">
-          <button slot="ar-button" class="ar-btn">Ver en tu cocina (AR)</button>
-        </model-viewer>
-        <span class="hero__hint" aria-hidden="true">↔ Gira la lata</span>
-      </div>
+  <section class="hero hero--video">
+    <div class="hero__bg" aria-hidden="true">
+      <video class="hero__video" autoplay muted loop playsinline preload="auto">
+        <source src="assets/hero.mp4" type="video/mp4">
+      </video>
+      <div class="hero__scrim"></div>
+    </div>
 
+    <div class="container hero__inner">
       <div class="hero__copy">
         <p class="kicker">Prelanzamiento · Cosecha 2026</p>
         <div class="hero__rule" aria-hidden="true"></div>
@@ -155,6 +135,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </div>
       </div>
     </div>
+
+    <a href="#origen" class="hero__scroll" aria-label="Bajar al contenido"><span aria-hidden="true"></span></a>
   </section>
 
   <!-- ============================================================
@@ -284,6 +266,45 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <p class="cata__note">* Valores de ejemplo de la cosecha 2026. Sustitúyelos por los de tu analítica.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LATA EN 3D — visor interactivo (girable + AR)
+       ============================================================ -->
+  <section class="section vista3d" id="vista-3d">
+    <div class="container vista3d__grid">
+      <div class="vista3d__text">
+        <p class="kicker kicker--gold">En 3D</p>
+        <h2 class="h-lg">Gírala 360°</h2>
+        <p class="vista3d__lead">Explora la lata de AURO desde todos los ángulos. Arrástrala para girarla y, desde el móvil, mírala en tu propia cocina en realidad aumentada.</p>
+      </div>
+      <div class="vista3d__media">
+        <model-viewer
+            src="assets/3d/lata.glb"
+            alt="Lata de AURO — aceite de oliva virgen extra 500 ml, modelo 3D interactivo"
+            poster="assets/lata-auro.png"
+            camera-controls
+            disable-zoom
+            auto-rotate
+            auto-rotate-delay="0"
+            rotation-per-second="20deg"
+            interaction-prompt="auto"
+            camera-orbit="-25deg 80deg auto"
+            max-camera-orbit="auto auto 1000m"
+            field-of-view="32deg"
+            shadow-intensity="0.9"
+            shadow-softness="1"
+            exposure="1"
+            environment-image="neutral"
+            touch-action="pan-y"
+            ar
+            ar-modes="webxr scene-viewer quick-look"
+            loading="eager">
+          <button slot="ar-button" class="ar-btn">Ver en tu cocina (AR)</button>
+        </model-viewer>
+        <span class="hero__hint" aria-hidden="true">↔ Gira la lata</span>
+      </div>
     </div>
   </section>
 
@@ -662,7 +683,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <script>
   /* Aleja la cámara del visor 3D del hero para que la lata se vea entera */
   (function(){
-    var mv = document.querySelector('.hero__media model-viewer');
+    var mv = document.querySelector('.vista3d__media model-viewer');
     if(!mv) return;
     mv.addEventListener('load', function(){
       try{
