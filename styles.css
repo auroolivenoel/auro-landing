@@ -667,12 +667,29 @@ p{ color:var(--negro-oliva); }
    11c. FICHA DE CATA (radar + datos) + botón AR
    ------------------------------------------------------------ */
 .cata__head{ max-width:60ch; margin-bottom:clamp(28px,4vw,52px); }
-/* Separación entre el sub-bloque de Carácter y el de Análisis & cata (bloque unificado) */
-.cata__head--joined{
-  margin-top:clamp(48px,7vw,88px);
-  padding-top:clamp(40px,6vw,72px);
-  border-top:1px solid color-mix(in srgb,var(--negro-oliva) 12%, transparent);
+/* Intro del bloque unificado Carácter & análisis */
+.attrs__intro{ color:var(--gris-texto); margin-top:14px; max-width:56ch; }
+/* Etiqueta ligera que introduce los datos de cata dentro del mismo bloque
+   (sin divisor ni segundo titular grande: los datos y las tarjetas son un todo) */
+.cata__sublabel{
+  text-align:center;
+  margin:clamp(40px,6vw,72px) 0 clamp(26px,3.5vw,40px);
+  overflow:hidden;
 }
+.cata__sublabel span{
+  position:relative; display:inline-block;
+  font-family:var(--font-heading); font-weight:600; text-transform:uppercase;
+  letter-spacing:.14em; font-size:.9rem; color:var(--verde-oliva);
+  padding:0 18px;
+}
+/* líneas finas a los lados de la etiqueta, que la integran con el bloque */
+.cata__sublabel span::before,
+.cata__sublabel span::after{
+  content:""; position:absolute; top:50%; width:100vw; height:1px;
+  background:color-mix(in srgb,var(--negro-oliva) 12%, transparent);
+}
+.cata__sublabel span::before{ right:100%; }
+.cata__sublabel span::after{ left:100%; }
 .cata__intro{ color:var(--gris-texto); margin-top:12px; max-width:54ch; }
 .cata__grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(28px,5vw,72px); align-items:center; }
 .cata__radar{ display:flex; justify-content:center; }
