@@ -2,6 +2,9 @@
 <html lang="es" translate="no">
 <head>
 <meta name="google" content="notranslate">
+<!-- La página siempre abre arriba (evita que el navegador restaure el scroll
+     o que el visor 3D robe el foco y baje al bloque del origen al entrar). -->
+<script>if('scrollRestoration' in history)history.scrollRestoration='manual';</script>
 <!-- Consent Mode v2 (RGPD/DSGVO) — por defecto DENEGADO hasta que el usuario consienta.
      Debe ejecutarse ANTES de Google Tag Manager y de Google Analytics. -->
 <script>
@@ -176,7 +179,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             touch-action="pan-y"
             ar
             ar-modes="webxr scene-viewer quick-look"
-            loading="eager">
+            loading="lazy">
           <button slot="ar-button" class="ar-btn">Ver en tu cocina (AR)</button>
         </model-viewer>
         <span class="hero__hint" aria-hidden="true">↔ Gira la lata</span>
