@@ -63,10 +63,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Tipografías -->
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 
-<link rel="stylesheet" href="styles.css?v=20260719j">
+<link rel="stylesheet" href="styles.css?v=20260719k">
 
 <!-- i18n (ES · EN · DE) — define window.AuroI18n antes que mapa/cata -->
-<script src="assets/i18n.js?v=20260719j"></script>
+<script src="assets/i18n.js?v=20260719k"></script>
 
 <!-- Mapa relieve 3D (MapLibre GL) -->
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
@@ -123,8 +123,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <!-- Vídeo horizontal en escritorio (data-desktop) y vertical en móvil (data-mobile).
            hero.js elige el adecuado; si el de móvil no existe aún, usa el de escritorio. -->
       <video class="hero__video" autoplay muted loop playsinline preload="auto"
-             data-desktop="assets/hero.mp4?v=3" data-mobile="assets/hero_2.mp4?v=1">
-        <source src="assets/hero.mp4?v=3" type="video/mp4">
+             data-desktop="assets/hero.mp4?v=4" data-mobile="assets/hero_2.mp4?v=2">
+        <source src="assets/hero.mp4?v=4" type="video/mp4">
       </video>
       <div class="hero__scrim"></div>
     </div>
@@ -158,31 +158,37 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="origin__lead">AURO nace en un paisaje de olivos, luz seca y tierra noble. Cosecha temprana, recogida en el momento exacto, para capturar el verdor y la fuerza de la aceituna Picual.</p>
         <p style="margin-top:26px;"><a href="#proceso" class="btn-editorial">Leer la historia de AURO</a></p>
       </div>
-      <div class="origin__media">
-        <model-viewer
-            src="assets/3d/lata.glb"
-            alt="Lata de AURO — aceite de oliva virgen extra 500 ml, modelo 3D interactivo"
-            poster="assets/lata-auro.png"
-            camera-controls
-            disable-zoom
-            auto-rotate
-            auto-rotate-delay="0"
-            rotation-per-second="20deg"
-            interaction-prompt="auto"
-            camera-orbit="-25deg 80deg auto"
-            max-camera-orbit="auto auto 1000m"
-            field-of-view="32deg"
-            shadow-intensity="0.9"
-            shadow-softness="1"
-            exposure="1"
-            environment-image="neutral"
-            touch-action="pan-y"
-            ar
-            ar-modes="webxr scene-viewer quick-look"
-            loading="lazy">
-          <button slot="ar-button" class="ar-btn">Ver en tu cocina (AR)</button>
-        </model-viewer>
+      <!-- El visor 3D NO se inserta hasta que esta sección entra en pantalla
+           (lata3d.js). Así, al entrar en la web, ni existe → no puede robar
+           el foco ni desplazar la página al 360 en móvil. -->
+      <div class="origin__media" id="lataStage">
+        <img class="lata3d-poster" src="assets/lata-auro.png" alt="Lata de AURO — aceite de oliva virgen extra 500 ml" width="600" height="800">
         <span class="hero__hint" aria-hidden="true">↔ Gira la lata</span>
+        <template id="lataTpl">
+          <model-viewer
+              src="assets/3d/lata.glb"
+              alt="Lata de AURO — aceite de oliva virgen extra 500 ml, modelo 3D interactivo"
+              poster="assets/lata-auro.png"
+              camera-controls
+              disable-zoom
+              auto-rotate
+              auto-rotate-delay="0"
+              rotation-per-second="20deg"
+              interaction-prompt="none"
+              camera-orbit="-25deg 80deg auto"
+              max-camera-orbit="auto auto 1000m"
+              field-of-view="32deg"
+              shadow-intensity="0.9"
+              shadow-softness="1"
+              exposure="1"
+              environment-image="neutral"
+              touch-action="pan-y"
+              ar
+              ar-modes="webxr scene-viewer quick-look"
+              loading="lazy">
+            <button slot="ar-button" class="ar-btn">Ver en tu cocina (AR)</button>
+          </model-viewer>
+        </template>
       </div>
     </div>
   </section>
@@ -706,31 +712,49 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 
 <script>
-  /* Aleja la cámara del visor 3D del hero para que la lata se vea entera */
+  /* Inserta el visor 3D SOLO cuando su sección entra en pantalla.
+     Al entrar en la web (hero) el visor no existe → no roba foco ni
+     desplaza la página al 360 en móvil. Al cargar, aleja la cámara y
+     quita el póster. */
   (function(){
-    var mv = document.querySelector('.origin__media model-viewer');
-    if(!mv) return;
-    mv.addEventListener('load', function(){
-      try{
-        var o = mv.getCameraOrbit();
-        mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 1.2) + 'm';
-        if (mv.jumpCameraToGoal) mv.jumpCameraToGoal();
-      }catch(e){}
-    });
+    var stage = document.getElementById('lataStage');
+    var tpl = document.getElementById('lataTpl');
+    if(!stage || !tpl) return;
+    var injected = false;
+    function inject(){
+      if(injected) return; injected = true;
+      var mv = tpl.content.firstElementChild.cloneNode(true);
+      stage.insertBefore(mv, tpl);
+      var poster = stage.querySelector('.lata3d-poster');
+      mv.addEventListener('load', function(){
+        if(poster) poster.remove();
+        try{
+          var o = mv.getCameraOrbit();
+          mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 1.2) + 'm';
+          if (mv.jumpCameraToGoal) mv.jumpCameraToGoal();
+        }catch(e){}
+      });
+      setTimeout(function(){ if(poster && poster.parentNode) poster.style.opacity = '0'; }, 1500);
+    }
+    if(!('IntersectionObserver' in window)){ inject(); return; }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ io.disconnect(); inject(); } });
+    }, { rootMargin: '150px 0px' });
+    io.observe(stage);
   })();
 </script>
 
 <!-- Hero: elige vídeo horizontal (escritorio) o vertical (móvil) -->
-<script src="assets/hero.js?v=20260719j" defer></script>
+<script src="assets/hero.js?v=20260719k" defer></script>
 
 <!-- En crudo: selector interactivo de usos -->
-<script src="assets/recetas.js?v=20260719j" defer></script>
+<script src="assets/recetas.js?v=20260719k" defer></script>
 
 <!-- Ficha de cata viva (radar + datos) -->
 <script src="assets/cata.js" defer></script>
 
 <!-- Menú móvil + CTA fija + cabecera transparente al scroll -->
-<script src="assets/nav.js?v=20260719j" defer></script>
+<script src="assets/nav.js?v=20260719k" defer></script>
 
 <!-- La lata (explorador interactivo) -->
 <script src="assets/lata.js" defer></script>

@@ -247,6 +247,12 @@ p{ color:var(--negro-oliva); }
   cursor:grab;
 }
 .origin__media model-viewer:active{ cursor:grabbing; }
+/* Póster de la lata mientras se inserta/carga el visor 3D (evita hueco) */
+.lata3d-poster{
+  position:relative; z-index:1;
+  height:clamp(360px,54vh,560px); width:auto; max-width:100%;
+  object-fit:contain; transition:opacity .5s ease;
+}
 .hero__hint{
   position:absolute; bottom:10px; left:50%; transform:translateX(-50%);
   display:inline-flex; gap:.5em; align-items:center;
