@@ -406,7 +406,28 @@ p{ color:var(--negro-oliva); }
 /* ------------------------------------------------------------
    7b. Lata 3D girable dentro del origen (posicionado para el hint)
    ------------------------------------------------------------ */
-.origin__media{ position:relative; display:flex; justify-content:center; }
+/* Panel "estudio de producto": la lata en un fondo distinto al del texto,
+   con foco cálido, marco fino y suelo con sombra. Contrasta y luce premium. */
+.origin__media{
+  position:relative; display:grid; place-items:center;
+  border-radius:26px;
+  padding:clamp(18px,3vw,42px) clamp(14px,2.5vw,32px) clamp(30px,4vw,52px);
+  background:
+    radial-gradient(58% 50% at 50% 40%, color-mix(in srgb,var(--dorado) 26%, transparent), transparent 62%),
+    linear-gradient(158deg, #2a2c15 0%, #16170d 100%);
+  box-shadow:0 34px 70px -34px rgba(0,0,0,.55), inset 0 0 0 1px color-mix(in srgb,var(--crema) 10%, transparent);
+  overflow:hidden;
+}
+/* Suelo del panel: elipse de sombra bajo la lata para que quede posada */
+.origin__media::after{
+  content:"";
+  position:absolute; left:50%; bottom:7%;
+  width:56%; height:30px;
+  transform:translateX(-50%);
+  background:radial-gradient(ellipse at center, rgba(0,0,0,.5), transparent 70%);
+  filter:blur(8px); pointer-events:none;
+}
+.origin__media model-viewer{ position:relative; z-index:1; }
 
 /* Visor 360° (secuencia de imágenes) */
 .viewer-360{
@@ -521,12 +542,11 @@ p{ color:var(--negro-oliva); }
    8. BLOQUE DE ORIGEN
    ------------------------------------------------------------ */
 .origin{
-  /* El borde superior es oliva PLANO (= final del fundido del hero, sin corte).
-     El foco cálido y el viñeteado se centran más abajo, sin tocar el borde. */
+  /* Borde superior oliva PLANO (= final del fundido del hero, sin corte).
+     El protagonismo lo lleva el panel oscuro de la lata; aquí solo un
+     leve viñeteado inferior para dar profundidad al lado del texto. */
   background-color:var(--verde-oliva);
-  background-image:
-    radial-gradient(46% 52% at 76% 60%, color-mix(in srgb, var(--dorado) 28%, transparent), transparent 64%),
-    radial-gradient(82% 78% at 86% 74%, rgba(12,14,7,.42), transparent 72%);
+  background-image:radial-gradient(75% 60% at 18% 88%, rgba(12,14,7,.30), transparent 72%);
   color:var(--crema);
   position:relative;
   overflow:hidden;
@@ -545,16 +565,6 @@ p{ color:var(--negro-oliva); }
 }
 .origin__lead{ margin-top:22px; color:color-mix(in srgb, var(--crema) 86%, transparent); max-width:48ch; }
 .origin .container{ position:relative; z-index:1; }
-/* Sombra de contacto: "posa" la lata sobre el escenario en vez de flotar */
-.origin__media::after{
-  content:"";
-  position:absolute; left:50%; bottom:6%;
-  width:58%; height:34px; z-index:-1;
-  transform:translateX(-50%);
-  background:radial-gradient(ellipse at center, rgba(10,11,6,.5), transparent 70%);
-  filter:blur(7px);
-  pointer-events:none;
-}
 
 /* ------------------------------------------------------------
    9. BLOQUE DE ATRIBUTOS (4 cards)
