@@ -133,8 +133,9 @@ p{ color:var(--negro-oliva); }
 }
 .btn:active{ transform:translateY(1px); }
 
-/* Principal — amarillo (dorado) homogéneo, texto en blanco, forma píldora */
-.btn-primary{ background:var(--dorado); color:var(--crema); }
+/* Principal — dorado homogéneo en toda la web (mismo look que la CTA flotante:
+   fondo dorado + texto oscuro, píldora). */
+.btn-primary{ background:var(--dorado); color:var(--negro-oliva); }
 .btn-primary:hover{ background:var(--negro-oliva); color:var(--crema); }
 
 /* Secundario */
@@ -211,16 +212,20 @@ p{ color:var(--negro-oliva); }
   border-bottom:1px solid transparent;
   transition:background-color .35s ease, border-color .35s ease, backdrop-filter .35s ease;
 }
-/* Degradado sutil arriba: mantiene el menú legible sobre cualquier fotograma del vídeo */
+/* Sin degradado de fondo en la cabecera: evitaba una línea/borde visible donde
+   terminaba el fundido sobre el vídeo. La legibilidad se mantiene con una sombra
+   de texto suave en el logo y los enlaces (abajo). */
 .site-header--transparent:not(.is-solid){
-  background:linear-gradient(180deg, rgba(20,20,15,.55), rgba(20,20,15,0));
+  background:transparent;
 }
+.site-header--transparent:not(.is-solid) .nav a,
+.site-header--transparent:not(.is-solid) .lang-switch{ text-shadow:0 1px 10px rgba(0,0,0,.55); }
 /* Estado inicial (arriba del todo, sobre el vídeo): texto y logo en claro */
 .site-header--transparent:not(.is-solid) .nav a{ color:var(--crema); }
 .site-header--transparent:not(.is-solid) .nav a::after{ background:var(--dorado); }
-.site-header--transparent:not(.is-solid) .brand img{ filter:brightness(0) invert(1); }
+.site-header--transparent:not(.is-solid) .brand img{ filter:brightness(0) invert(1) drop-shadow(0 2px 8px rgba(0,0,0,.55)); }
 .site-header--transparent:not(.is-solid) .nav-toggle span{ background:var(--crema); }
-.site-header--transparent:not(.is-solid) .btn-primary{ background:var(--dorado); color:var(--crema); }
+.site-header--transparent:not(.is-solid) .btn-primary{ background:var(--dorado); color:var(--negro-oliva); }
 .site-header--transparent:not(.is-solid) .btn-primary:hover{ background:var(--crema); color:var(--negro-oliva); }
 .site-header--transparent:not(.is-solid) .lang-switch button{ color:color-mix(in srgb,var(--crema) 80%,transparent); border-color:color-mix(in srgb,var(--crema) 45%,transparent); }
 .site-header--transparent:not(.is-solid) .lang-switch button.is-active{ color:var(--crema); }
@@ -328,7 +333,7 @@ p{ color:var(--negro-oliva); }
 .hero--video .hero__claim{ color:var(--crema); text-shadow:0 2px 20px rgba(0,0,0,.55), 0 1px 3px rgba(0,0,0,.4); }
 .hero--video .hero__sub{ color:color-mix(in srgb,var(--crema) 94%, transparent); text-shadow:0 1px 12px rgba(0,0,0,.5); }
 .hero--video .hero__origin{ color:color-mix(in srgb,var(--crema) 92%, transparent); text-shadow:0 1px 10px rgba(0,0,0,.45); }
-.hero--video .hero__cta .btn-primary{ background:var(--dorado); color:var(--crema); }
+.hero--video .hero__cta .btn-primary{ background:var(--dorado); color:var(--negro-oliva); }
 .hero--video .hero__cta .btn-primary:hover{ background:var(--crema); color:var(--negro-oliva); }
 .hero--video .hero__cta .btn-secondary{ color:var(--crema); border-color:color-mix(in srgb,var(--crema) 70%, transparent); }
 .hero--video .hero__cta .btn-secondary:hover{ background:var(--crema); color:var(--negro-oliva); border-color:var(--crema); }
@@ -1064,8 +1069,8 @@ p{ color:var(--negro-oliva); }
    ------------------------------------------------------------ */
 .site-footer{ background:var(--negro-oliva); color:var(--crema); padding-block:clamp(48px,6vw,80px) 36px; }
 .site-footer__top{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:36px; }
-.footer-logo{ display:inline-block; line-height:0; }
-.footer-logo img{ height:60px; width:auto; filter:brightness(0) invert(1); }
+.footer-logo{ display:inline-block; line-height:0; position:relative; z-index:2; }
+.footer-logo img{ height:64px; width:auto; filter:brightness(0) invert(1) drop-shadow(0 2px 10px rgba(0,0,0,.5)); }
 .site-footer p{ color:color-mix(in srgb, var(--crema) 78%, transparent); font-size:.92rem; max-width:34ch; }
 .footer-col h4{ color:var(--dorado); font-size:.82rem; letter-spacing:.12em; margin-bottom:14px; }
 .footer-col a{ display:block; padding:5px 0; color:color-mix(in srgb, var(--crema) 82%, transparent); font-size:.92rem; }
@@ -1501,6 +1506,9 @@ html.i18n-extra:not([lang="es"]) .legal__note{ display:block; }
 .lata__grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:clamp(24px,4vw,56px); align-items:start; }
 .lata__media{ position:relative; justify-self:center; width:min(340px,80%); }
 .lata__media img{ width:100%; height:auto; filter:drop-shadow(0 24px 40px rgba(23,23,19,.28)); }
+/* Visor 3D en "La lata": panel grande para que la lata se vea prominente */
+.lata__grid .lata__media--3d{ justify-self:stretch; width:100%; max-width:520px; min-height:clamp(480px,64vh,680px); }
+.lata__grid .lata__media--3d model-viewer{ height:clamp(480px,64vh,680px); }
 .lata__dot{
   position:absolute; transform:translate(-50%,-50%); width:30px; height:30px; border-radius:50%;
   display:grid; place-items:center; padding:0; cursor:pointer;
