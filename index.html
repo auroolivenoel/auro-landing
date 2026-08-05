@@ -736,10 +736,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       stage.insertBefore(mv, tpl);
       mv.addEventListener('load', function(){
         try{
-          // Encuadre ajustado para que la lata llene el visor (antes se alejaba
-          // la cámara ×1.2, lo que la dejaba pequeña en la sección "La lata").
+          // Encuadre de la lata en "La lata": alejamos la cámara un ~30% respecto
+          // al encuadre anterior (0.92 → 1.2) para que no se vea tan cerca.
           var o = mv.getCameraOrbit();
-          mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 0.92) + 'm';
+          mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 1.2) + 'm';
           if (mv.jumpCameraToGoal) mv.jumpCameraToGoal();
         }catch(e){}
       });
