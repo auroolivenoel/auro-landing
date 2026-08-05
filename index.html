@@ -51,7 +51,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <!-- End Google Analytics 4 -->
 <!-- Banner de consentimiento de cookies (RGPD/DSGVO) -->
-<script defer src="assets/consent.js"></script>
+<script defer src="assets/consent.js?v=20260806"></script>
 <!-- End banner de consentimiento -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -78,10 +78,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Tipografías -->
 <link rel="stylesheet" href="assets/fonts/fonts.css">
 
-<link rel="stylesheet" href="styles.css?v=20260719l">
+<link rel="stylesheet" href="styles.css?v=20260806">
 
 <!-- i18n (ES · EN · DE) — define window.AuroI18n antes que mapa/cata -->
-<script src="assets/i18n.js?v=20260719l"></script>
+<script src="assets/i18n.js?v=20260806"></script>
 
 <!-- Mapa relieve 3D (MapLibre GL) -->
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
@@ -176,8 +176,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
            Sierra Mágina. (Placeholder con foto del repo; sustituible por una
            imagen/animación definitiva del origen cuando esté disponible.) -->
       <div class="origin__media origin__media--photo">
-        <img src="assets/origen-paisaje.jpg"
-             alt="Olivar de montaña en Sierra Mágina, Jaén, bajo la luz seca del sur"
+        <img src="assets/Dibujo%20de%20Sierra%20Magina.png"
+             alt="Ilustración del paisaje de Sierra Mágina, Jaén: olivares de montaña"
              loading="lazy" decoding="async">
       </div>
     </div>
@@ -259,19 +259,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
-        <!-- Análisis: media de producción + ficha de la cosecha (más compacta) -->
-        <div class="ac-side">
-          <!-- Imagen/vídeo del proceso de producción. (Placeholder con foto del
-               repo; sustituible por imagen/vídeo definitivo del proceso.) -->
-          <figure class="ac-media">
-            <img src="assets/produccion.jpg"
-                 alt="Recolección y elaboración de AURO en Sierra Mágina, Jaén"
-                 loading="lazy" decoding="async"
-                 onerror="this.closest('.ac-media').classList.add('is-empty');this.remove()">
-            <figcaption>Del árbol a la lata, en frío</figcaption>
-          </figure>
-
-          <div class="ac-panel ac-panel--sm" id="cata">
+        <!-- Análisis: ficha de la cosecha (estilo certificado) -->
+        <div class="ac-panel" id="cata">
           <div class="ac-panel__head">
             <span class="ac-panel__kick">Análisis</span>
             <span class="ac-panel__title">Ficha de la cosecha 2026</span>
@@ -294,7 +283,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="ac-metric__bar"><div class="stat__fill" data-pct="40"></div></div>
             <p class="ac-metric__ref">Frescura óptima. Menos de la mitad del límite legal (≤20).</p>
           </div>
-        </div>
         </div>
 
       </div>
@@ -748,8 +736,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       stage.insertBefore(mv, tpl);
       mv.addEventListener('load', function(){
         try{
+          // Encuadre ajustado para que la lata llene el visor (antes se alejaba
+          // la cámara ×1.2, lo que la dejaba pequeña en la sección "La lata").
           var o = mv.getCameraOrbit();
-          mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 1.2) + 'm';
+          mv.cameraOrbit = o.theta + 'rad ' + o.phi + 'rad ' + (o.radius * 0.92) + 'm';
           if (mv.jumpCameraToGoal) mv.jumpCameraToGoal();
         }catch(e){}
       });
@@ -763,29 +753,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </script>
 
 <!-- Hero: elige vídeo horizontal (escritorio) o vertical (móvil) -->
-<script src="assets/hero.js?v=20260719l" defer></script>
+<script src="assets/hero.js?v=20260806" defer></script>
 
 <!-- En crudo: selector interactivo de usos -->
-<script src="assets/recetas.js?v=20260719l" defer></script>
+<script src="assets/recetas.js?v=20260806" defer></script>
 
 <!-- Ficha de cata viva (radar + datos) -->
-<script src="assets/cata.js" defer></script>
+<script src="assets/cata.js?v=20260806" defer></script>
 
 <!-- Menú móvil + CTA fija + cabecera transparente al scroll -->
-<script src="assets/nav.js?v=20260719l" defer></script>
+<script src="assets/nav.js?v=20260806" defer></script>
 
 <!-- La lata (explorador interactivo) -->
-<script src="assets/lata.js" defer></script>
+<script src="assets/lata.js?v=20260806" defer></script>
 
 <!-- Proceso (carrusel deslizable estilo stories) -->
-<script src="assets/proceso.js" defer></script>
+<script src="assets/proceso.js?v=20260806" defer></script>
 
 <!-- Lista de espera (lead → Odoo) + cuenta atrás del footer -->
-<script src="assets/waitlist.js" defer></script>
+<script src="assets/waitlist.js?v=20260806" defer></script>
 
 <!-- Mapa relieve 3D (MapLibre GL) -->
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="assets/mapa.js"></script>
+<script src="assets/mapa.js?v=20260806"></script>
 
 </body>
 </html>
