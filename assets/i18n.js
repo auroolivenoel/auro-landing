@@ -231,6 +231,12 @@
       "Enviaremos a domicilio en España peninsular desde el primer día, con el aceite bien protegido para que llegue en perfectas condiciones. Trabajamos para ampliar a más destinos; los detalles de zonas, plazos y gastos de envío se anunciarán primero a la lista de espera.": "We'll deliver to homes across mainland Spain from day one, with the oil well protected so it arrives in perfect condition. We're working to reach more destinations; details on areas, times and shipping costs will be announced to the waitlist first.",
       "¿Cómo debo conservar y usar el aceite?": "How should I store and use the oil?",
       "Guárdalo en un lugar fresco, seco y sin luz directa, y disfrútalo preferiblemente en pocas semanas tras abrir la lata. Para notar todo su carácter, úsalo en crudo: sobre una tostada, unas verduras, un pescado o como toque final de tus platos.": "Keep it in a cool, dry place away from direct light, and ideally enjoy it within a few weeks of opening the tin. To taste all its character, use it raw: over toast, vegetables, fish or as a finishing touch to your dishes.",
+      "Enviamos a domicilio a toda Europa desde el primer día, con el aceite bien protegido para que llegue en perfectas condiciones. Los detalles de plazos y gastos de envío por país se anunciarán primero a la lista de espera.": "We ship to homes across all of Europe from day one, with the oil well protected so it arrives in perfect condition. Details on delivery times and shipping costs per country will be announced to the waitlist first.",
+      /* lista de espera (contenido nuevo) */
+      "Apúntate y te avisamos en cuanto salga la primera cosecha. Los primeros de la lista entran antes que nadie.": "Sign up and we'll let you know as soon as the first harvest is out. The first on the list get in before anyone else.",
+      "Edición limitada de 1.000 latas": "Limited edition of 1,000 tins",
+      "Primera cosecha de octubre · latas numeradas de un lote único, sin reposición.": "First harvest in October · numbered tins from a single batch, with no restock.",
+      "personas ya se han inscrito.": "people have already signed up.",
       /* Referidos (gracias) */
       "Sube en la lista: invita a tus amigos": "Move up the list: invite your friends",
       "Comparte tu enlace y, por cada amigo que se apunte, subes puestos hacia el acceso anticipado.": "Share your link — for every friend who signs up, you move up toward early access.",
@@ -472,6 +478,12 @@
       "Enviaremos a domicilio en España peninsular desde el primer día, con el aceite bien protegido para que llegue en perfectas condiciones. Trabajamos para ampliar a más destinos; los detalles de zonas, plazos y gastos de envío se anunciarán primero a la lista de espera.": "Wir liefern vom ersten Tag an nach Hause auf das spanische Festland, mit gut geschütztem Öl, damit es in perfektem Zustand ankommt. Wir arbeiten daran, weitere Ziele zu erreichen; Details zu Gebieten, Fristen und Versandkosten geben wir zuerst der Warteliste bekannt.",
       "¿Cómo debo conservar y usar el aceite?": "Wie bewahre ich das Öl auf und verwende es am besten?",
       "Guárdalo en un lugar fresco, seco y sin luz directa, y disfrútalo preferiblemente en pocas semanas tras abrir la lata. Para notar todo su carácter, úsalo en crudo: sobre una tostada, unas verduras, un pescado o como toque final de tus platos.": "Bewahre es kühl, trocken und vor direktem Licht geschützt auf und genieße es am besten innerhalb weniger Wochen nach dem Öffnen der Dose. Um seinen ganzen Charakter zu schmecken, verwende es roh: über Brot, Gemüse, Fisch oder als letzten Schliff für deine Gerichte.",
+      "Enviamos a domicilio a toda Europa desde el primer día, con el aceite bien protegido para que llegue en perfectas condiciones. Los detalles de plazos y gastos de envío por país se anunciarán primero a la lista de espera.": "Wir liefern vom ersten Tag an in ganz Europa nach Hause, mit gut geschütztem Öl, damit es in perfektem Zustand ankommt. Details zu Lieferzeiten und Versandkosten je Land geben wir zuerst der Warteliste bekannt.",
+      /* lista de espera (contenido nuevo) */
+      "Apúntate y te avisamos en cuanto salga la primera cosecha. Los primeros de la lista entran antes que nadie.": "Trag dich ein und wir benachrichtigen dich, sobald die erste Ernte da ist. Die Ersten auf der Liste kommen vor allen anderen dran.",
+      "Edición limitada de 1.000 latas": "Limitierte Auflage von 1.000 Dosen",
+      "Primera cosecha de octubre · latas numeradas de un lote único, sin reposición.": "Erste Ernte im Oktober · nummerierte Dosen aus einer einzigen Charge, ohne Nachproduktion.",
+      "personas ya se han inscrito.": "Personen haben sich bereits eingetragen.",
       /* Referidos (gracias) */
       "Sube en la lista: invita a tus amigos": "Rücke auf der Liste vor: Lade deine Freunde ein",
       "Comparte tu enlace y, por cada amigo que se apunte, subes puestos hacia el acceso anticipado.": "Teile deinen Link — mit jedem Freund, der sich anmeldet, rückst du näher an den frühen Zugang.",
@@ -522,14 +534,30 @@
   // traductor automático del navegador (p. ej. Chrome) destroce los textos.
   var lang = 'de';
   try {
+    // 1) Ruta /es/ o /en/ (URLs propias por idioma con slug — hreflang/SEO).
+    //    Máxima prioridad: la carpeta manda sobre cualquier otra preferencia.
+    var pathLang = null;
+    var pm = location.pathname.match(/\/(es|en)\//);
+    if (pm) pathLang = pm[1];
+
+    // 2) Parámetro ?lang= (compatibilidad / enlaces a páginas de la raíz).
+    var qp = null;
+    try { qp = (new URLSearchParams(location.search)).get('lang'); } catch (e2) {}
+    if (qp) qp = qp.toLowerCase();
+
     var saved = localStorage.getItem('auro_lang');
-    if (saved === 'es' || saved === 'en' || saved === 'de') {
+    if (pathLang) {
+      lang = pathLang;   // en páginas /es/ o /en/ NO se persiste: la URL ya fija el idioma
+    } else if (qp === 'es' || qp === 'en' || qp === 'de') {
+      lang = qp;
+      try { localStorage.setItem('auro_lang', lang); } catch (e3) {}
+    } else if (saved === 'es' || saved === 'en' || saved === 'de') {
       lang = saved;
     } else {
       var nav = ((navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage || '').toLowerCase();
       if (nav.indexOf('es') === 0) lang = 'es';
       else if (nav.indexOf('en') === 0) lang = 'en';
-      else lang = 'de';
+      else lang = 'de';   // alemán como idioma por defecto (auro.de)
     }
   } catch (e) {}
   if (lang !== 'en' && lang !== 'es') lang = 'de';
@@ -586,10 +614,25 @@
     if (md) { if (md.__es == null) md.__es = md.getAttribute('content'); md.setAttribute('content', t((md.__es || '').trim())); }
   }
 
+  // SEO internacional: cada idioma tiene su URL propia y se autocanonicaliza,
+  // para que los buscadores puedan indexar cada versión (hreflang coherente).
+  function updateSeo() {
+    var url = { de: 'https://auro.de/', es: 'https://auro.de/es/', en: 'https://auro.de/en/' };
+    var loc = { de: 'de_DE', es: 'es_ES', en: 'en_US' };
+    var u = url[lang] || url.de;
+    var can = document.querySelector('link[rel="canonical"]');
+    if (can) can.setAttribute('href', u);
+    var ogu = document.querySelector('meta[property="og:url"]');
+    if (ogu) ogu.setAttribute('content', u);
+    var ogl = document.querySelector('meta[property="og:locale"]');
+    if (ogl) ogl.setAttribute('content', loc[lang] || 'de_DE');
+  }
+
   function apply() {
     document.documentElement.lang = lang;
     if (document.body) { translateTextNodes(); translateAttrs(); }
     translateHead();
+    updateSeo();
     document.querySelectorAll('.lang-switch button').forEach(function (b) {
       var on = b.getAttribute('data-lang') === lang;
       b.classList.toggle('is-active', on);

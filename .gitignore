@@ -5,3 +5,6 @@
 Thumbs.db
 # Logs
 *.log
+
+# Dependencias de desarrollo (no forman parte del sitio estático)
+node_modules/
