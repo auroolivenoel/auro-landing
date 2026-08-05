@@ -89,8 +89,12 @@
   function t() { return I18N[getLang()] || I18N.de; }
 
   function cookiePolicyHref() {
-    var sub = /\/(de|personaliza|fondo-olivos)\//.test(location.pathname);
-    return (sub ? '../' : '') + 'politica-cookies.html';
+    var p = location.pathname;
+    var lm = /\/(es|en)\//.exec(p);
+    var sub = /\/(de|personaliza|fondo-olivos|es|en)\//.test(p);
+    var href = (sub ? '../' : '') + 'politica-cookies.html';
+    if (lm) href += '?lang=' + lm[1];   // páginas /es/ y /en/ enlazan a la política en su idioma
+    return href;
   }
 
   /* ---------- persistencia ---------- */

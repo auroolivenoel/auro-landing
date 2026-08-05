@@ -534,14 +534,21 @@
   // traductor automático del navegador (p. ej. Chrome) destroce los textos.
   var lang = 'de';
   try {
-    // 1) Parámetro de URL ?lang= (URLs propias por idioma para hreflang/SEO).
-    //    Tiene prioridad y se recuerda como elección del usuario.
+    // 1) Ruta /es/ o /en/ (URLs propias por idioma con slug — hreflang/SEO).
+    //    Máxima prioridad: la carpeta manda sobre cualquier otra preferencia.
+    var pathLang = null;
+    var pm = location.pathname.match(/\/(es|en)\//);
+    if (pm) pathLang = pm[1];
+
+    // 2) Parámetro ?lang= (compatibilidad / enlaces a páginas de la raíz).
     var qp = null;
     try { qp = (new URLSearchParams(location.search)).get('lang'); } catch (e2) {}
     if (qp) qp = qp.toLowerCase();
 
     var saved = localStorage.getItem('auro_lang');
-    if (qp === 'es' || qp === 'en' || qp === 'de') {
+    if (pathLang) {
+      lang = pathLang;   // en páginas /es/ o /en/ NO se persiste: la URL ya fija el idioma
+    } else if (qp === 'es' || qp === 'en' || qp === 'de') {
       lang = qp;
       try { localStorage.setItem('auro_lang', lang); } catch (e3) {}
     } else if (saved === 'es' || saved === 'en' || saved === 'de') {
@@ -610,7 +617,7 @@
   // SEO internacional: cada idioma tiene su URL propia y se autocanonicaliza,
   // para que los buscadores puedan indexar cada versión (hreflang coherente).
   function updateSeo() {
-    var url = { de: 'https://auro.de/', es: 'https://auro.de/?lang=es', en: 'https://auro.de/?lang=en' };
+    var url = { de: 'https://auro.de/', es: 'https://auro.de/es/', en: 'https://auro.de/en/' };
     var loc = { de: 'de_DE', es: 'es_ES', en: 'en_US' };
     var u = url[lang] || url.de;
     var can = document.querySelector('link[rel="canonical"]');
