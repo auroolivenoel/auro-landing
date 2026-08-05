@@ -34,7 +34,8 @@
   };
 
   var LS_KEY = 'auro_waitlist_leads';
-  var WAITLIST_BASE = 500;   // plazas de partida (ya llenas). Edítalo cuando quieras.
+  var WAITLIST_BASE = 200;   // inscritos de partida. Edítalo cuando quieras.
+  var WL_COUNT_KEY = 'auro_wl_count';   // valor cacheado del contador (monótono)
 
   /* ---------- referidos ---------- */
   // Código de referido propio (estable en este navegador)
@@ -198,7 +199,19 @@
     if (!el) return;
     var local = 0;
     try { local = (JSON.parse(localStorage.getItem(LS_KEY) || '[]')).length; } catch (e) {}
-    var target = WAITLIST_BASE + local;
+
+    // Crecimiento suave con el tiempo (simulado) + altas locales reales.
+    // Se cachea en el navegador y es MONÓTONO: solo sube, nunca baja al recargar.
+    var START = Date.UTC(2026, 7, 1);                 // fecha de referencia (1 ago 2026)
+    var PER_DAY = 3;                                   // ritmo de altas simuladas por día
+    var days = Math.max(0, (Date.now() - START) / 86400000);
+    var grown = WAITLIST_BASE + Math.floor(days * PER_DAY) + local;
+
+    var cached = 0;
+    try { cached = parseInt(localStorage.getItem(WL_COUNT_KEY), 10) || 0; } catch (e) {}
+    var target = Math.max(grown, cached, WAITLIST_BASE);
+    try { localStorage.setItem(WL_COUNT_KEY, String(target)); } catch (e) {}
+
     function fmt(n) { return Math.round(n).toLocaleString('es-ES'); }
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = fmt(target); return; }
     var from = Math.max(0, target - 40), t0 = null, dur = 1200;

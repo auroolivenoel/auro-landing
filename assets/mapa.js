@@ -101,13 +101,18 @@
 
   function autoplay(i) { go(i); if (i < STEPS.length - 1) autoT = setTimeout(() => autoplay(i + 1), 3400); }
 
-  // Arranca el viaje cuando entra en pantalla
+  // Estado inicial fijo en España (nivel 0). La animación NO arranca hasta que
+  // el usuario llega de verdad a la sección; si no, la encontraría ya terminada
+  // en Sierra Mágina. El rootMargin negativo exige que el mapa esté bien dentro
+  // de la pantalla (no solo asomando por abajo) antes de disparar el viaje.
   go(0, false);
   let started = false;
   if ('IntersectionObserver' in window) {
     new IntersectionObserver((es, ob) => es.forEach((e) => {
       if (e.isIntersecting && !started) { started = true; stopAuto(); autoplay(0); ob.disconnect(); }
-    }), { threshold: 0.45 }).observe(document.getElementById('mapa'));
+    }), { threshold: 0, rootMargin: '0px 0px -40% 0px' }).observe(document.getElementById('mapa'));
+  } else {
+    autoplay(0);
   }
 
   // Altitud real de la finca

@@ -58,6 +58,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>AURO — Aceite de Oliva Virgen Extra · Sierra Mágina, Jaén</title>
 <meta name="description" content="AURO. Aceite de oliva virgen extra de cosecha temprana. 100% Picual, Sierra Mágina, Jaén. Intenso, elegante y profundamente mediterráneo.">
 
+<!-- SEO internacional: alemán (auro.de) como idioma por defecto + alternativas por idioma.
+     El contenido se sirve en ES/EN/DE desde esta misma URL vía i18n.js; cada idioma tiene
+     una URL propia (?lang=) para que los buscadores puedan indexar y enlazar cada versión. -->
+<link rel="canonical" href="https://auro.de/">
+<link rel="alternate" hreflang="x-default" href="https://auro.de/">
+<link rel="alternate" hreflang="de" href="https://auro.de/">
+<link rel="alternate" hreflang="es" href="https://auro.de/?lang=es">
+<link rel="alternate" hreflang="en" href="https://auro.de/?lang=en">
+<meta property="og:locale" content="de_DE">
+<meta property="og:locale:alternate" content="es_ES">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AURO">
+<meta property="og:url" content="https://auro.de/">
+
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 
 <!-- Tipografías -->
@@ -94,7 +109,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <a href="#atributos">Cosecha</a>
       <a href="#proceso">Proceso</a>
       <a href="#faq">FAQ</a>
-      <a href="#lista" class="nav__hot">Lista de espera</a>
       <a href="#contacto">Contacto</a>
     </nav>
 
@@ -158,35 +172,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <p class="origin__lead">AURO nace en un paisaje de olivos, luz seca y tierra noble. Cosecha temprana, recogida en el momento exacto, para capturar el verdor y la fuerza de la aceituna Picual.</p>
         <p style="margin-top:26px;"><a href="#proceso" class="btn-editorial">Leer la historia de AURO</a></p>
       </div>
-      <!-- El visor 3D NO se inserta hasta que esta sección entra en pantalla
-           (lata3d.js). Así, al entrar en la web, ni existe → no puede robar
-           el foco ni desplazar la página al 360 en móvil. -->
-      <div class="origin__media" id="lataStage">
-        <span class="hero__hint" aria-hidden="true">↔ Gira la lata</span>
-        <template id="lataTpl">
-          <model-viewer
-              src="assets/3d/lata.glb"
-              alt="Lata de AURO — aceite de oliva virgen extra 500 ml, modelo 3D interactivo"
-              camera-controls
-              disable-zoom
-              auto-rotate
-              auto-rotate-delay="0"
-              rotation-per-second="20deg"
-              interaction-prompt="none"
-              camera-orbit="-25deg 80deg auto"
-              max-camera-orbit="auto auto 1000m"
-              field-of-view="32deg"
-              shadow-intensity="0.9"
-              shadow-softness="1"
-              exposure="1"
-              environment-image="neutral"
-              touch-action="pan-y"
-              ar
-              ar-modes="webxr scene-viewer quick-look"
-              loading="lazy">
-            <button slot="ar-button" class="ar-btn">Ver en tu cocina (AR)</button>
-          </model-viewer>
-        </template>
+      <!-- Imagen inspiracional del origen: paisaje de olivar de montaña en
+           Sierra Mágina. (Placeholder con foto del repo; sustituible por una
+           imagen/animación definitiva del origen cuando esté disponible.) -->
+      <div class="origin__media origin__media--photo">
+        <img src="assets/origen-paisaje.jpg"
+             alt="Olivar de montaña en Sierra Mágina, Jaén, bajo la luz seca del sur"
+             loading="lazy" decoding="async">
       </div>
     </div>
   </section>
@@ -267,8 +259,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
-        <!-- Análisis: ficha de la cosecha (estilo certificado) -->
-        <div class="ac-panel" id="cata">
+        <!-- Análisis: media de producción + ficha de la cosecha (más compacta) -->
+        <div class="ac-side">
+          <!-- Imagen/vídeo del proceso de producción. (Placeholder con foto del
+               repo; sustituible por imagen/vídeo definitivo del proceso.) -->
+          <figure class="ac-media">
+            <img src="assets/produccion.jpg"
+                 alt="Recolección y elaboración de AURO en Sierra Mágina, Jaén"
+                 loading="lazy" decoding="async"
+                 onerror="this.closest('.ac-media').classList.add('is-empty');this.remove()">
+            <figcaption>Del árbol a la lata, en frío</figcaption>
+          </figure>
+
+          <div class="ac-panel ac-panel--sm" id="cata">
           <div class="ac-panel__head">
             <span class="ac-panel__kick">Análisis</span>
             <span class="ac-panel__title">Ficha de la cosecha 2026</span>
@@ -292,6 +295,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <p class="ac-metric__ref">Frescura óptima. Menos de la mitad del límite legal (≤20).</p>
           </div>
         </div>
+        </div>
 
       </div>
     </div>
@@ -309,13 +313,35 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </div>
 
       <div class="lata__grid">
-        <div class="lata__media">
-          <img src="assets/lata-auro.png" alt="Lata de AURO 500 ml" loading="lazy">
-          <button class="lata__dot is-active" data-k="aluminio" aria-label="Lata de aluminio" style="top:15%;left:53%"><span>1</span></button>
-          <button class="lata__dot" data-k="dop" aria-label="D.O.P. Sierra Mágina" style="top:40%;left:39%"><span>2</span></button>
-          <button class="lata__dot" data-k="picual" aria-label="100% Picual" style="top:56%;left:62%"><span>3</span></button>
-          <button class="lata__dot" data-k="temprana" aria-label="Cosecha temprana" style="top:72%;left:43%"><span>4</span></button>
-          <button class="lata__dot" data-k="formato" aria-label="500 ml" style="top:87%;left:57%"><span>5</span></button>
+        <!-- Visor 3D girable de la lata. NO se inserta hasta que la sección
+             entra en pantalla (script al final): así no roba el foco ni
+             desplaza la página al cargar. -->
+        <div class="lata__media lata__media--3d" id="lataStage">
+          <span class="hero__hint" aria-hidden="true">↔ Gira la lata</span>
+          <template id="lataTpl">
+            <model-viewer
+                src="assets/3d/lata.glb"
+                alt="Lata de AURO — aceite de oliva virgen extra 500 ml, modelo 3D interactivo"
+                camera-controls
+                disable-zoom
+                auto-rotate
+                auto-rotate-delay="0"
+                rotation-per-second="20deg"
+                interaction-prompt="none"
+                camera-orbit="-25deg 80deg auto"
+                max-camera-orbit="auto auto 1000m"
+                field-of-view="32deg"
+                shadow-intensity="0.9"
+                shadow-softness="1"
+                exposure="1"
+                environment-image="neutral"
+                touch-action="pan-y"
+                ar
+                ar-modes="webxr scene-viewer quick-look"
+                loading="lazy">
+              <button slot="ar-button" class="ar-btn">Ver en tu cocina (AR)</button>
+            </model-viewer>
+          </template>
         </div>
 
         <div class="lata__panelwrap">
@@ -562,13 +588,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="container waitlist__inner">
       <p class="kicker waitlist__kicker">Lista de espera</p>
       <h2 class="waitlist__title">Sé de los primeros<br>en probar AURO</h2>
-      <p class="waitlist__sub">Apúntate y coge tu puesto en la lista. Te avisamos en cuanto salga la primera cosecha.</p>
+      <p class="waitlist__sub">Apúntate y te avisamos en cuanto salga la primera cosecha. Los primeros de la lista entran antes que nadie.</p>
 
-      <span class="waitlist__pill">Producción limitada</span>
-      <p class="waitlist__scarce">Primera cosecha 2026 · solo <strong>1.000 latas numeradas</strong>. Acceso anticipado para los primeros 500.</p>
-      <div class="waitlist__meter" aria-hidden="true"><span style="width:100%"></span></div>
-      <p class="waitlist__scarce-note">Las 500 plazas de acceso anticipado están llenas.</p>
-      <p class="waitlist__count">Ya en la lista de espera: <strong id="wlCount" data-no-i18n>500</strong></p>
+      <span class="waitlist__pill">Edición limitada de 1.000 latas</span>
+      <p class="waitlist__scarce">Primera cosecha de octubre · latas numeradas de un lote único, sin reposición.</p>
+      <p class="waitlist__count"><strong id="wlCount" data-no-i18n>200</strong> personas ya se han inscrito.</p>
 
       <form class="waitlist__form" id="waitlistForm" novalidate>
         <!-- Honeypot anti-bots: campo señuelo oculto. Los humanos no lo ven ni lo rellenan;
@@ -636,7 +660,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         </details>
         <details class="faq__item">
           <summary>¿Cómo y dónde hacéis los envíos?</summary>
-          <div class="faq__a"><p>Enviaremos a domicilio en España peninsular desde el primer día, con el aceite bien protegido para que llegue en perfectas condiciones. Trabajamos para ampliar a más destinos; los detalles de zonas, plazos y gastos de envío se anunciarán primero a la lista de espera.</p></div>
+          <div class="faq__a"><p>Enviamos a domicilio a toda Europa desde el primer día, con el aceite bien protegido para que llegue en perfectas condiciones. Los detalles de plazos y gastos de envío por país se anunciarán primero a la lista de espera.</p></div>
         </details>
         <details class="faq__item">
           <summary>¿Cómo debo conservar y usar el aceite?</summary>
@@ -675,7 +699,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <div class="site-footer__top">
       <div>
-        <div class="footer-logo">AURO</div>
+        <a href="#top" class="footer-logo" aria-label="AURO — Inicio"><img src="assets/logo-auro.png" alt="AURO"></a>
         <p style="margin-top:14px;">Aceite de oliva virgen extra de cosecha temprana. Elaborado en Sierra Mágina, Jaén.</p>
       </div>
       <div class="footer-col">
@@ -688,8 +712,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="footer-col">
         <h4>Contacto</h4>
         <a href="mailto:auroolivenoel@gmail.com">auroolivenoel@gmail.com</a>
-        <a href="#">Instagram</a>
-        <a href="#">Mayoristas</a>
+        <a href="https://instagram.com/auroolivenoel" target="_blank" rel="noopener">Instagram</a>
       </div>
       <div class="footer-col">
         <h4>Legal</h4>

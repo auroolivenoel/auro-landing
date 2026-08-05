@@ -133,9 +133,9 @@ p{ color:var(--negro-oliva); }
 }
 .btn:active{ transform:translateY(1px); }
 
-/* Principal */
-.btn-primary{ background:var(--negro-oliva); color:var(--crema); }
-.btn-primary:hover{ background:var(--verde-oliva); color:var(--blanco-calido); }
+/* Principal — amarillo (dorado) homogéneo, texto en blanco, forma píldora */
+.btn-primary{ background:var(--dorado); color:var(--crema); }
+.btn-primary:hover{ background:var(--negro-oliva); color:var(--crema); }
 
 /* Secundario */
 .btn-secondary{ background:transparent; color:var(--negro-oliva); border:1px solid var(--negro-oliva); }
@@ -150,11 +150,11 @@ p{ color:var(--negro-oliva); }
   font-size:.95rem;
   letter-spacing:.01em;
   text-transform:none;
-  color:var(--negro-oliva);
+  color:var(--dorado);
   border-bottom:1.5px solid var(--dorado);
   transition:color .2s ease, border-color .2s ease;
 }
-.btn-editorial:hover{ color:var(--verde-oliva); border-color:var(--verde-oliva); }
+.btn-editorial:hover{ color:var(--crema); border-color:var(--crema); }
 
 /* Botón pequeño (header) */
 .btn-sm{ padding:.6em 1.25em; font-size:.74rem; }
@@ -168,7 +168,7 @@ p{ color:var(--negro-oliva); }
   z-index:50;
   background:color-mix(in srgb, var(--crema) 88%, transparent);
   backdrop-filter:saturate(120%) blur(8px);
-  border-bottom:var(--line);
+  border-bottom:0;
 }
 .site-header__inner{
   display:flex;
@@ -220,7 +220,7 @@ p{ color:var(--negro-oliva); }
 .site-header--transparent:not(.is-solid) .nav a::after{ background:var(--dorado); }
 .site-header--transparent:not(.is-solid) .brand img{ filter:brightness(0) invert(1); }
 .site-header--transparent:not(.is-solid) .nav-toggle span{ background:var(--crema); }
-.site-header--transparent:not(.is-solid) .btn-primary{ background:var(--dorado); color:var(--negro-oliva); }
+.site-header--transparent:not(.is-solid) .btn-primary{ background:var(--dorado); color:var(--crema); }
 .site-header--transparent:not(.is-solid) .btn-primary:hover{ background:var(--crema); color:var(--negro-oliva); }
 .site-header--transparent:not(.is-solid) .lang-switch button{ color:color-mix(in srgb,var(--crema) 80%,transparent); border-color:color-mix(in srgb,var(--crema) 45%,transparent); }
 .site-header--transparent:not(.is-solid) .lang-switch button.is-active{ color:var(--crema); }
@@ -228,7 +228,7 @@ p{ color:var(--negro-oliva); }
 .site-header--transparent.is-solid{
   background:var(--crema);
   backdrop-filter:saturate(120%) blur(8px);
-  border-bottom:var(--line);
+  border-bottom:0;
   box-shadow:0 6px 24px rgba(23,23,19,.06);
 }
 @media (prefers-reduced-motion:reduce){
@@ -328,8 +328,8 @@ p{ color:var(--negro-oliva); }
 .hero--video .hero__claim{ color:var(--crema); text-shadow:0 2px 20px rgba(0,0,0,.55), 0 1px 3px rgba(0,0,0,.4); }
 .hero--video .hero__sub{ color:color-mix(in srgb,var(--crema) 94%, transparent); text-shadow:0 1px 12px rgba(0,0,0,.5); }
 .hero--video .hero__origin{ color:color-mix(in srgb,var(--crema) 92%, transparent); text-shadow:0 1px 10px rgba(0,0,0,.45); }
-.hero--video .hero__cta .btn-primary{ background:var(--crema); color:var(--negro-oliva); }
-.hero--video .hero__cta .btn-primary:hover{ background:var(--dorado); color:var(--negro-oliva); }
+.hero--video .hero__cta .btn-primary{ background:var(--dorado); color:var(--crema); }
+.hero--video .hero__cta .btn-primary:hover{ background:var(--crema); color:var(--negro-oliva); }
 .hero--video .hero__cta .btn-secondary{ color:var(--crema); border-color:color-mix(in srgb,var(--crema) 70%, transparent); }
 .hero--video .hero__cta .btn-secondary:hover{ background:var(--crema); color:var(--negro-oliva); border-color:var(--crema); }
 
@@ -429,6 +429,37 @@ p{ color:var(--negro-oliva); }
   filter:blur(8px); pointer-events:none;
 }
 .origin__media model-viewer{ position:relative; z-index:1; }
+
+/* Variante foto: imagen inspiracional del origen ocupando el panel */
+.origin__media--photo{ padding:0; }
+.origin__media--photo::after{ display:none; }
+.origin__media--photo img{
+  position:relative; z-index:1;
+  width:100%; height:100%;
+  min-height:clamp(460px,66vh,700px);
+  object-fit:cover;
+  border-radius:26px;
+  filter:saturate(1.04) contrast(1.02);
+}
+
+/* La lata: visor 3D girable (sustituye a la imagen fija con hotspots) */
+.lata__media--3d{
+  position:relative; display:grid; place-items:center;
+  width:min(420px,100%); min-height:clamp(420px,60vh,600px);
+  border-radius:26px; overflow:hidden;
+  background:
+    radial-gradient(58% 50% at 50% 40%, color-mix(in srgb,var(--dorado) 22%, transparent), transparent 62%),
+    linear-gradient(158deg, #2a2c15 0%, #16170d 100%);
+  box-shadow:0 34px 70px -34px rgba(0,0,0,.5), inset 0 0 0 1px color-mix(in srgb,var(--crema) 10%, transparent);
+}
+.lata__media--3d model-viewer{
+  width:100%; height:clamp(420px,60vh,600px);
+  background:transparent;
+  --poster-color:transparent;
+  --progress-bar-color:var(--dorado);
+  cursor:grab; z-index:1;
+}
+.lata__media--3d model-viewer:active{ cursor:grabbing; }
 
 /* Visor 360° (secuencia de imágenes) */
 .viewer-360{
@@ -625,6 +656,26 @@ p{ color:var(--negro-oliva); }
 .ac-trait__body h3{ font-size:1.12rem; margin-bottom:4px; }
 .ac-trait__body p{ font-size:.94rem; color:var(--gris-texto); max-width:42ch; }
 
+/* --- Análisis: media de producción + ficha (columna derecha) --- */
+.ac-side{ display:flex; flex-direction:column; gap:clamp(18px,2.5vw,26px); }
+.ac-media{
+  position:relative; border-radius:var(--radius); overflow:hidden;
+  box-shadow:var(--shadow-card); aspect-ratio:16/9;
+  background:linear-gradient(150deg, color-mix(in srgb,var(--dorado) 20%, var(--blanco-calido)), color-mix(in srgb,var(--verde-oliva) 22%, var(--blanco-calido)));
+}
+.ac-media img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.04) contrast(1.02); }
+.ac-media figcaption{
+  position:absolute; left:0; right:0; bottom:0; padding:26px 18px 12px;
+  font-family:var(--font-heading); font-weight:600; text-transform:uppercase; letter-spacing:.06em;
+  font-size:.8rem; color:var(--crema);
+  background:linear-gradient(to top, rgba(13,15,7,.85), transparent);
+}
+.ac-media.is-empty{ display:grid; place-items:center; }
+.ac-media.is-empty figcaption{
+  position:static; background:none; padding:0; text-align:center;
+  color:color-mix(in srgb,var(--negro-oliva) 62%, transparent);
+}
+
 /* --- Análisis: ficha de la cosecha (estilo certificado) --- */
 .ac-panel{
   background:var(--blanco-calido);
@@ -633,6 +684,13 @@ p{ color:var(--negro-oliva); }
   padding:clamp(22px,3vw,34px);
   box-shadow:var(--shadow-card);
 }
+/* Variante compacta: la ficha ocupa menos espacio (deja sitio a la media) */
+.ac-panel--sm{ padding:clamp(16px,2vw,22px); }
+.ac-panel--sm .ac-panel__head{ padding-bottom:12px; }
+.ac-panel--sm .ac-metric{ padding:12px 0; }
+.ac-panel--sm .ac-metric__value{ font-size:1.25rem; }
+.ac-panel--sm .ac-metric__bar{ margin:8px 0 7px; }
+.ac-panel--sm .ac-metric__ref{ font-size:.82rem; }
 .ac-panel__head{
   display:flex; flex-direction:column; gap:4px;
   padding-bottom:18px; margin-bottom:6px;
@@ -1006,10 +1064,8 @@ p{ color:var(--negro-oliva); }
    ------------------------------------------------------------ */
 .site-footer{ background:var(--negro-oliva); color:var(--crema); padding-block:clamp(48px,6vw,80px) 36px; }
 .site-footer__top{ display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:36px; }
-.footer-logo{
-  font-family:var(--font-heading); font-weight:700; text-transform:uppercase;
-  letter-spacing:-0.02em; font-size:2.6rem; color:var(--crema); line-height:1;
-}
+.footer-logo{ display:inline-block; line-height:0; }
+.footer-logo img{ height:60px; width:auto; filter:brightness(0) invert(1); }
 .site-footer p{ color:color-mix(in srgb, var(--crema) 78%, transparent); font-size:.92rem; max-width:34ch; }
 .footer-col h4{ color:var(--dorado); font-size:.82rem; letter-spacing:.12em; margin-bottom:14px; }
 .footer-col a{ display:block; padding:5px 0; color:color-mix(in srgb, var(--crema) 82%, transparent); font-size:.92rem; }
@@ -1511,5 +1567,20 @@ html.i18n-extra:not([lang="es"]) .legal__note{ display:block; }
   padding:.75em 1.3em; border-radius:var(--radius-pill);
 }
 @media (min-width:920px){ .sticky-cta{ left:auto; right:24px; bottom:24px; min-width:360px; } }
-@media (max-width:540px){ .sticky-cta{ justify-content:center; padding:8px; } .sticky-cta__txt{ display:none; } }
+/* Móvil: mantener la CTA fija COMPLETA, con el texto de apoyo igual que en escritorio */
+@media (max-width:540px){ .sticky-cta{ justify-content:space-between; padding:10px 10px 10px 18px; } }
+@media (max-width:360px){ .sticky-cta__txt{ font-size:.68rem; } .sticky-cta__btn{ padding:.7em 1em; } }
 @media (prefers-reduced-motion:reduce){ .sticky-cta{ transition:none; } }
+
+/* ------------------------------------------------------------
+   20. AJUSTES MÓVIL (logo, textos centrados)
+   ------------------------------------------------------------ */
+@media (max-width:680px){
+  /* Logo un poco más pegado al borde izquierdo */
+  .site-header__inner{ padding-inline:14px; }
+  .brand{ margin-left:-2px; }
+  /* Textos de la lista de espera centrados (incl. "Primera cosecha…"/"Erste Ernte…") */
+  .waitlist__sub,
+  .waitlist__scarce,
+  .waitlist__count{ text-align:center; margin-inline:auto; }
+}
