@@ -557,7 +557,7 @@
       var nav = ((navigator.languages && navigator.languages[0]) || navigator.language || navigator.userLanguage || '').toLowerCase();
       if (nav.indexOf('es') === 0) lang = 'es';
       else if (nav.indexOf('en') === 0) lang = 'en';
-      else lang = 'de';   // alemán como idioma por defecto (auro.de)
+      else lang = 'de';   // alemán como idioma por defecto (auroolivenoel.com)
     }
   } catch (e) {}
   if (lang !== 'en' && lang !== 'es') lang = 'de';
@@ -614,18 +614,21 @@
     if (md) { if (md.__es == null) md.__es = md.getAttribute('content'); md.setAttribute('content', t((md.__es || '').trim())); }
   }
 
-  // SEO internacional: cada idioma tiene su URL propia y se autocanonicaliza,
-  // para que los buscadores puedan indexar cada versión (hreflang coherente).
+  // SEO internacional: la identidad canónica de cada URL depende de su RUTA,
+  // no del idioma que el navegador muestre. Así la raíz (/) es siempre x-default
+  // (de) y /es/ · /en/ se autocanonicalizan — el hreflang nunca se contradice.
   function updateSeo() {
-    var url = { de: 'https://auro.de/', es: 'https://auro.de/es/', en: 'https://auro.de/en/' };
+    var seg = location.pathname.match(/^\/(es|en)(?=\/|$)/);
+    var pathLang = seg ? seg[1] : 'de';
+    var url = { de: 'https://auroolivenoel.com/', es: 'https://auroolivenoel.com/es/', en: 'https://auroolivenoel.com/en/' };
     var loc = { de: 'de_DE', es: 'es_ES', en: 'en_US' };
-    var u = url[lang] || url.de;
+    var u = url[pathLang] || url.de;
     var can = document.querySelector('link[rel="canonical"]');
     if (can) can.setAttribute('href', u);
     var ogu = document.querySelector('meta[property="og:url"]');
     if (ogu) ogu.setAttribute('content', u);
     var ogl = document.querySelector('meta[property="og:locale"]');
-    if (ogl) ogl.setAttribute('content', loc[lang] || 'de_DE');
+    if (ogl) ogl.setAttribute('content', loc[pathLang] || 'de_DE');
   }
 
   function apply() {
@@ -647,9 +650,36 @@
     apply();
   }
 
+  // Páginas que tienen URL propia por idioma:  /  (de) · /es/ · /en/
+  // El resto (legales) viven solo en la raíz y cambian de idioma con ?lang=.
+  function currentBase() {
+    // Quita el prefijo /es o /en y devuelve el fichero: '' | 'index.html' | 'gracias.html' | 'aviso-legal.html'…
+    var p = location.pathname.replace(/^\/(es|en)(?=\/|$)/, '');
+    return p.split('/').pop();
+  }
+  function isFolderedPage() {
+    var b = currentBase();
+    return b === '' || b === 'index.html' || b === 'gracias.html';
+  }
+  function pathFor(l) {
+    return (l === 'de' ? '/' : '/' + l + '/') + currentBase() + location.hash;
+  }
+
+  // Selector de idioma: en páginas con carpeta navega a la URL propia del idioma
+  // (SEO/hreflang coherente); en el resto traduce en cliente sin cambiar de URL.
+  function chooseLang(l) {
+    l = (l === 'en' || l === 'de') ? l : 'es';
+    try { localStorage.setItem('auro_lang', l); } catch (e) {}
+    if (isFolderedPage()) {
+      var target = pathFor(l);
+      if (target !== location.pathname + location.hash) { location.href = target; return; }
+    }
+    setLang(l);
+  }
+
   window.AuroI18n = {
     t: function (s) { return t(s); },
-    set: setLang,
+    set: chooseLang,
     get lang() { return lang; }
   };
 
@@ -670,7 +700,7 @@
       b.setAttribute('data-no-i18n', '');
       b.setAttribute('translate', 'no');   // que el traductor del navegador no toque ES/EN/DE
       b.textContent = p[1];
-      b.addEventListener('click', function () { setLang(p[0]); });
+      b.addEventListener('click', function () { chooseLang(p[0]); });
       wrap.appendChild(b);
     });
     if (host.classList.contains('header-actions')) host.insertBefore(wrap, host.firstChild);

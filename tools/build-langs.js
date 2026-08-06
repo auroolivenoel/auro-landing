@@ -47,10 +47,10 @@ function genIndex(lang) {
     html = html.split('href="' + p + '.html"').join('href="../' + p + '.html?lang=' + lang + '"');
   });
   html = html.replace('<html lang="es" translate="no">', '<html lang="' + lang + '" translate="no">');
-  html = html.replace('<link rel="canonical" href="https://auro.de/">',
-    '<link rel="canonical" href="https://auro.de/' + lang + '/">');
-  html = html.replace('<meta property="og:url" content="https://auro.de/">',
-    '<meta property="og:url" content="https://auro.de/' + lang + '/">');
+  html = html.replace('<link rel="canonical" href="https://auroolivenoel.com/">',
+    '<link rel="canonical" href="https://auroolivenoel.com/' + lang + '/">');
+  html = html.replace('<meta property="og:url" content="https://auroolivenoel.com/">',
+    '<meta property="og:url" content="https://auroolivenoel.com/' + lang + '/">');
   html = html.replace('<meta property="og:locale" content="de_DE">',
     '<meta property="og:locale" content="' + LANGS[lang] + '">');
   html = banner(html, 'index.html');
