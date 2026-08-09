@@ -31,8 +31,41 @@
     csrfToken: '',                      // opcional: token CSRF de Odoo si tu instancia lo exige
     campaign: 'Lista de espera AURO',   // aparecerá en el nombre del lead
     source: 'Landing prelanzamiento',
-    companyId: 2                        // ID de la empresa AURO en Odoo (Ajustes → Empresas → AURO → ver URL)
+    companyId: 2,                       // ID de la empresa AURO en Odoo (Ajustes → Empresas → AURO → ver URL)
+    // ID del idioma en Odoo (Ajustes → Traducciones → Idiomas → abrir y mirar la URL).
+    // Rellena los que uses; los que dejes a null simplemente no se envían.
+    langIds: { es: null, en: null, de: null }
   };
+
+  // Etiquetas legibles y códigos de Odoo (res.lang) por idioma de la web
+  var LANG_INFO = {
+    es: { label: 'Español',  odoo: 'es_ES' },
+    en: { label: 'English',  odoo: 'en_US' },
+    de: { label: 'Deutsch',  odoo: 'de_DE' }
+  };
+
+  /* ---------- idioma en el que se está leyendo la web ---------- */
+  function currentLang() {
+    // 1) i18n.js ya resuelve carpeta /es/ /en/, ?lang=, preferencia guardada y navegador
+    try {
+      if (window.AuroI18n && window.AuroI18n.lang) return window.AuroI18n.lang;
+    } catch (e) {}
+    // 2) Respaldos por si i18n.js no ha cargado
+    var m = location.pathname.match(/\/(es|en|de)\//);
+    if (m) return m[1];
+    try {
+      var qp = (new URLSearchParams(location.search)).get('lang');
+      if (qp && LANG_INFO[qp.toLowerCase()]) return qp.toLowerCase();
+    } catch (e) {}
+    try {
+      var saved = localStorage.getItem('auro_lang');
+      if (saved && LANG_INFO[saved]) return saved;
+    } catch (e) {}
+    var htmlLang = (document.documentElement.lang || '').slice(0, 2).toLowerCase();
+    if (LANG_INFO[htmlLang]) return htmlLang;
+    var nav = ((navigator.languages && navigator.languages[0]) || navigator.language || '').slice(0, 2).toLowerCase();
+    return LANG_INFO[nav] ? nav : 'de';
+  }
 
   var LS_KEY = 'auro_waitlist_leads';
   var WAITLIST_BASE = 200;   // inscritos de partida. Edítalo cuando quieras.
@@ -116,17 +149,25 @@
     var mine = myRefCode();
     var ref = incomingRef();
     var can = myCanNumber();
+    var lg = currentLang();
+    var info = LANG_INFO[lg] || LANG_INFO.de;
     var fd = new FormData();
     fd.append('email_from', email);
     fd.append('contact_name', name || email);
-    fd.append('name', ODOO.campaign + ' — ' + (name || email));
+    fd.append('name', '[' + lg.toUpperCase() + '] ' + ODOO.campaign + ' — ' + (name || email));
     fd.append('description',
       'Alta en la lista de espera (prelanzamiento AURO).\n' +
       'Origen: ' + ODOO.source + '\n' +
+      'Idioma de lectura: ' + info.label + ' (' + lg + ' · ' + info.odoo + ')\n' +
+      'Página: ' + location.pathname + '\n' +
       'Puesto en la lista: Nº ' + can + ' (las primeras 1.000 se llevan la cosecha numerada)\n' +
       'Código de referido propio: ' + mine +
       (ref ? ('\nInvitado por (ref): ' + ref) : ''));
     if (ODOO.companyId) fd.append('company_id', String(ODOO.companyId));
+    // Idioma como campo real del lead (crm.lead.lang_id). Odoo solo lo acepta si
+    // antes se ha añadido a la lista blanca del formulario web; hasta entonces se
+    // deja a null y el idioma viaja en el nombre del lead y en la descripción.
+    if (ODOO.langIds && ODOO.langIds[lg]) fd.append('lang_id', String(ODOO.langIds[lg]));
     if (ODOO.csrfToken) fd.append('csrf_token', ODOO.csrfToken);
 
     var fetchPromise = fetch(ODOO.endpoint, { method: 'POST', body: fd, mode: 'cors' })
