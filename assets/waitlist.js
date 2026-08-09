@@ -58,15 +58,19 @@
   }
   incomingRef(); // se ejecuta al cargar la página para capturar el ?ref
 
-  // Número de lata reservada (1..1000). Cosmético hasta conectarlo al nº real de Odoo.
+  // Número de lata reservada: coincide con el contador del formulario + 1 (el usuario actual).
   function myCanNumber() {
     var n = 0;
     try { n = parseInt(localStorage.getItem('auro_can_no'), 10) || 0; } catch (e) {}
     if (!n) {
-      var START = Date.UTC(2026, 6, 1);           // 1 jul 2026
-      var days = Math.max(0, Math.floor((Date.now() - START) / 86400000));
-      n = 500 + days * 4 + Math.floor(Math.random() * 9);
-      n = Math.min(998, Math.max(501, n));
+      var local = 0;
+      try { local = (JSON.parse(localStorage.getItem(LS_KEY) || '[]')).length; } catch (e) {}
+      var START = Date.UTC(2026, 7, 1);           // misma fecha que initCounter (1 ago 2026)
+      var days = Math.max(0, (Date.now() - START) / 86400000);
+      n = WAITLIST_BASE + Math.floor(days * PER_DAY) + local + 1;
+      var cached = 0;
+      try { cached = parseInt(localStorage.getItem(WL_COUNT_KEY), 10) || 0; } catch (e) {}
+      n = Math.max(n, cached + 1);
       try { localStorage.setItem('auro_can_no', String(n)); } catch (e) {}
     }
     return n;
