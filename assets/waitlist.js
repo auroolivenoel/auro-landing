@@ -35,7 +35,10 @@
     // La compañía del lead NO se puede fijar a mano: crm.lead._compute_company_id
     // la deriva del equipo (equipo > comercial > cliente) y descarta cualquier
     // company_id que la contradiga. Basta con que el equipo sea de AURO.
-    teamId: 4,                          // equipo de ventas de AURO
+    // Desactivado: con teamId 4 dejaron de entrar leads, así que el ID está sin
+    // confirmar. Vuelve a ponerlo cuando se verifique en CRM → Configuración →
+    // Equipos de ventas (el número aparece al final de la URL de la ficha).
+    teamId: null,                       // equipo de ventas de AURO
     // ID del idioma en Odoo (res.lang). Se envía en crm.lead.lang_id para que
     // las plantillas de correo salgan automáticamente en el idioma del contacto.
     langIds: { es: 83, en: 22, de: 33 }
@@ -155,36 +158,62 @@
     var can = myCanNumber();
     var lg = currentLang();
     var info = LANG_INFO[lg] || LANG_INFO.de;
-    var fd = new FormData();
-    fd.append('email_from', email);
-    fd.append('contact_name', name || email);
-    fd.append('name', '[' + lg.toUpperCase() + '] ' + ODOO.campaign + ' — ' + (name || email));
-    fd.append('description',
-      'Alta en la lista de espera (prelanzamiento AURO).\n' +
-      'Origen: ' + ODOO.source + '\n' +
-      'Idioma de lectura: ' + info.label + ' (' + lg + ' · ' + info.odoo + ')\n' +
-      'Página: ' + location.pathname + '\n' +
-      'Puesto en la lista: Nº ' + can + ' (las primeras 1.000 se llevan la cosecha numerada)\n' +
-      'Código de referido propio: ' + mine +
-      (ref ? ('\nInvitado por (ref): ' + ref) : ''));
-    // Equipo de ventas: es el campo que Odoo sí acepta de serie en el formulario
-    // web, y de él cuelga la compañía del lead.
-    if (ODOO.teamId) fd.append('team_id', String(ODOO.teamId));
-    // Idioma como campo real del lead (crm.lead.lang_id). Odoo solo lo acepta si
-    // antes se ha quitado de la lista negra de formularios web; hasta entonces el
-    // idioma viaja en el nombre del lead y en la descripción.
-    if (ODOO.langIds && ODOO.langIds[lg]) fd.append('lang_id', String(ODOO.langIds[lg]));
-    if (ODOO.csrfToken) fd.append('csrf_token', ODOO.csrfToken);
 
-    var fetchPromise = fetch(ODOO.endpoint, { method: 'POST', body: fd, mode: 'cors' })
-      .then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json().catch(function () { return {}; });
-      });
-    var timeout = new Promise(function (_, reject) {
-      setTimeout(function () { reject(new Error('timeout')); }, 7000);
+    // `extras` = campos que Odoo puede rechazar según cómo esté configurado
+    // (equipo de ventas e idioma). El lead básico nunca depende de ellos.
+    function buildForm(extras) {
+      var fd = new FormData();
+      fd.append('email_from', email);
+      fd.append('contact_name', name || email);
+      fd.append('name', '[' + lg.toUpperCase() + '] ' + ODOO.campaign + ' — ' + (name || email));
+      fd.append('description',
+        'Alta en la lista de espera (prelanzamiento AURO).\n' +
+        'Origen: ' + ODOO.source + '\n' +
+        'Idioma de lectura: ' + info.label + ' (' + lg + ' · ' + info.odoo + ')\n' +
+        'Página: ' + location.pathname + '\n' +
+        'Puesto en la lista: Nº ' + can + ' (las primeras 1.000 se llevan la cosecha numerada)\n' +
+        'Código de referido propio: ' + mine +
+        (ref ? ('\nInvitado por (ref): ' + ref) : ''));
+      if (extras) {
+        // Equipo de ventas: de él cuelga la compañía del lead.
+        if (ODOO.teamId) fd.append('team_id', String(ODOO.teamId));
+        // Idioma real del lead (crm.lead.lang_id), si está permitido en el formulario.
+        if (ODOO.langIds && ODOO.langIds[lg]) fd.append('lang_id', String(ODOO.langIds[lg]));
+      }
+      if (ODOO.csrfToken) fd.append('csrf_token', ODOO.csrfToken);
+      return fd;
+    }
+
+    // Un envío. Marca `rejected` cuando Odoo ha CONTESTADO rechazando: en ese
+    // caso no ha creado nada y se puede repetir sin riesgo de duplicar el lead.
+    function post(extras) {
+      return fetch(ODOO.endpoint, { method: 'POST', body: buildForm(extras), mode: 'cors' })
+        .then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (data) {
+            var bad = null;
+            if (!r.ok) bad = 'HTTP ' + r.status;
+            else if (data && data.error_fields && data.error_fields.length) bad = 'campos rechazados: ' + data.error_fields.join(', ');
+            else if (data && data.error) bad = String(data.error);
+            if (bad) { var e = new Error(bad); e.rejected = true; throw e; }
+            return data;
+          });
+        });
+    }
+
+    function withTimeout(p) {
+      return Promise.race([p, new Promise(function (_, reject) {
+        setTimeout(function () { reject(new Error('timeout')); }, 7000);
+      })]);
+    }
+
+    // Si Odoo rechaza el equipo o el idioma, se reintenta sin ellos para que el
+    // lead entre igualmente. Ante un fallo de red NO se reintenta: el POST puede
+    // haber llegado y repetirlo crearía un lead duplicado.
+    return withTimeout(post(true)).catch(function (err) {
+      if (!err || !err.rejected) throw err;
+      console.warn('[AURO] Odoo rechazó los campos opcionales, reintento sin ellos:', err.message);
+      return withTimeout(post(false));
     });
-    return Promise.race([fetchPromise, timeout]);
   }
 
   function goThanks(name) {
