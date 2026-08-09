@@ -39,6 +39,10 @@
     // resultó poco fiable, así que la compañía y el equipo se asignan en Odoo con
     // una regla sobre el lead ya creado. Aquí solo van campos seguros.
     teamId: null,
+    // Etiquetas del lead (crm.lead.tag_ids). IDs de crm.tag, no nombres:
+    // CRM → Configuración → Etiquetas → abrir "AURO" → número final de la URL.
+    // Odoo solo las aplica si tag_ids está permitido en formularios web.
+    tagIds: [],                         // ej. [7] para la etiqueta AURO
     // ID del idioma en Odoo (res.lang). Se envía en crm.lead.lang_id para que
     // las plantillas de correo salgan automáticamente en el idioma del contacto.
     langIds: { es: 83, en: 22, de: 33 }
@@ -189,6 +193,8 @@
         if (ODOO.teamId) fd.append('team_id', String(ODOO.teamId));
         // Idioma real del lead (crm.lead.lang_id), si está permitido en el formulario.
         if (ODOO.langIds && ODOO.langIds[lg]) fd.append('lang_id', String(ODOO.langIds[lg]));
+        // Etiquetas: Odoo espera los IDs separados por comas y los convierte en (6,0,[...]).
+        if (ODOO.tagIds && ODOO.tagIds.length) fd.append('tag_ids', ODOO.tagIds.join(','));
       }
       if (ODOO.csrfToken) fd.append('csrf_token', ODOO.csrfToken);
       return fd;
