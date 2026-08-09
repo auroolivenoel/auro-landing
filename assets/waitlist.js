@@ -100,24 +100,34 @@
   }
   incomingRef(); // se ejecuta al cargar la página para capturar el ?ref
 
-  // Número de lata reservada: coincide con el contador del formulario + 1 (el usuario actual).
-  // Clave v2 para evitar que valores cacheados con la fórmula vieja interfieran.
+  // Número de lata reservada. Clave v2 para descartar valores de la fórmula vieja.
   var CAN_KEY = 'auro_can_no_v2';
+
+  // Asigna un número NUEVO para el alta que se está enviando y deja el contador
+  // del formulario en ese mismo valor. Se llama una sola vez por envío: si no se
+  // recalculase, un segundo registro desde el mismo navegador repetiría el número
+  // de la primera vez mientras el contador de la landing sí avanza.
+  function assignCanNumber() {
+    var local = 0;
+    try { local = (JSON.parse(localStorage.getItem(LS_KEY) || '[]')).length; } catch (e) {}
+    var START = Date.UTC(2026, 7, 1);
+    var days = Math.max(0, (Date.now() - START) / 86400000);
+    var n = WAITLIST_BASE + Math.floor(days * PER_DAY) + local + 1;  // +1: el alta en curso
+    var cached = 0;
+    try { cached = parseInt(localStorage.getItem(WL_COUNT_KEY), 10) || 0; } catch (e) {}
+    n = Math.max(n, cached + 1);   // monótono: nunca retrocede
+    try {
+      localStorage.setItem(CAN_KEY, String(n));
+      localStorage.setItem(WL_COUNT_KEY, String(n));
+    } catch (e) {}
+    return n;
+  }
+
+  // Lee el número ya asignado (lo usa el envío a Odoo). Solo asigna si falta.
   function myCanNumber() {
     var n = 0;
     try { n = parseInt(localStorage.getItem(CAN_KEY), 10) || 0; } catch (e) {}
-    if (!n) {
-      var local = 0;
-      try { local = (JSON.parse(localStorage.getItem(LS_KEY) || '[]')).length; } catch (e) {}
-      var START = Date.UTC(2026, 7, 1);
-      var days = Math.max(0, (Date.now() - START) / 86400000);
-      n = WAITLIST_BASE + Math.floor(days * PER_DAY) + local + 1;
-      var cached = 0;
-      try { cached = parseInt(localStorage.getItem(WL_COUNT_KEY), 10) || 0; } catch (e) {}
-      n = Math.max(n, cached + 1);
-      try { localStorage.setItem(CAN_KEY, String(n)); } catch (e) {}
-    }
-    return n;
+    return n || assignCanNumber();
   }
 
   /* ---------- utilidades ---------- */
@@ -264,11 +274,8 @@
       var original = submit.textContent;
       submit.textContent = 'Enviando…';
 
-      myRefCode();          // garantiza el código de referido para la página de gracias
-      var can = myCanNumber(); // asigna y guarda el número de lata reservada
-      // El contador del formulario pasa a incluir al usuario: así la landing y
-      // la página de gracias muestran exactamente el mismo número.
-      try { localStorage.setItem(WL_COUNT_KEY, String(can)); } catch (e) {}
+      myRefCode();        // garantiza el código de referido para la página de gracias
+      assignCanNumber();  // número de lata de ESTE alta; deja el contador en el mismo valor
 
       // Copia local SIEMPRE (aunque Odoo falle, no perdemos el registro)
       saveLocal({ email: em, name: nm, ref: incomingRef() || '', ts: new Date().toISOString() });
