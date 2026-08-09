@@ -31,7 +31,11 @@
     csrfToken: '',                      // opcional: token CSRF de Odoo si tu instancia lo exige
     campaign: 'Lista de espera AURO',   // aparecerá en el nombre del lead
     source: 'Landing prelanzamiento',
-    companyId: 2,                       // ID de la empresa AURO en Odoo (Ajustes → Empresas → AURO → ver URL)
+    // Equipo de ventas de AURO en Odoo (CRM → Configuración → Equipos de ventas).
+    // La compañía del lead NO se puede fijar a mano: crm.lead._compute_company_id
+    // la deriva del equipo (equipo > comercial > cliente) y descarta cualquier
+    // company_id que la contradiga. Basta con que el equipo sea de AURO.
+    teamId: null,                       // ← pon aquí el ID del equipo (se ve en la URL)
     // ID del idioma en Odoo (res.lang). Se envía en crm.lead.lang_id para que
     // las plantillas de correo salgan automáticamente en el idioma del contacto.
     langIds: { es: 83, en: 22, de: 33 }
@@ -163,10 +167,12 @@
       'Puesto en la lista: Nº ' + can + ' (las primeras 1.000 se llevan la cosecha numerada)\n' +
       'Código de referido propio: ' + mine +
       (ref ? ('\nInvitado por (ref): ' + ref) : ''));
-    if (ODOO.companyId) fd.append('company_id', String(ODOO.companyId));
+    // Equipo de ventas: es el campo que Odoo sí acepta de serie en el formulario
+    // web, y de él cuelga la compañía del lead.
+    if (ODOO.teamId) fd.append('team_id', String(ODOO.teamId));
     // Idioma como campo real del lead (crm.lead.lang_id). Odoo solo lo acepta si
-    // antes se ha añadido a la lista blanca del formulario web; hasta entonces se
-    // deja a null y el idioma viaja en el nombre del lead y en la descripción.
+    // antes se ha quitado de la lista negra de formularios web; hasta entonces el
+    // idioma viaja en el nombre del lead y en la descripción.
     if (ODOO.langIds && ODOO.langIds[lg]) fd.append('lang_id', String(ODOO.langIds[lg]));
     if (ODOO.csrfToken) fd.append('csrf_token', ODOO.csrfToken);
 
