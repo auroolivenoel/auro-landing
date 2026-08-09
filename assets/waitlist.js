@@ -188,8 +188,11 @@
       var original = submit.textContent;
       submit.textContent = 'Enviando…';
 
-      myRefCode();    // garantiza el código de referido para la página de gracias
-      myCanNumber();  // asigna y guarda el número de lata reservada
+      myRefCode();          // garantiza el código de referido para la página de gracias
+      var can = myCanNumber(); // asigna y guarda el número de lata reservada
+      // El contador del formulario pasa a incluir al usuario: así la landing y
+      // la página de gracias muestran exactamente el mismo número.
+      try { localStorage.setItem(WL_COUNT_KEY, String(can)); } catch (e) {}
 
       // Copia local SIEMPRE (aunque Odoo falle, no perdemos el registro)
       saveLocal({ email: em, name: nm, ref: incomingRef() || '', ts: new Date().toISOString() });
