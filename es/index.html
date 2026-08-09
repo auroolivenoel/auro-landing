@@ -52,7 +52,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <!-- End Google Analytics 4 -->
 <!-- Banner de consentimiento de cookies (RGPD/DSGVO) -->
-<script defer src="../assets/consent.js?v=20260809b"></script>
+<script defer src="../assets/consent.js?v=20260809c"></script>
 <!-- End banner de consentimiento -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -79,10 +79,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- Tipografías -->
 <link rel="stylesheet" href="../assets/fonts/fonts.css">
 
-<link rel="stylesheet" href="../styles.css?v=20260809b">
+<link rel="stylesheet" href="../styles.css?v=20260809c">
 
 <!-- i18n (ES · EN · DE) — define window.AuroI18n antes que mapa/cata -->
-<script src="../assets/i18n.js?v=20260809b"></script>
+<script src="../assets/i18n.js?v=20260809c"></script>
 
 <!-- Mapa relieve 3D (MapLibre GL) -->
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
@@ -293,18 +293,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
        ============================================================ -->
   <section class="section lata" id="lata">
     <div class="container">
-      <div class="lata__head">
-        <p class="kicker kicker--gold">La lata</p>
-        <h2 class="h-lg">Por qué AURO va en lata</h2>
-        <p class="lata__intro">Toca cada punto y descubre qué hace especial a esta lata.</p>
-      </div>
-
+      <div class="lata__frame">
       <div class="lata__grid">
-        <div class="lata__media" id="lataStage">
-          <img src="../assets/auro-lata.png" alt="Lata AURO — aceite de oliva virgen extra 500 ml" style="width:100%;height:auto;display:block;">
-        </div>
-
         <div class="lata__panelwrap">
+          <div class="lata__head">
+            <p class="lata__eyebrow"><span class="lata__ast" aria-hidden="true">✳</span>La lata<span class="lata__ast" aria-hidden="true">✳</span></p>
+            <h2 class="lata__title">Por qué AURO va en lata</h2>
+            <p class="lata__intro">Toca cada punto y descubre qué hace especial a esta lata.</p>
+          </div>
           <div class="lata__chips" role="tablist" aria-label="Aspectos de la lata">
             <button class="lata__chip is-active" data-k="aluminio">Aluminio</button>
             <button class="lata__chip" data-k="dop">D.O.P. Sierra Mágina</button>
@@ -344,7 +340,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <p>El formato perfecto para disfrutarlo fresco en semanas, no en meses. Consérvalo en un lugar fresco y oscuro y úsalo en crudo para notarlo todo.</p>
             </article>
           </div>
+
+          <div class="lata__nav" role="group" aria-label="Navegar por los aspectos de la lata">
+            <button type="button" class="lata__arrow" data-nav="prev" aria-label="Anterior">←</button>
+            <button type="button" class="lata__arrow" data-nav="next" aria-label="Siguiente">→</button>
+          </div>
         </div>
+
+        <div class="lata__card">
+          <div class="lata__media" id="lataStage">
+            <img src="../assets/auro-lata.png" alt="Lata AURO — aceite de oliva virgen extra 500 ml">
+          </div>
+        </div>
+      </div>
       </div>
     </div>
   </section>
@@ -725,29 +733,29 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </script>
 
 <!-- Hero: elige vídeo horizontal (escritorio) o vertical (móvil) -->
-<script src="../assets/hero.js?v=20260809b" defer></script>
+<script src="../assets/hero.js?v=20260809c" defer></script>
 
 <!-- En crudo: selector interactivo de usos -->
-<script src="../assets/recetas.js?v=20260809b" defer></script>
+<script src="../assets/recetas.js?v=20260809c" defer></script>
 
 <!-- Ficha de cata viva (radar + datos) -->
-<script src="../assets/cata.js?v=20260809b" defer></script>
+<script src="../assets/cata.js?v=20260809c" defer></script>
 
 <!-- Menú móvil + CTA fija + cabecera transparente al scroll -->
-<script src="../assets/nav.js?v=20260809b" defer></script>
+<script src="../assets/nav.js?v=20260809c" defer></script>
 
 <!-- La lata (explorador interactivo) -->
-<script src="../assets/lata.js?v=20260809b" defer></script>
+<script src="../assets/lata.js?v=20260809c" defer></script>
 
 <!-- Proceso (carrusel deslizable estilo stories) -->
-<script src="../assets/proceso.js?v=20260809b" defer></script>
+<script src="../assets/proceso.js?v=20260809c" defer></script>
 
 <!-- Lista de espera (lead → Odoo) + cuenta atrás del footer -->
-<script src="../assets/waitlist.js?v=20260809b" defer></script>
+<script src="../assets/waitlist.js?v=20260809c" defer></script>
 
 <!-- Mapa relieve 3D (MapLibre GL) -->
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
-<script src="../assets/mapa.js?v=20260809b"></script>
+<script src="../assets/mapa.js?v=20260809c"></script>
 
 </body>
 </html>

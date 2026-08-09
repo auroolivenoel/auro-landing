@@ -32,9 +32,9 @@
     campaign: 'Lista de espera AURO',   // aparecerá en el nombre del lead
     source: 'Landing prelanzamiento',
     companyId: 2,                       // ID de la empresa AURO en Odoo (Ajustes → Empresas → AURO → ver URL)
-    // ID del idioma en Odoo (Ajustes → Traducciones → Idiomas → abrir y mirar la URL).
-    // Rellena los que uses; los que dejes a null simplemente no se envían.
-    langIds: { es: null, en: null, de: null }
+    // ID del idioma en Odoo (res.lang). Se envía en crm.lead.lang_id para que
+    // las plantillas de correo salgan automáticamente en el idioma del contacto.
+    langIds: { es: 83, en: 22, de: 33 }
   };
 
   // Etiquetas legibles y códigos de Odoo (res.lang) por idioma de la web

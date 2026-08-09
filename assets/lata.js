@@ -20,4 +20,18 @@
   dots.concat(chips).forEach(function (el) {
     el.addEventListener('click', function () { activate(el.getAttribute('data-k')); });
   });
+
+  /* Flechas anterior / siguiente: recorren los aspectos en bucle */
+  var arrows = Array.prototype.slice.call(section.querySelectorAll('.lata__arrow'));
+  if (arrows.length && chips.length) {
+    arrows.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var i = 0;
+        chips.forEach(function (c, n) { if (c.classList.contains('is-active')) i = n; });
+        var step = btn.getAttribute('data-nav') === 'prev' ? -1 : 1;
+        var next = (i + step + chips.length) % chips.length;
+        activate(chips[next].getAttribute('data-k'));
+      });
+    });
+  }
 })();
