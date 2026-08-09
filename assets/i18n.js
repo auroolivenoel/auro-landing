@@ -618,7 +618,7 @@
   // no del idioma que el navegador muestre. Así la raíz (/) es siempre x-default
   // (de) y /es/ · /en/ se autocanonicalizan — el hreflang nunca se contradice.
   function updateSeo() {
-    var seg = location.pathname.match(/^\/(es|en)(?=\/|$)/);
+    var seg = location.pathname.slice(siteBase().length).match(/^\/(es|en)(?=\/|$)/);
     var pathLang = seg ? seg[1] : 'de';
     var url = { de: 'https://auroolivenoel.com/', es: 'https://auroolivenoel.com/es/', en: 'https://auroolivenoel.com/en/' };
     var loc = { de: 'de_DE', es: 'es_ES', en: 'en_US' };
@@ -661,8 +661,16 @@
     var b = currentBase();
     return b === '' || b === 'index.html' || b === 'gracias.html';
   }
+  // Carpeta del sitio dentro del dominio: '' en la raíz (auroolivenoel.com) y
+  // '/auro-landing' en las GitHub Pages de proyecto. Sin esto, el selector de
+  // idioma saltaba a /es/ en la raíz del dominio y daba 404 fuera del dominio propio.
+  function siteBase() {
+    var dir = location.pathname.replace(/[^/]*$/, '');   // '/', '/es/', '/auro-landing/es/'
+    dir = dir.replace(/\/(es|en)\/$/, '/');              // quita el prefijo de idioma
+    return dir.replace(/\/$/, '');                       // '' o '/auro-landing'
+  }
   function pathFor(l) {
-    return (l === 'de' ? '/' : '/' + l + '/') + currentBase() + location.hash;
+    return siteBase() + (l === 'de' ? '/' : '/' + l + '/') + currentBase() + location.hash;
   }
 
   // Selector de idioma: en páginas con carpeta navega a la URL propia del idioma
