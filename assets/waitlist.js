@@ -30,7 +30,8 @@
     endpoint: 'https://www.proyectocaminodesantiago.com/website/form/crm.lead',
     csrfToken: '',                      // opcional: token CSRF de Odoo si tu instancia lo exige
     campaign: 'Lista de espera AURO',   // aparecerá en el nombre del lead
-    source: 'Landing prelanzamiento'
+    source: 'Landing prelanzamiento',
+    companyId: 2                        // ID de la empresa AURO en Odoo (Ajustes → Empresas → AURO → ver URL)
   };
 
   var LS_KEY = 'auro_waitlist_leads';
@@ -125,6 +126,7 @@
       'Puesto en la lista: Nº ' + can + ' (las primeras 1.000 se llevan la cosecha numerada)\n' +
       'Código de referido propio: ' + mine +
       (ref ? ('\nInvitado por (ref): ' + ref) : ''));
+    if (ODOO.companyId) fd.append('company_id', String(ODOO.companyId));
     if (ODOO.csrfToken) fd.append('csrf_token', ODOO.csrfToken);
 
     var fetchPromise = fetch(ODOO.endpoint, { method: 'POST', body: fd, mode: 'cors' })
