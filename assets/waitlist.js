@@ -35,10 +35,10 @@
     // La compañía del lead NO se puede fijar a mano: crm.lead._compute_company_id
     // la deriva del equipo (equipo > comercial > cliente) y descarta cualquier
     // company_id que la contradiga. Basta con que el equipo sea de AURO.
-    // Desactivado: con teamId 4 dejaron de entrar leads, así que el ID está sin
-    // confirmar. Vuelve a ponerlo cuando se verifique en CRM → Configuración →
-    // Equipos de ventas (el número aparece al final de la URL de la ficha).
-    teamId: null,                       // equipo de ventas de AURO
+    // Equipo de ventas de AURO. De él cuelga la compañía del lead. Ojo: el equipo
+    // debe tener marcada la casilla "Leads"; si no, website_crm crea el registro
+    // como oportunidad (va al pipeline, no a la lista de Leads).
+    teamId: 4,
     // ID del idioma en Odoo (res.lang). Se envía en crm.lead.lang_id para que
     // las plantillas de correo salgan automáticamente en el idioma del contacto.
     langIds: { es: 83, en: 22, de: 33 }
