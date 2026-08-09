@@ -1509,16 +1509,11 @@ html.i18n-extra:not([lang="es"]) .legal__note{ display:block; }
   padding:clamp(22px,4vw,60px);
 }
 .lata__head{ max-width:none; margin-bottom:clamp(20px,3vw,32px); }
-.lata__eyebrow{
-  font-family:var(--font-heading); font-weight:600; text-transform:uppercase;
-  letter-spacing:.26em; font-size:.76rem; color:var(--dorado);
-  display:flex; align-items:center; gap:14px; margin:0 0 14px;
-}
+/* El antetítulo y el titular usan .kicker y .h-lg como el resto de secciones:
+   aquí solo se añade la disposición de los asteriscos y el color sobre oliva. */
+.lata__eyebrow{ display:flex; align-items:center; gap:12px; margin:0 0 10px; }
 .lata__ast{ color:color-mix(in srgb,var(--dorado) 60%, transparent); font-size:.9em; }
-.lata__title{
-  font-family:var(--font-heading); font-weight:700; text-transform:uppercase;
-  font-size:clamp(2.1rem,5.2vw,3.9rem); line-height:.94; margin:0; color:var(--crema);
-}
+.lata__title{ margin:0; color:var(--crema); }
 .lata__intro{ color:color-mix(in srgb,var(--crema) 76%, transparent); margin-top:14px; max-width:46ch; }
 .lata__grid{ display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(24px,4vw,56px); align-items:center; }
 .lata__card{
