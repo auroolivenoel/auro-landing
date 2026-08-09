@@ -37,7 +37,7 @@
   var LS_KEY = 'auro_waitlist_leads';
   var WAITLIST_BASE = 200;   // inscritos de partida. Edítalo cuando quieras.
   var PER_DAY = 3;           // ritmo de altas simuladas por día
-  var WL_COUNT_KEY = 'auro_wl_count';   // valor cacheado del contador (monótono)
+  var WL_COUNT_KEY = 'auro_wl_count_v2'; // v2: cache-bust para descartar valores obsoletos
 
   /* ---------- referidos ---------- */
   // Código de referido propio (estable en este navegador)
