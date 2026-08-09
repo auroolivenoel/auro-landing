@@ -230,12 +230,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     var el = document.getElementById('canNo');
     if (!el) return;
     var target = 0;
-    try { target = parseInt(localStorage.getItem('auro_can_no'), 10) || 0; } catch (e) {}
+    try { target = parseInt(localStorage.getItem('auro_can_no_v2'), 10) || 0; } catch (e) {}
     if (!target) {
       var START = Date.UTC(2026, 7, 1);
       var days = Math.max(0, (Date.now() - START) / 86400000);
       target = 200 + Math.floor(days * 3) + 1;
-      try { localStorage.setItem('auro_can_no', String(target)); } catch (e) {}
+      try { localStorage.setItem('auro_can_no_v2', String(target)); } catch (e) {}
     }
     if (matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = target; return; }
     var from = Math.max(1, target - 60), t0 = null, dur = 1400;

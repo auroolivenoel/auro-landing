@@ -35,6 +35,7 @@
 
   var LS_KEY = 'auro_waitlist_leads';
   var WAITLIST_BASE = 200;   // inscritos de partida. Edítalo cuando quieras.
+  var PER_DAY = 3;           // ritmo de altas simuladas por día
   var WL_COUNT_KEY = 'auro_wl_count';   // valor cacheado del contador (monótono)
 
   /* ---------- referidos ---------- */
@@ -59,19 +60,21 @@
   incomingRef(); // se ejecuta al cargar la página para capturar el ?ref
 
   // Número de lata reservada: coincide con el contador del formulario + 1 (el usuario actual).
+  // Clave v2 para evitar que valores cacheados con la fórmula vieja interfieran.
+  var CAN_KEY = 'auro_can_no_v2';
   function myCanNumber() {
     var n = 0;
-    try { n = parseInt(localStorage.getItem('auro_can_no'), 10) || 0; } catch (e) {}
+    try { n = parseInt(localStorage.getItem(CAN_KEY), 10) || 0; } catch (e) {}
     if (!n) {
       var local = 0;
       try { local = (JSON.parse(localStorage.getItem(LS_KEY) || '[]')).length; } catch (e) {}
-      var START = Date.UTC(2026, 7, 1);           // misma fecha que initCounter (1 ago 2026)
+      var START = Date.UTC(2026, 7, 1);
       var days = Math.max(0, (Date.now() - START) / 86400000);
       n = WAITLIST_BASE + Math.floor(days * PER_DAY) + local + 1;
       var cached = 0;
       try { cached = parseInt(localStorage.getItem(WL_COUNT_KEY), 10) || 0; } catch (e) {}
       n = Math.max(n, cached + 1);
-      try { localStorage.setItem('auro_can_no', String(n)); } catch (e) {}
+      try { localStorage.setItem(CAN_KEY, String(n)); } catch (e) {}
     }
     return n;
   }
@@ -124,11 +127,15 @@
       (ref ? ('\nInvitado por (ref): ' + ref) : ''));
     if (ODOO.csrfToken) fd.append('csrf_token', ODOO.csrfToken);
 
-    return fetch(ODOO.endpoint, { method: 'POST', body: fd, mode: 'cors' })
+    var fetchPromise = fetch(ODOO.endpoint, { method: 'POST', body: fd, mode: 'cors' })
       .then(function (r) {
         if (!r.ok) throw new Error('HTTP ' + r.status);
         return r.json().catch(function () { return {}; });
       });
+    var timeout = new Promise(function (_, reject) {
+      setTimeout(function () { reject(new Error('timeout')); }, 7000);
+    });
+    return Promise.race([fetchPromise, timeout]);
   }
 
   function goThanks(name) {
