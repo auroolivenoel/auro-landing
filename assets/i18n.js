@@ -532,7 +532,12 @@
   // 2) si no hay, el idioma del navegador (es · en · de);
   // 3) por defecto, alemán. Detectar el idioma del navegador evita que el
   // traductor automático del navegador (p. ej. Chrome) destroce los textos.
+  //
+  // EN/ES desactivados temporalmente (a petición): la web queda solo en
+  // alemán, sin selector. Descomentar este bloque para recuperar la
+  // detección por ruta /es|en/, ?lang=, preferencia guardada y navegador.
   var lang = 'de';
+  /*
   try {
     // 1) Ruta /es/ o /en/ (URLs propias por idioma con slug — hreflang/SEO).
     //    Máxima prioridad: la carpeta manda sobre cualquier otra preferencia.
@@ -561,6 +566,7 @@
     }
   } catch (e) {}
   if (lang !== 'en' && lang !== 'es') lang = 'de';
+  */
 
   function t(str) {
     if (!str || lang === 'es') return str;
@@ -715,7 +721,10 @@
     else host.appendChild(wrap);
   }
 
-  function init() { buildSwitch(); apply(); }
+  // Selector ES · EN · DE oculto temporalmente (a petición): la web va solo
+  // en alemán, así que no se construye. Descomentar buildSwitch() para
+  // recuperarlo.
+  function init() { /* buildSwitch(); */ apply(); }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();

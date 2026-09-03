@@ -143,8 +143,21 @@
       var arr = JSON.parse(localStorage.getItem(LS_KEY) || '[]');
       arr.push(lead);
       localStorage.setItem(LS_KEY, JSON.stringify(arr));
+      // Registro visible en consola para poder verificar cada alta sin depender
+      // de Odoo. Consultar todas con window.auroShowLeads() en cualquier momento.
+      console.info('[AURO] Lead guardado en local (' + arr.length + ' en total):', lead);
     } catch (e) { /* almacenamiento no disponible: seguimos igual */ }
   }
+
+  // Muestra en consola, en formato tabla, todos los registros guardados en
+  // este navegador — forma rápida de comprobar que el formulario funciona.
+  window.auroShowLeads = function () {
+    var arr = [];
+    try { arr = JSON.parse(localStorage.getItem(LS_KEY) || '[]'); } catch (e) {}
+    if (!arr.length) { console.log('[AURO] No hay registros locales.'); return arr; }
+    console.table(arr);
+    return arr;
+  };
 
   // Exporta los registros locales a CSV (útil durante la puesta en marcha)
   window.auroExportLeads = function () {
@@ -287,10 +300,13 @@
       saveLocal({ email: em, name: nm, ref: incomingRef() || '', ts: new Date().toISOString() });
 
       sendToOdoo(em, nm)
-        .then(function () { goThanks(nm); })
+        .then(function (res) {
+          console.info('[AURO] Lead confirmado por Odoo ✅', res);
+          goThanks(nm);
+        })
         .catch(function (err) {
           // El lead ya está guardado localmente → seguimos a la página de gracias
-          console.warn('[AURO] Odoo no confirmó el lead (guardado en local):', err);
+          console.warn('[AURO] Odoo no confirmó el lead (queda guardado en local):', err);
           submit.textContent = original;
           submit.disabled = false;
           goThanks(nm);

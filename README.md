@@ -75,6 +75,9 @@ La web está en **modo prelanzamiento**: la CTA principal es la **lista de esper
   - Si `endpoint` está vacío → **modo local**: guarda los registros en el navegador
     (exportables con `window.auroExportLeads()` en la consola) y lleva a `gracias.html`.
   - **Cada registro se guarda siempre en local como copia de seguridad**, aunque Odoo falle.
+  - **Verificar que funciona**: cada alta se registra también en la consola del navegador
+    (`console.info`, con aviso de si Odoo la confirmó o no). `window.auroShowLeads()` imprime
+    una tabla con todos los registros guardados en ese navegador.
 - **Página de gracias** (`gracias.html`): animación (sello + confeti de marca) y el regalo de la IA.
 - **Cuenta atrás real** en el footer hasta la **primera cosecha (1 nov 2026)**.
   Cambia la fecha en el atributo `data-deadline` del `#countdown` en `index.html`.
