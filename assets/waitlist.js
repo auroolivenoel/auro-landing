@@ -48,6 +48,11 @@
     langIds: { es: 83, en: 22, de: 33 }
   };
 
+  var WEB3FORMS = {
+    endpoint: 'https://api.web3forms.com/submit',
+    accessKey: '1b8f387f-f1e4-4737-a539-214be3bf9b72'
+  };
+
   // Etiquetas legibles y códigos de Odoo (res.lang) por idioma de la web
   var LANG_INFO = {
     es: { label: 'Español',  odoo: 'es_ES' },
@@ -137,6 +142,12 @@
   /* ---------- utilidades ---------- */
   function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
   function pad(x) { return (x < 10 ? '0' : '') + x; }
+
+  function withTimeout(p, ms) {
+    return Promise.race([p, new Promise(function (_, reject) {
+      setTimeout(function () { reject(new Error('timeout')); }, ms || 7000);
+    })]);
+  }
 
   function saveLocal(lead) {
     try {
@@ -229,12 +240,6 @@
         });
     }
 
-    function withTimeout(p) {
-      return Promise.race([p, new Promise(function (_, reject) {
-        setTimeout(function () { reject(new Error('timeout')); }, 7000);
-      })]);
-    }
-
     // Si Odoo rechaza el equipo o el idioma, se reintenta sin ellos para que el
     // lead entre igualmente. Ante un fallo de red NO se reintenta: el POST puede
     // haber llegado y repetirlo crearía un lead duplicado.
@@ -243,6 +248,41 @@
       console.warn('[AURO] Odoo rechazó los campos opcionales, reintento sin ellos:', err.message);
       return withTimeout(post(false));
     });
+  }
+
+  /* ---------- registro paralelo en Web3Forms (panel + email) ---------- */
+  function sendToWeb3Forms(email, name) {
+    if (!WEB3FORMS.accessKey) return Promise.resolve({ skipped: true });
+
+    var mine = myRefCode();
+    var ref = incomingRef();
+    var can = myCanNumber();
+    var lg = currentLang();
+    var info = LANG_INFO[lg] || LANG_INFO.de;
+
+    var fd = new FormData();
+    fd.append('access_key', WEB3FORMS.accessKey);
+    fd.append('subject', '[' + lg.toUpperCase() + '] Nueva inscripción lista de espera AURO — ' + (name || email));
+    fd.append('from_name', 'AURO — Lista de espera');
+    fd.append('email', email);
+    fd.append('name', name || email);
+    fd.append('Idioma', info.label + ' (' + lg + ' · ' + info.odoo + ')');
+    fd.append('Puesto en la lista', 'Nº ' + can);
+    fd.append('Página', location.pathname);
+    fd.append('Código de referido', mine);
+    if (ref) fd.append('Invitado por', ref);
+    fd.append('Fecha', new Date().toISOString());
+
+    var p = fetch(WEB3FORMS.endpoint, { method: 'POST', body: fd, keepalive: true })
+      .then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (data) {
+          if (!r.ok || (data && data.success === false)) {
+            throw new Error((data && data.message) || ('HTTP ' + r.status));
+          }
+          return data;
+        });
+      });
+    return withTimeout(p);
   }
 
   function goThanks(name) {
@@ -299,14 +339,13 @@
       // Copia local SIEMPRE (aunque Odoo falle, no perdemos el registro)
       saveLocal({ email: em, name: nm, ref: incomingRef() || '', ts: new Date().toISOString() });
 
-      sendToOdoo(em, nm)
-        .then(function (res) {
-          console.info('[AURO] Lead confirmado por Odoo ✅', res);
-          goThanks(nm);
-        })
-        .catch(function (err) {
-          // El lead ya está guardado localmente → seguimos a la página de gracias
-          console.warn('[AURO] Odoo no confirmó el lead (queda guardado en local):', err);
+      Promise.allSettled([sendToOdoo(em, nm), sendToWeb3Forms(em, nm)])
+        .then(function (results) {
+          var odoo = results[0], web = results[1];
+          if (odoo.status === 'fulfilled') console.info('[AURO] Lead confirmado por Odoo ✅', odoo.value);
+          else console.warn('[AURO] Odoo no confirmó el lead (queda en local y en Web3Forms):', odoo.reason);
+          if (web.status === 'fulfilled') console.info('[AURO] Lead registrado en Web3Forms ✅', web.value);
+          else console.warn('[AURO] Web3Forms no registró el lead:', web.reason);
           submit.textContent = original;
           submit.disabled = false;
           goThanks(nm);
