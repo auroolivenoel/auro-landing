@@ -6,7 +6,7 @@ Estética mediterránea, artesanal, premium y editorial.
 ## Estructura
 
 ```
-index.html            # Web principal (ES) — sistema visual / e-commerce gourmet
+index.html            # Web principal (alemán, servida estáticamente) — sistema visual
 styles.css            # Sistema visual (variables, componentes, responsive)
 assets/
   logo-auro.png         # Logotipo (AURO + rama de olivo + gota dorada)
@@ -21,6 +21,19 @@ de/                   # Landing de prelanzamiento mercado alemán (archivada)
 
 .github/workflows/    # Despliegue automático a GitHub Pages
 ```
+
+## Idioma y SEO
+
+La web es **alemana** (`auroolivenoel.com`, mercado alemán) y se sirve **directamente
+en alemán en el HTML** (`<html lang="de">`, título, meta description y Open Graph en
+alemán). No se traduce en cliente: el contenido es estático e indexable por buscadores
+y por los rastreadores de redes sociales (que no ejecutan JavaScript). Para editar
+textos, edita el HTML alemán tal cual.
+
+`assets/i18n.js` (diccionario ES→DE·EN) e `assets/i18n-legal.js` se conservan solo para
+las piezas que sí genera el JavaScript en tiempo de ejecución (rótulos del mapa 3D y de
+la cata, que usan `AuroI18n.t()`) y como memoria de traducción. Sobre el HTML ya alemán
+no reescriben nada (las claves son españolas y no casan).
 
 ## Sistema visual (web principal)
 
